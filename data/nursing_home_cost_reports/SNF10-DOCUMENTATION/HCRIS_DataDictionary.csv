@@ -1,0 +1,27 @@
+Column Code,TABLES,SUBSYSTEM,Null/Not Null,Title,Description,Valid Entries
+ADR_VNDR_CD,RPT,ALL,NULL,Automated Desk Review Vendor Code,Vendor for Fiscal Intermediary.,2 or A03 - E & Y                              3 or A01 - KPMG                         4 or A05 - HFS
+ALPHNMRC_ITM_TXT,ALPHA,ALL,NOT NULL,Alphanumeric Item Text,Provider reported alpha data.,Per Specification Table
+CLMN_NUM,"ALPHA,NMRC",HOSP10,NOT NULL,Column Number,Valid Column Number defined as follows:  xxxyy where xxx = Column Number and yy = Sub-Column Number,"Example: Column 1 = 00100, Column 1.01 = 00101"
+CLMN_NUM,"ALPHA,NMRC",ALL BUT HOSP10,NOT NULL,Column Number,Valid Column Number defined as follows:  xxyy where xx = Column Number and yy = Sub-Column Number,"Example: Column 1 = 0100, Column 1.01 = 0101"
+FI_CREAT_DT,RPT,ALL,NULL,Fiscal Intermediary Create Date,Date the FI created the HCRIS file.,MM/DD/YYYY
+FI_NUM,RPT,ALL,NULL,Fiscal Intermediary Number,Fiscal Intermediary Number in effect at the time of cost report filing.,Assigned FI Number
+FI_RCPT_DT,RPT,ALL,NULL,Fiscal Intermediary Receipt Date,Date cost report was received by Fiscal Intermediary.,MM/DD/YYYY
+FY_BGN_DT,RPT,ALL,NULL,Fiscal Year Begin Date,Cost Report Fiscal Year beginning date.,MM/DD/YYYY
+FY_END_DT,RPT,ALL,NULL,Fiscal Year End Date,Cost Report Fiscal Year ending date.,MM/DD/YYYY
+INITL_RPT_SW,RPT,ALL,NULL,Initial Report Switch,"Y or N, Y = the first cost report filed for this provider. (Not actively used.)","Y, N or blank"
+ITM_VAL_NUM,NMRC,ALL,NOT NULL,Item Value Number,Provider reported numeric data.,See ECR Specifications Table
+LAST_RPT_SW,RPT,ALL,NULL,Last Report Switch,"Y or N, Y = the final cost report filed for this provider. (Not actively used.)","Y, N or blank"
+LINE_NUM,"ALPHA,NMRC",ALL,NOT NULL,Line Number,Valid Line Number defined as follows: xxxyy where xxx = Line Number and yy = Sub-Line Number,"Example: Line 1 = 00100, Line 1.01 = 00101"
+NPR_DT,RPT,ALL,NULL,Notice of Program Reimbursement Date,Date Provider received NPR.,MM/DD/YYYY
+NPI,RPT,ALL,NULL,National Provider Identifier,Unique health identifier for health care providers.  Established under HIPAA.,Assigned NPI Number
+PROC_DT,RPT,ALL,NULL,Process Date,The date the cost report was processed into HCRIS.,MM/DD/YYYY
+PRVDR_CTRL_TYPE_CD,RPT,ALL,NULL,Provider Control Type Code,Type of ownership from Table 3A of Specifications.,See Table
+PRVDR_NUM,RPT,ALL,NOT NULL,Provider Number,Valid Provider Number defined as follows:  xxyyyy where xx = State Code and yyyy = Assigned Provider Range,
+RPT_REC_NUM,"RPT,ALPHA,NMRC,ROLLUP",ALL,NOT NULL,Report Record Number,HCRIS assigned cost report specific number.,
+RPT_STUS_CD,RPT,ALL,NOT NULL,Report Status Code,Type of cost report.,1 = As Submitted            2 = Settled w/o Audit        3 = Settled with Audit  4 = Reopened                      5 = Amended
+SPEC_IND,RPT,ALL,NULL,Special Indicator,HCRIS code used for special purposes.,
+TRNSMTL_NUM,RPT,ALL,NULL,The current transmittal or version number in effect for each sub-system.,Transmittal Number or transmittal version used to create the cost report,
+UTIL_CD,RPT,ALL,NULL,Utilization Code,Level of Medicare utilization of filed cost report. ,L - Low Medicare Util           N - No Medicare Util    F - Full Medicare Util      Blank - Full Medicare Util
+LABEL,ROLLUP,"HOSP, HHA, SNF",NOT NULL,Rollup label,Descriptive text label,
+ITEM,ROLLUP,"HOSP, HHA, SNF",NOT NULL,Rollup value,Rollup number.,
+WKSHT_CD,"ALPHA,NMRC",ALL,NOT NULL,Worksheet Identifier,Valid worksheets are defined for each subsystem in other documentation.,
