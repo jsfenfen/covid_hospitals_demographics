@@ -1,0 +1,53 @@
+All HCRIS subsystems have 3 common tables: RPT(report), ALPHA(alphanumeric)  and NMRC(numeric).
+The HOSP(both Hospital 1996 and 2010), SNF (SKILLED NURSING FACILITY) and HHA(HOME HEALTH AGENCY) subsystems also have the ROLLUP table.
+
+
+The RPT table is the parent of the other tables and contains the unique primary key field RPT_REC_NUM. The field RPT_REC_NUM is a foreign key in the other tables. 
+That is, all data in all tables are related by the value of the field RPT_REC_NUM. 
+
+
+
+-- ORACLE STATEMENTS for creating the data tables for <subsystem>.
+CREATE TABLE <subsystem>_RPT (
+       RPT_REC_NUM          NUMBER NOT NULL,
+       PRVDR_CTRL_TYPE_CD   CHAR(2) NULL,
+       PRVDR_NUM            CHAR(6) NOT NULL,
+       NPI                  NUMBER NULL,
+       RPT_STUS_CD          CHAR(1) NOT NULL,
+       FY_BGN_DT            DATE NULL,
+       FY_END_DT            DATE NULL,
+       PROC_DT              DATE NULL,
+       INITL_RPT_SW         CHAR(1) NULL,
+       LAST_RPT_SW          CHAR(1) NULL,
+       TRNSMTL_NUM          CHAR(2) NULL,
+       FI_NUM               CHAR(5) NULL,
+       ADR_VNDR_CD          CHAR(1) NULL,
+       FI_CREAT_DT          DATE NULL,
+       UTIL_CD              CHAR(1) NULL,
+       NPR_DT               DATE NULL,
+       SPEC_IND             CHAR(1) NULL,
+       FI_RCPT_DT           DATE NULL
+);
+
+CREATE TABLE <subsystem>_RPT_ALPHA (
+       RPT_REC_NUM          NUMBER NOT NULL,
+       WKSHT_CD             CHAR(7) NOT NULL,
+       LINE_NUM             CHAR(5) NOT NULL,
+       CLMN_NUM             CHAR(4) NOT NULL,   -- CHAR(5) NOT NULL for HOSP10
+       ALPHNMRC_ITM_TXT     CHAR(40) NOT NULL
+);
+
+CREATE TABLE <subsystem>_RPT_NMRC (
+       RPT_REC_NUM          NUMBER NOT NULL,
+       WKSHT_CD             CHAR(7) NOT NULL,
+       LINE_NUM             CHAR(5) NOT NULL,
+       CLMN_NUM             CHAR(4) NOT NULL,	-- CHAR(5) NOT NULL for HOSP10
+       ITM_VAL_NUM          NUMBER NOT NULL
+);
+
+CREATE TABLE <subsystem>_ROLLUP
+(
+       RPT_REC_NUM          NUMBER NOT NULL,
+       LABEL                CHAR(30 BYTE)  NOT NULL,
+       ITEM                 NUMBER
+);
