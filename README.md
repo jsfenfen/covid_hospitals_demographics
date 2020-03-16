@@ -21,7 +21,7 @@ This has basic hospital information, as well as bed counts from the 2017 hospita
 
 There's an awesome [python notebook](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/analysis/HospitalICUBeds_2017.ipynb) written by [Erin Petenko](https://github.com/epetenko/) that makes a little clearer how to navigate this data.
 
-The information in the downloadable file comes from the following lines. The documentation is a little thin, read up on it before using. 
+The information in the downloadable file comes from the following lines. The documentation is a little hard to follow, see the instructions for completing this form on [p. 62 here](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION/R15P240.pdf). 
 
 - acute_beds Adult/Pediatric Acute Care Beds 00700
 - icu_beds Intensive Care Beds 00800
