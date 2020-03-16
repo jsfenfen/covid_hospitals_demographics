@@ -21,14 +21,14 @@ This has basic hospital information, as well as bed counts from the 2017 hospita
 
 There's an awesome [python notebook](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/analysis/HospitalICUBeds_2017.ipynb) written by [Erin Petenko](https://github.com/epetenko/) that makes a little clearer how to navigate this data.
 
-The information in the downloadable file comes from the following lines
+The information in the downloadable file comes from the following lines. The documentation is a little thin, read up on it before using. 
 
-- acute_beds General Acute Care Beds 00700
+- acute_beds Adult/Pediatric Acute Care Beds 00700
 - icu_beds Intensive Care Beds 00800
 - coronary_beds Coronary Care Beds 00900
 - burn_beds Burn Intensive Care Units 01000
 - surg\_icu_beds Surgical ICU Beds 01100
-- surg\_icu_beds Surgical ICU Beds 01100
+- oth\_spec\_beds Other Specialty Beds 01200
 - total\_beds Total Beds 01400
 
 Military hospitals with an id ending in F are missing data.
