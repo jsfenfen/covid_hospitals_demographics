@@ -1,8 +1,10 @@
 ## Hospital, population, nursing center data
 
-This repository is an ad-hoc project to join disparate datasets that may shed light on hospital capacity limits.
+This repository is an ad-hoc project to join disparate datasets that may shed light on hospital capacity limits down to the county level.
 
 In general this repo is trying to follow the datakit repo convention, it isn't *actually* a datakit repo but may become one at some point. 
+
+A simplified state-level view of this with only population breakouts for 65+ is available [here](https://docs.google.com/spreadsheets/d/1XC0SfpPgYkhLPe4CeXDKs3sgVw8Cbcqa3MpEt8tUQcY/edit#gid=0). The source data for statewide hospital beds is [here](https://www.ahd.com/state_statistics.html).
 
 
 ## Data
