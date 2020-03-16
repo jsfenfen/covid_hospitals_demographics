@@ -17,18 +17,17 @@ These are the main output files
 
 [hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv)
 
-This has basic hospital information, as well as bed counts from the 2017 hospital cost reports. The most recent filing was used (and the report number is available in the file). These come from page 9 column 2 of this [original form](https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Paper-Based-Manuals-Items/CMS021935).  Reports for 2018 appear not to be complete yet. It may be better to use reports from a mix of years, but for simplicities sake we've stuck with 2017.
-
+This has basic hospital information, as well as bed counts from the 2017 hospital cost reports. The most recent filing was used (and the report number is available in the file). These come from page 9 column 2 of this [original form](https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Paper-Based-Manuals-Items/CMS021935) from 2017.  
 
 There's an awesome [python notebook](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/analysis/HospitalICUBeds_2017.ipynb) written by [Erin Petenko](https://github.com/epetenko/) that makes a little clearer how to navigate this data.
 
 The information in the downloadable file comes from the following lines
 
-- tot_beds 00700
-- icu_beds 00800
-- coronary_beds 00900
-- burn_beds 01000
-- surg_icu_beds 01100
+- tot_beds Total Beds 00700
+- icu_beds Intensive Care Beds 00800
+- coronary_beds Coronary Care Beds 00900
+- burn_beds Burn Intensive Care Units 01000
+- surg\_icu_beds Surgical ICU Beds 01100
 
 Military hospitals with an id ending in F are missing data.
 
@@ -79,7 +78,7 @@ There's also a django app for doing more in-depth geographic work, although it's
 
 ## Stories
 
-This project is supported by data journalists volunteering their time, if you're able to use this in your work, or have relevant data to add, please let us know. 
+If you're able to use this in your work, or have relevant data to add, please let us know. 
 
 Portland Tribune, 3/14 ["As number of virus cases grows, Oregon has lowest hospital bed rate in U.S."](https://pamplinmedia.com/pt/9-news/456432-372245-as-deluge-approaches-oregon-has-lowest-hospital-bed-rate-in-us).
 
