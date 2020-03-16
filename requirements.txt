@@ -1,1 +1,10 @@
 pandas
+
+xmltodict # read the crappy xml exports
+
+# for running the django app only
+django
+gdal  # layermapping 
+psycopg2. # talking to postgres
+
+
