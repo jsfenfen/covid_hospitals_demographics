@@ -23,11 +23,13 @@ There's an awesome [python notebook](https://github.com/jsfenfen/covid_hospitals
 
 The information in the downloadable file comes from the following lines
 
-- tot_beds Total Beds 00700
+- acute_beds General Acute Care Beds 00700
 - icu_beds Intensive Care Beds 00800
 - coronary_beds Coronary Care Beds 00900
 - burn_beds Burn Intensive Care Units 01000
 - surg\_icu_beds Surgical ICU Beds 01100
+- surg\_icu_beds Surgical ICU Beds 01100
+- total\_beds Total Beds 01400
 
 Military hospitals with an id ending in F are missing data.
 
