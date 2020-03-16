@@ -35,15 +35,14 @@ The hospital's provider number should correspond to the provider number in the n
 
 ### Geocoded hospital and nursing home locations 
 
-These come from CMS hospital compare and nursing home compare.
+These come from CMS hospital compare and nursing home compare and have on institution per line.
 
 [hospital\_gen\_info\_geocoded\_final.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_gen_info_geocoded_final.csv)
 
-This file has one line per hospital. The file includes only formatted locations; these are broken out into lat and lng columns. 
 
-CMS provides spatial data for most of these, but it was added to rows that were missing it (with google's geocoder). In these rows "geocode_flag" = 1 and the accuracy is as given by google. 
+CMS provides spatial data for most of these, but I've  added it to rows that were missing it (with google's geocoder). In these rows "geocode_flag" = 1 and the accuracy is as given by google. "ROOFTOP" is best, "RANGE INTERPOLATED" is next, for more info see google's [writeup](https://developers.google.com/maps/documentation/geocoding/intro)./
 
-Todo: add the county fips codes. 
+Todo: add the county fips codes, the names as text or they could be spatially joined. 
 
 [nh\_gen\_info\_geocoded\_final.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/nh_gen_info_geocoded_final.csv) Is a file of CMS nursing home compare. Lat and lngs were added where they were missing; where this occurred geocode_flag = 1.
 
