@@ -50,8 +50,8 @@ The total of all of the above bed types is given, *roughly*, by:
 
 Additional bed types
 
-- **subprovider\_ipf\_beds**  01600
-- **subprovider\_irf\_beds**  01700
+- **subprovider\_ipf\_beds** Subprovider Inpatient Psychiatric Facility beds 01600
+- **subprovider\_irf\_beds**  Subprovider Inpatient Rehabilitation Facility 01700
 - **subprovider\_oth\_beds**  01800
 - **skilled\_nursing\_beds**  01900
 - **nursing\_fac\_beds**  02000
