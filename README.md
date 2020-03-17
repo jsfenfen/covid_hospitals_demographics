@@ -29,7 +29,26 @@ The information in the downloadable file comes from the following lines. The doc
 - burn_beds Burn Intensive Care Units 01000
 - surg\_icu_beds Surgical ICU Beds 01100
 - oth\_spec\_beds Other Specialty Beds 01200
-- total\_beds Total Beds 01400
+
+The total of all of the above bed types is given, *roughly*, by:
+
+- total\_med\_beds Total Beds 01400
+
+Additional bed types
+
+- subprovider\_ipf\_beds  01600
+- subprovider\_irf\_beds  01700
+- subprovider\_oth\_beds  01800
+- skilled\_nursing\_beds  01900
+- nursing\_fac\_beds  02000
+- oth\_longterm\_beds 02100
+- hospice\_beds  02400
+
+The sum of total\_med\_beds and all additional bed types is given by
+
+- all\_beds All Beds 02700
+
+
 
 Military hospitals with an id ending in F are missing data.
 
@@ -37,7 +56,9 @@ The hospital's provider number should correspond to the provider number in the n
 
 ### Geocoded hospital and nursing home locations 
 
-These come from CMS hospital compare and nursing home compare and have on institution per line.
+Suggested reading: ["COVID-19 story recipe: Analyzing nursing home data for infection-control problems"](https://source.opennews.org/articles/covid-19-story-recipe-analyzing-nursing-home-data/), Source, Mike Stucka, 3/16/20
+
+This data comes from CMS hospital compare and nursing home compare and have on institution per line.
 
 [hospital\_gen\_info\_geocoded\_final.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_gen_info_geocoded_final.csv)
 
