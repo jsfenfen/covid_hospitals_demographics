@@ -1,10 +1,10 @@
 ## Hospital, population, nursing center data
 
-This repository is an ad-hoc project to join disparate datasets that may shed light on hospital capacity limits down to the county level.
-
-In general this repo is trying to follow the datakit repo convention, it isn't *actually* a datakit repo but may become one at some point. 
+This repository is a project to present and join datasets pertinent to the COVID-19 pandemic at the county level: hospital location and capacity, nursing home location and capacity, and county-level population estimates by age.
 
 A simplified state-level view of this with only population breakouts for 65+ is available [here](https://docs.google.com/spreadsheets/d/1XC0SfpPgYkhLPe4CeXDKs3sgVw8Cbcqa3MpEt8tUQcY/edit#gid=0). The source data for statewide hospital beds is [here](https://www.ahd.com/state_statistics.html).
+
+In general this repo is trying to follow the datakit repo convention, it isn't *actually* a datakit repo but may become one at some point. 
 
 
 ## Data
@@ -15,7 +15,9 @@ These are the main output files
 
 ### Hospital-level bed data
 
-[hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv)
+CSV: [hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv) ;  Shapefile [hosp_geo](https://github.com/jsfenfen/covid_hospitals_demographics/tree/master/data/processed/hosp_geo) 
+
+(The shapefile leaves out [one hospital](https://data.medicare.gov/resource/xubh-q36u/row-hgvv.mh7i-bzfv) in Puerto Rico.)
 
 This has basic hospital information, as well as bed counts from the 2017 hospital cost reports. The most recent filing was used (and the report number is available in the file). These come from page 9 column 2 of this [original form](https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Paper-Based-Manuals-Items/CMS021935) from 2017.  
 
