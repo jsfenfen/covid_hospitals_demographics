@@ -63,6 +63,5 @@ The sum of total\_med\_beds and all additional bed types is given by
 
 Military hospitals with an id ending in F are missing data. Psychiatric hospitals are not included.
 
-The hospital's provider number should correspond to the provider number in the next file.
+The hospital's provider number should correspond to the provider number in the hosital info file.
 
-#
