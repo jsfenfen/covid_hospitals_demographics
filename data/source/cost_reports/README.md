@@ -29,7 +29,7 @@ In general more documentation for the cost reports is [here](https://github.com/
 
 CSV: [hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv) ;  Shapefile [hosp_geo](https://github.com/jsfenfen/covid_hospitals_demographics/tree/master/data/processed/hosp_geo) 
 
-This has basic hospital information, as well as bed counts from the 2017 hospital cost reports. The most recent filing was used (and the report number is available in the file). These come from page 9 column 2 of this [original form](https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Paper-Based-Manuals-Items/CMS021935) from 2017.  
+These files have basic hospital information and bed counts from the most recently filed hospital cost report received in 2017 or later. The source report number, fiscal year end date, and filing date is also included. These come from page 9 column 2 of this [original form](https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Paper-Based-Manuals-Items/CMS021935) from 2017.  
 
 There's an awesome [python notebook](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/analysis/HospitalICUBeds_2017.ipynb) written by [Erin Petenko](https://github.com/epetenko/) that makes a little clearer how to navigate this data.
 
@@ -46,7 +46,7 @@ Here are the bed numbers used, the variable names in **bold**
 
 The total of all of the above bed types is given, *roughly*, by:
 
-- **total\_med\_beds** Total Beds 01400
+- **subtotal\_acute\_beds** Subtotal of acute care beds 01400
 
 Additional bed types
 
