@@ -61,7 +61,7 @@ The sum of total\_med\_beds and all additional bed types is given by
 - all\_beds All Beds 02700
 
 
-Military hospitals with an id ending in F are missing data.
+Military hospitals with an id ending in F are missing data. Psychiatric hospitals are not included.
 
 The hospital's provider number should correspond to the provider number in the next file.
 
