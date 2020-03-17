@@ -25,30 +25,32 @@ There's an awesome [python notebook](https://github.com/jsfenfen/covid_hospitals
 
 The information in the downloadable file comes from the following lines. The documentation is a little hard to follow, see the instructions for completing this form on [p. 62 here](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION/R15P240.pdf). 
 
-- acute_beds Adult/Pediatric Acute Care Beds 00700
-- icu_beds Intensive Care Beds 00800
-- coronary_beds Coronary Care Beds 00900
-- burn_beds Burn Intensive Care Units 01000
-- surg\_icu_beds Surgical ICU Beds 01100
-- oth\_spec\_beds Other Specialty Beds 01200
+Here are the bed numbers used, the variable names in **bold**
+
+- **acute_beds** Adult/Pediatric Acute Care Beds 00700
+- **icu_beds** Intensive Care Beds 00800
+- **coronary_beds** Coronary Care Beds 00900
+- **burn_beds Burn** Intensive Care Units 01000
+- **surg\_icu_beds** Surgical ICU Beds 01100
+- **oth\_spec\_beds** Other Specialty Beds 01200
 
 The total of all of the above bed types is given, *roughly*, by:
 
-- total\_med\_beds Total Beds 01400
+- **total\_med\_beds** Total Beds 01400
 
 Additional bed types
 
-- subprovider\_ipf\_beds  01600
-- subprovider\_irf\_beds  01700
-- subprovider\_oth\_beds  01800
-- skilled\_nursing\_beds  01900
-- nursing\_fac\_beds  02000
-- oth\_longterm\_beds 02100
-- hospice\_beds  02400
+- **subprovider\_ipf\_beds**  01600
+- **subprovider\_irf\_beds**  01700
+- **subprovider\_oth\_beds**  01800
+- **skilled\_nursing\_beds**  01900
+- **nursing\_fac\_beds**  02000
+- **oth\_longterm\_beds** 02100
+- **hospice\_beds**  02400
 
 The sum of total\_med\_beds and all additional bed types is given by
 
-- all\_beds All Beds 02700
+- **all\_beds** All Beds 02700
 
 
 
