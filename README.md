@@ -56,12 +56,11 @@ The hospital's provider number should correspond to the provider number in the n
 
 ### Geocoded hospital and nursing home locations 
 
-Suggested reading: ["COVID-19 story recipe: Analyzing nursing home data for infection-control problems"](https://source.opennews.org/articles/covid-19-story-recipe-analyzing-nursing-home-data/), Source, Mike Stucka, 3/16/20
+[hospital\_gen\_info\_geocoded\_final.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_gen_info_geocoded_final.csv)
 
 This data comes from CMS hospital compare and nursing home compare and have on institution per line.
 
-[hospital\_gen\_info\_geocoded\_final.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_gen_info_geocoded_final.csv)
-
+Suggested reading: ["COVID-19 story recipe: Analyzing nursing home data for infection-control problems"](https://source.opennews.org/articles/covid-19-story-recipe-analyzing-nursing-home-data/), Source, Mike Stucka, 3/16/20
 
 CMS provides spatial data for most of these, but I've  added it to rows that were missing it (with google's geocoder). In these rows "geocode_flag" = 1 and the accuracy is as given by google. "ROOFTOP" is best, "RANGE INTERPOLATED" is next, for more info see google's [writeup](https://developers.google.com/maps/documentation/geocoding/intro)./
 
