@@ -55,7 +55,7 @@ The sum of total\_med\_beds and all additional bed types is given by
 
 
 
-Military hospitals with an id ending in F are missing data. Psychiatric hospitals are not included.
+Military hospitals with an id ending in F are missing bed counts but are included here anyways. Many children's hospitals (e.g. hospital_type = childrens) do not report bed counts. Psychiatric hospitals are not included.
 
 The hospital's provider number should correspond to the provider number in the next file.
 
