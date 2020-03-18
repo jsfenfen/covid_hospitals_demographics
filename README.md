@@ -105,7 +105,7 @@ The full download is rather extensive, the file [age_breakout.csv](https://githu
 
 Factfinder is schedule to be shut down at the end of this month, I'm not clear on how to grab this from the new site.
 
-### Preprocess to only the columns we care about
+**Preprocess to only the columns we care about**
 
 The larger file isn't included in this distribution. Here's the columns we pull out. All population data are estimates as of July 1, 2018. 
 
