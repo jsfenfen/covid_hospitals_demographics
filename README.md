@@ -62,7 +62,7 @@ Additional hospital bed types (not acute care beds)
 - **oth\_longterm\_beds** 02100
 - **hospice\_beds**  02400
 
-The sum of total\_med\_beds and all additional bed types is given by
+The sum of subtotal\_acute\_beds and all additional bed types is given by
 
 - **all\_beds** All Beds 02700
 
