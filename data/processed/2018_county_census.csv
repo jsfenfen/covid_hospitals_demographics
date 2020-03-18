@@ -1,5 +1,4 @@
-GEO_id,GEO_id2,GEO_display,est72018sex0_age999,est72018sex0_age50to54,est72018sex0_age55to59,est72018sex0_age60to64,est72018sex0_age65to69,est72018sex0_age70to74,est72018sex0_age75to79,est72018sex0_age80to84,est72018sex0_age85plus
-Id,Id2,Geography,Population Estimate (as of July 1) - 2018 - Both Sexes; Total,Population Estimate (as of July 1) - 2018 - Both Sexes; Total - 50 to 54 years,Population Estimate (as of July 1) - 2018 - Both Sexes; Total - 55 to 59 years,Population Estimate (as of July 1) - 2018 - Both Sexes; Total - 60 to 64 years,Population Estimate (as of July 1) - 2018 - Both Sexes; Total - 65 to 69 years,Population Estimate (as of July 1) - 2018 - Both Sexes; Total - 70 to 74 years,Population Estimate (as of July 1) - 2018 - Both Sexes; Total - 75 to 79 years,Population Estimate (as of July 1) - 2018 - Both Sexes; Total - 80 to 84 years,Population Estimate (as of July 1) - 2018 - Both Sexes; Total - 85 years and over
+geo_id,geo_id2,geo_display,est_2018_all,est_2018_50to54,est_2018_55to59,est2018_60to64,est2018_65to69,est2018_70to74,est2018_75to79,est2018_80to84,est2018_85plus
 0500000US01001,01001,"Autauga County, Alabama",55601,3811,3927,3237,2589,2311,1739,1143,871
 0500000US01003,01003,"Baldwin County, Alabama",218022,14242,15744,15665,14267,12471,8465,5064,4304
 0500000US01005,01005,"Barbour County, Alabama",24881,1603,1675,1536,1540,1337,907,576,472
@@ -1802,7 +1801,7 @@ Id,Id2,Geography,Population Estimate (as of July 1) - 2018 - Both Sexes; Total,P
 0500000US35007,35007,"Colfax County, New Mexico",12110,762,959,1044,1020,875,592,394,368
 0500000US35009,35009,"Curry County, New Mexico",49437,2413,2661,2467,1891,1552,1125,824,810
 0500000US35011,35011,"De Baca County, New Mexico",1781,90,144,124,156,131,80,57,73
-0500000US35013,35013,"Doña Ana County, New Mexico",217522,11051,12331,11715,10633,9072,6294,4307,4032
+0500000US35013,35013,"DoÃ±a Ana County, New Mexico",217522,11051,12331,11715,10633,9072,6294,4307,4032
 0500000US35015,35015,"Eddy County, New Mexico",57900,3252,3641,3568,2766,2031,1443,1060,1106
 0500000US35017,35017,"Grant County, New Mexico",27346,1401,1877,2146,2429,1961,1421,870,903
 0500000US35019,35019,"Guadalupe County, New Mexico",4341,235,298,285,242,184,164,133,127
