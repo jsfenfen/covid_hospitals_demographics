@@ -1,4 +1,4 @@
-## Hospital, population, nursing center data
+# Hospital, population, nursing center data
 
 This repository is a project to present and join datasets pertinent to the COVID-19 pandemic at the county level: hospital location and capacity, nursing home location and capacity, and county-level population estimates by age.
 
@@ -7,13 +7,13 @@ A simplified state-level view of this with only population breakouts for 65+ is 
 In general this repo is trying to follow the datakit repo convention, it isn't *actually* a datakit repo but may become one at some point. 
 
 
-## Data
+# Data
 
 Each of the datasets is documented by the readme file in it's respective folder. In general the output files are in /data/processed/. 
 
 These are the main output files
 
-### Hospital-level bed data
+## Hospital-level bed data
 
 CSV: [hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv) ;  Shapefile [hosp\_geo\_final](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hosp_geo_final.zip) 
 
@@ -80,7 +80,7 @@ Military hospitals with an id ending in F are missing bed counts but are include
 
 The hospital's provider number should correspond to the provider number in the next file.
 
-### Geocoded hospital and nursing home locations 
+## Geocoded hospital and nursing home locations 
 
 [hospital\_gen\_info\_geocoded\_final.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_gen_info_geocoded_final.csv)
 
@@ -97,7 +97,7 @@ Todo: add the county fips codes, the names as text or they could be spatially jo
 Todo: add the county fips codes. 
 
 
-# Census data 
+## Census data 
  
 County-level population age data comes from the Annual Estimates of the Resident Population for Selected Age Groups by Sex for the United States, States: April 1, 2010 to July 1, 2018 from the [2018 Population Estimates](https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk).
 
@@ -105,7 +105,7 @@ The full download is rather extensive, the file [age_breakout.csv](https://githu
 
 Factfinder is schedule to be shut down at the end of this month, I'm not clear on how to grab this from the new site.
 
-# Preprocess to only the columns we care about
+### Preprocess to only the columns we care about
 
 The larger file isn't included in this distribution. Here's the columns we pull out. All population data are estimates as of July 1, 2018. 
 
