@@ -26,7 +26,9 @@ There's an awesome [python notebook](https://github.com/jsfenfen/covid_hospitals
 
 The information in the downloadable file comes from the following lines. The documentation is a little hard to follow, see the instructions for completing this form on [p. 62 here](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION/R15P240.pdf). 
 
-Each of the hospital bed lines corresponds directly to a line in the column 2 of worksheet S-3. Only the "major lines" ending in '00' are used, but CMS allows a variety of other minor lines, not documented on the form, for more specific designations that are also added to the subtotal\_acute\_beds. 
+Each of the hospital bed lines corresponds directly to a line in the column 2 of worksheet S-3. Only the "major lines" ending in '00' are used, but CMS allows a variety of other minor lines, not documented on the form, for more specific designations that are also added to the subtotal\_acute\_beds. They may be included in a later release. 
+
+A numeric breakdown of the minor lines is [available here](https://docs.google.com/spreadsheets/d/1nAIbiJ7LMPmHVcJvuceMKHTUn__Hly4LYMjeevMO1mc/edit?usp=sharing) if you know of any documentation for any of these lines, please let me know! 
 
 Here are the bed numbers used, the variable names in **bold**
 
