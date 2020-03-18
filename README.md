@@ -52,7 +52,7 @@ The total of all of the above bed types is given, *roughly*, by:
 
 - **subtotal\_acute\_beds** Subtotal of acute care beds 01400
 
-Additional bed types
+Additional hospital bed types (not acute care beds)
 
 - **subprovider\_ipf\_beds** Subprovider Inpatient Psychiatric Facility beds 01600
 - **subprovider\_irf\_beds**  Subprovider Inpatient Rehabilitation Facility 01700
