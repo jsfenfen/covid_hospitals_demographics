@@ -101,7 +101,8 @@ There's also a django app for doing more in-depth geographic work, although it's
 
 ## Geocoded nursing home locations 
 
-[nh\_gen\_info\_geocoded\_final.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/nh_gen_info_geocoded_final.csv) Is a file of CMS nursing home compare. Lat and lngs were added where they were missing; where this occurred geocode_flag = 1.
+[nh\_gen\_info\_geocoded\_final.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/nh_gen_info_geocoded_final.csv) Is a file of CMS nursing home compare data. It contains the number of certified beds and average daily occupancy among other variables.  Lat and lngs were added where they were missing; where this occurred geocode_flag = 1. To see full documentation: 
+https://data.medicare.gov/Nursing-Home-Compare/Provider-Info/4pq5-n9py
 
 Todo: add the county fips codes. 
 
