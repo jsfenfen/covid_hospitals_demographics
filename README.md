@@ -11,13 +11,13 @@ In general this repo is trying to follow the datakit repo convention, it isn't *
 
 Each of the datasets is documented by the readme file in it's respective folder. In general the output files are in /data/processed/. 
 
-These are the main output files
+The main output files are described below. 
 
 ## Hospital-level bed data
 
 CSV: [hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv) ;  Shapefile [hosp\_geo\_final](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hosp_geo_final.zip) 
 
-The hospital bed counts data come from the raw CMS cost reports database [here](https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/Cost-Reports/Cost-Reports-by-Fiscal-Year) They are upwords of ~600MB unzipped, so aren't included in this repo. 
+The hospital bed counts data come from the raw CMS cost reports database [here](https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/Cost-Reports/Cost-Reports-by-Fiscal-Year). They are upwards of ~600MB unzipped, so aren't included in this repo. 
 
 They don't have header rows, you have to add your own. 
 
