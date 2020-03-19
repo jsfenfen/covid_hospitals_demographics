@@ -72,38 +72,21 @@ Military hospitals with an id ending in F are missing bed counts but are include
 
 The hospital's provider number should correspond to the provider number in the next file.
 
-## Census data 
+## Census data by county by age
+
+Downloadable [csv file](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/2018_county_census.csv) ; [shapefile](https://publicaccountability.s3.amazonaws.com/rawfiles/counties_final.zip)
  
 County-level population age data comes from the Annual Estimates of the Resident Population for Selected Age Groups by Sex for the United States, States: April 1, 2010 to July 1, 2018 from the [2018 Population Estimates](https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk).
 
-The full download is rather extensive, the file [age_breakout.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/age_breakout.csv) contains just the geographic info and a selection of ages:
+Population estimates are given in 5-year age ranges, e.g. 70-74. 
 
-Factfinder is schedule to be shut down at the end of this month, I'm not clear on how to grab this from the new site.
 
-**Preprocess to only the columns we care about**
-
-The larger file isn't included in this distribution. Here's the columns we pull out. All population data are estimates as of July 1, 2018. 
-
-- GEO_id	  [ full FIPs code ]
-- GEO_id2	  [ county FIPs code ]
-- GEO.display-label. [ County name ]
-- est72018sex0_age999 [ County total pop ]
-- est72018sex0_age50to54 [ County pop 50 to 54 years ]
-- est72018sex0_age55to59 [ County pop 55 to 59 years ]
-- est72018sex0_age60to64 [ County pop 60 to 64 years ]
-- est72018sex0_age65to69 [ County pop 65 to 69 years ]
-- est72018sex0_age70to74 [ County pop 70 to 74 years ]
-- est72018sex0_age75to79 [ County pop 75 to 79 years ]
-- est72018sex0_age80to84 [ County pop 80 to 84 years ]
-- est72018sex0_age85plus [ County pop 85 year and over ]
-
-There's also a django app for doing more in-depth geographic work, although it's incomplete. 
 
 ## Geocoded nursing home locations 
 
-[nh\_gen\_info\_geocoded\_final.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/nh_gen_info_geocoded_final.csv) Is a file of CMS nursing home compare. Lat and lngs were added where they were missing; where this occurred geocode_flag = 1.
+[nh\_gen\_info\_geocoded\_final.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/nh_gen_info_geocoded_final.csv) Is a file of CMS nursing home compare. Lat and lngs were added where they were missing; where this occurred geocode_flag = 1. 
 
-Todo: add the county fips codes. 
+For more on the underlying data see: https://data.medicare.gov/Nursing-Home-Compare/Provider-Info/4pq5-n9py
 
 ## Stories
 
