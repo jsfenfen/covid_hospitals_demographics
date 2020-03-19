@@ -27,7 +27,7 @@ For the NMRC file I used
 	
 For the RPT file I used
 
-		RPT_REC_NUM,PRVDR_CTRL_TYPE_CD,PRVDR_NUM,Unknown,RPT_STUS_CD,FY_BGN_DATE,FY_END_DATE,PROC_DT,INITL_RPT_SW,LAST_RPT_SW,TRNSMTL_NUM,FI_NUM,ADR_VNDR_CD,FI_CREAT_DT,UTIL_CD,NPR_DT,SPEC_IND,FI_RCPT_DT
+	RPT_REC_NUM,PRVDR_CTRL_TYPE_CD,PRVDR_NUM,Unknown,RPT_STUS_CD,FY_BGN_DATE,FY_END_DATE,PROC_DT,INITL_RPT_SW,LAST_RPT_SW,TRNSMTL_NUM,FI_NUM,ADR_VNDR_CD,FI_CREAT_DT,UTIL_CD,NPR_DT,SPEC_IND,FI_RCPT_DT
 
 The information in the downloadable file comes from the following lines. The documentation is a little hard to follow, see the instructions for completing this form on [p. 62 here](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION/R15P240.pdf).  It refers to [42 CFR 412.105(b) ](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION/CFR-2010-title42-vol2-sec412-105.pdf) which may be relevant. It also cites [69 FR 49093-49098 (August 11, 2004)](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION/FR-2004-08-11.pdf) In general more documentation for the cost reports is [here](https://github.com/jsfenfen/covid_hospitals_demographics/tree/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION).
 
@@ -72,7 +72,6 @@ Military hospitals with an id ending in F are missing bed counts but are include
 
 The hospital's provider number should correspond to the provider number in the next file.
 
-<<<<<<< HEAD
 ## Census data by county by age
 
 Downloadable [csv file](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/2018_county_census.csv) ; [shapefile](https://publicaccountability.s3.amazonaws.com/rawfiles/counties_final.zip)
@@ -82,10 +81,6 @@ County-level population age data comes from the Annual Estimates of the Resident
 Population estimates are given in 5-year age ranges, e.g. 70-74. 
 
 
-
-## Geocoded nursing home locations 
-
-=======
 ## Census data 
  
 County-level population age data comes from the Annual Estimates of the Resident Population for Selected Age Groups by Sex for the United States, States: April 1, 2010 to July 1, 2018 from the [2018 Population Estimates](https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk).
@@ -98,28 +93,27 @@ Factfinder is schedule to be shut down at the end of this month, I'm not clear o
 
 The larger file isn't included in this distribution. Here's the columns we pull out. All population data are estimates as of July 1, 2018. 
 
-- GEO_id	  [ full FIPs code ]
-- GEO_id2	  [ county FIPs code ]
-- GEO.display-label. [ County name ]
-- est72018sex0_age999 [ County total pop ]
-- est72018sex0_age50to54 [ County pop 50 to 54 years ]
-- est72018sex0_age55to59 [ County pop 55 to 59 years ]
-- est72018sex0_age60to64 [ County pop 60 to 64 years ]
-- est72018sex0_age65to69 [ County pop 65 to 69 years ]
-- est72018sex0_age70to74 [ County pop 70 to 74 years ]
-- est72018sex0_age75to79 [ County pop 75 to 79 years ]
-- est72018sex0_age80to84 [ County pop 80 to 84 years ]
-- est72018sex0_age85plus [ County pop 85 year and over ]
+- geo\_id	  [ full FIPs code ]
+- geo\_id2	  [ county FIPs code ]
+- geo\_display [ County name ]
+- est\_2018\_all [ County total pop ]
+- est\_2018\_50to54 [ County pop 50 to 54 years ]
+- est\_2018\_55to59 [ County pop 55 to 59 years ]
+- est2018\_60to64 [ County pop 60 to 64 years ]
+- est2018\_65to69 [ County pop 65 to 69 years ]
+- est2018\_70to74 [ County pop 70 to 74 years ]
+- est2018\_75to79 [ County pop 75 to 79 years ]
+- est2018\_80to84 [ County pop 80 to 84 years ]
+- est2018\_85plus [ County pop 85 year and over ]
 
-There's also a django app for doing more in-depth geographic work, although it's incomplete. 
 
 ## Geocoded nursing home locations 
 
-[nh\_gen\_info\_geocoded\_final.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/nh_gen_info_geocoded_final.csv) Is a file of CMS nursing home compare data. It contains the number of certified beds and average daily occupancy among other variables.  Lat and lngs were added where they were missing; where this occurred geocode_flag = 1. To see full documentation: 
-https://data.medicare.gov/Nursing-Home-Compare/Provider-Info/4pq5-n9py
+CSV File: [nh\_gen\_info\_geocoded\_final.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/nh_gen_info_geocoded_final.csv) 
 
+Source: CMS' nursing home compare data. It contains the number of certified beds and average daily occupancy among other variables.  Lat and lngs were added where they were missing with google's geocoder; where this occurred the column geocode\_flag = 1. The geocode\_accuracy field uses google's terminology. 
 
-For more on the underlying data see: https://data.medicare.gov/Nursing-Home-Compare/Provider-Info/4pq5-n9py
+Full documentation of the source file is [here](https://data.medicare.gov/Nursing-Home-Compare/Provider-Info/4pq5-n9py)
 
 
 
@@ -133,7 +127,7 @@ Suggested reading: ["COVID-19 story recipe: Analyzing nursing home data for infe
 
 ## Contributors
 
-Jacob Fenton, [PublicAccountability.org](https://publicaccountability.org); Erin Petenko  [VTDigger](https://vtdigger.org/)
+Jacob Fenton, [PublicAccountability.org](https://publicaccountability.org); Erin Petenko  [VTDigger](https://vtdigger.org/); Justin Mayo, [Big Local News](http://biglocalnews.org). Additional resources are available on the Big Local News platform. 
 
 
 
