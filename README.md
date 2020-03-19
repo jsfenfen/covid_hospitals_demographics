@@ -17,7 +17,7 @@ These are the main output files
 
 CSV: [hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv) ;  Shapefile [hosp\_geo\_final](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hosp_geo_final.zip) 
 
-The hospital bed counts data come from the raw CMS cost reports database here:: https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/Cost-Reports/Cost-Reports-by-Fiscal-Year They are upwords of ~600MB unzipped, so aren't included in this repo. 
+The hospital bed counts data come from the raw CMS cost reports database [here](https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/Cost-Reports/Cost-Reports-by-Fiscal-Year) They are upwords of ~600MB unzipped, so aren't included in this repo. 
 
 They don't have header rows, you have to add your own. 
 
@@ -39,6 +39,8 @@ Each of the hospital bed lines corresponds directly to a line in the column 2 of
 
 A numeric breakdown of the minor lines is [available here](https://docs.google.com/spreadsheets/d/1nAIbiJ7LMPmHVcJvuceMKHTUn__Hly4LYMjeevMO1mc/edit?usp=sharing) if you know of any documentation for any of these lines, please let me know! 
 
+### CMS line numbers to column names
+
 Here are the bed numbers used, the variable names in **bold**
 
 - **acute_beds** Adult/Pediatric Acute Care Beds 00700
@@ -47,8 +49,8 @@ Here are the bed numbers used, the variable names in **bold**
 - **burn_beds Burn** Intensive Care Units 01000
 - **surg\_icu_beds** Surgical ICU Beds 01100
 - **oth\_spec\_beds** Other Specialty Beds 01200
-
-The total of all of the above bed types is given, *roughly*, by:
+ 
+The subtotal of the above lines and other niche units (see counts [here](https://docs.google.com/spreadsheets/d/1nAIbiJ7LMPmHVcJvuceMKHTUn__Hly4LYMjeevMO1mc/edit?usp=sharing) are given in line 14.
 
 - **subtotal\_acute\_beds** Subtotal of acute care beds 01400
 
@@ -123,7 +125,8 @@ If you're able to use this in your work, or have relevant data to add, please le
 
 Portland Tribune, 3/14 ["As number of virus cases grows, Oregon has lowest hospital bed rate in U.S."](https://pamplinmedia.com/pt/9-news/456432-372245-as-deluge-approaches-oregon-has-lowest-hospital-bed-rate-in-us).
 
-Suggested reading: ["COVID-19 story recipe: Analyzing nursing home data for infection-control problems"](https://source.opennews.org/articles/covid-19-story-recipe-analyzing-nursing-home-data/), Source, Mike Stucka, 3/16/20
+## Suggested reading: 
+["COVID-19 story recipe: Analyzing nursing home data for infection-control problems"](https://source.opennews.org/articles/covid-19-story-recipe-analyzing-nursing-home-data/), Source, Mike Stucka, 3/16/20
 
 ## Contributors
 
