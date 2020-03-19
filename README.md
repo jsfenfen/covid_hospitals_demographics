@@ -54,15 +54,15 @@ The total of all of the above bed types is given, *roughly*, by:
 
 Additional hospital bed types (not acute care beds)
 
-- **subprovider\_ipf\_beds** Subprovider Inpatient Psychiatric Facility beds 01600
-- **subprovider\_irf\_beds**  Subprovider Inpatient Rehabilitation Facility 01700
-- **subprovider\_oth\_beds**  01800
-- **skilled\_nursing\_beds**  01900
-- **nursing\_fac\_beds**  02000
-- **oth\_longterm\_beds** 02100
-- **hospice\_beds**  02400
+- **subprovider\_ipf\_beds** Subprovider Inpatient Psychiatric beds 01600
+- **subprovider\_irf\_beds**  Subprovider Inpatient Rehabilitation beds 01700
+- **subprovider\_oth\_beds**  Subprovider Inpatitent Other beds 01800
+- **skilled\_nursing\_beds**  Skilled nursing beds 01900
+- **nursing\_fac\_beds**  Nursing Facility beds 02000
+- **oth\_longterm\_beds** Other Longterm beds 02100
+- **hospice\_beds**  Hospice beds 02400
 
-The sum of subtotal\_acute\_beds and all additional bed types is given by
+The sum of subtotal\_acute\_beds and all additional hospital bed types is given by
 
 - **all\_beds** All Beds 02700
 
