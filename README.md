@@ -9,9 +9,8 @@ In general this repo is trying to follow the datakit repo convention, it isn't *
 
 # Data
 
-Each of the datasets is documented by the readme file in it's respective folder. In general the output files are in /data/processed/. 
 
-The main output files are described below. 
+The main output files are described below. In general the output files are in /data/processed/. 
 
 ## Hospital-level bed data
 
