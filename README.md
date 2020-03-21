@@ -49,7 +49,7 @@ Here are the bed numbers used, the variable names in **bold**
 - **surg\_icu_beds** Surgical ICU Beds 01100
 - **oth\_spec\_beds** Other Specialty Beds 01200
  
-The subtotal of the above lines and other niche units (see counts [here](https://docs.google.com/spreadsheets/d/1nAIbiJ7LMPmHVcJvuceMKHTUn__Hly4LYMjeevMO1mc/edit?usp=sharing) are given in line 14.
+The subtotal of the above lines and other niche units (see counts [here](https://docs.google.com/spreadsheets/d/1nAIbiJ7LMPmHVcJvuceMKHTUn__Hly4LYMjeevMO1mc/edit?usp=sharing)) are given in line 14.
 
 - **subtotal\_acute\_beds** Subtotal of acute care beds 01400
 

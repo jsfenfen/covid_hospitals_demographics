@@ -22,8 +22,7 @@ The larger file isn't included in this distribution. Here's the columns we pull 
 - est72018sex0_age85plus [ County pop 85 year and over ]
 
 
-		xsv select GEO_id,GEO_id2,GEO_display,est72018sex0_age999,est72018sex0_age50to54,est72018sex0_age55to59,est72018sex0_age60to64,est72018sex0_age65to69,est72018sex0_age70to74,est72018sex0_age75to79,est72018sex0_age80to84,est72018sex0_age85plus PEP_2018_PEPAGESEX_with_ann.csv > age_breakout.csv
-
+		xsv select GEO_id,GEO_id2,GEO_display, est72018sex0_age999,est72018sex0_age0to4,est72018sex0_age5to9,est72018sex0_age10to14,est72018sex0_age15to19,est72018sex0_age20to24,est72018sex0_age25to29,est72018sex0_age30to34,est72018sex0_age35to39,est72018sex0_age40to44,est72018sex0_age45to49,est72018sex0_age50to54,est72018sex0_age55to59,est72018sex0_age60to64,est72018sex0_age65to69,est72018sex0_age70to74,est72018sex0_age75to79,est72018sex0_age80to84,est72018sex0_age85plus PEP_2018_PEPAGESEX_with_ann.csv > ../../../processed/2018_county_census_est.csv
 
 ## CBSA rollup
 
