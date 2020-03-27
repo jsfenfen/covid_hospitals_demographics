@@ -14,14 +14,14 @@ The main output files are described below. In general the output files are in /d
 
 ## Hospital-level bed data
 
-CSV: [hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv) ;  Shapefile [hosp\_geo\_final](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hosp_geo_final.zip) 
+CSV: [hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv) ;  Shapefile (contains fewer bed detail columns) [hosp\_geo\_final](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hosp_geo_final.zip) 
 
-### Overview
+### Background
 
 
 The hospital bed counts data come from the raw CMS cost reports database [here](https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/Cost-Reports/Cost-Reports-by-Fiscal-Year). They are upwards of ~600MB unzipped, so aren't included in this repo. A simple introduction to how they are structured is [here](https://www.resdac.org/articles/medicare-cost-report-data-structure).
 
-They don't have header rows, you have to add your own. 
+They don't have header rows, if you want to process them you have to add your own. 
 
 For the NMRC file I used 
 
@@ -30,14 +30,15 @@ For the NMRC file I used
 For the RPT file I used
 
 	RPT_REC_NUM,PRVDR_CTRL_TYPE_CD,PRVDR_NUM,Unknown,RPT_STUS_CD,FY_BGN_DATE,FY_END_DATE,PROC_DT,INITL_RPT_SW,LAST_RPT_SW,TRNSMTL_NUM,FI_NUM,ADR_VNDR_CD,FI_CREAT_DT,UTIL_CD,NPR_DT,SPEC_IND,FI_RCPT_DT
+	
+These files have basic hospital information and bed counts from the most recently filed hospital cost report received in 2017 or later. The source report number, fiscal year end date, and filing date is also included. These come from page 9 column 2 of this [original form](https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Paper-Based-Manuals-Items/CMS021935) from 2017. 
 
-The information in the downloadable file comes from the following lines. The documentation is a little hard to follow, see the instructions for completing this form on [p. 62 here](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION/R15P240.pdf).  It refers to [42 CFR 412.105(b) ](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION/CFR-2010-title42-vol2-sec412-105.pdf) which may be relevant. It also cites [69 FR 49093-49098 (August 11, 2004)](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION/FR-2004-08-11.pdf). In general more documentation for the cost reports is [here](https://github.com/jsfenfen/covid_hospitals_demographics/tree/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION).
+The documentation is a little hard to follow, see the instructions for completing this form on [p. 62 here](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION/R15P240.pdf).  It refers to [42 CFR 412.105(b) ](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION/CFR-2010-title42-vol2-sec412-105.pdf) which may be relevant. It also cites [69 FR 49093-49098 (August 11, 2004)](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION/FR-2004-08-11.pdf). In general more documentation for the cost reports is [here](https://github.com/jsfenfen/covid_hospitals_demographics/tree/master/data/source/cost_reports/HOSPITAL2010-DOCUMENTATION).
 
-These files have basic hospital information and bed counts from the most recently filed hospital cost report received in 2017 or later. The source report number, fiscal year end date, and filing date is also included. These come from page 9 column 2 of this [original form](https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Paper-Based-Manuals-Items/CMS021935) from 2017.  
-
+ 
 There's an awesome [python notebook](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/analysis/HospitalICUBeds_2017.ipynb) written by [Erin Petenko](https://github.com/epetenko/) that makes a little clearer how to navigate this data.
 
-Each of the hospital bed lines corresponds directly to a line in the column 2 of worksheet S-3. Only the "major lines" ending in '00' are used, but CMS allows a variety of other minor lines, not documented on the form, for more specific designations that are also added to the subtotal\_acute\_beds. They may be included in a later release. 
+Each of the hospital bed lines corresponds directly to a line in the column 2 of worksheet S-3 (except for the ICU total). Only the "major lines" ending in '00' are used, but CMS allows a variety of other minor lines, not documented on the form, for more specific designations that are also added to the subtotal\_acute\_beds. They may be included in a later release. 
 
 A numeric breakdown of the minor lines is [available here](https://docs.google.com/spreadsheets/d/1nAIbiJ7LMPmHVcJvuceMKHTUn__Hly4LYMjeevMO1mc/edit?usp=sharing) if you know of any documentation for any of these lines, please let me know! 
 
@@ -55,25 +56,27 @@ CMS requires hospitals to report overall bed utilization in the form of days for
 
 Bed utilization is given for all\_icu\_beds and subtotal\_acute\_beds. It's a percentage of days\_in\_period that the beds were full for each reported line. 
 
+Observation bed days are not used in utilization calculations.
+
 
 
 ### CMS line numbers to column names
 
 Here are the bed numbers used, the variable names in **bold**. In general, appended \_XXXX means that the variable appears on line XXXX in the original report, except for XX99 lines, which are summation of "other" values accepted for this bed type.
 
-- **acute_beds\_0700** All Adult/Pediatric Acute Care Beds 00700
+- **acute_beds\_0700** All Adult/Pediatric Acute Care Beds
 - **icu\_beds\_0800** Intensive Care Beds 
 - **extra\_0899** All other intensive care beds, including lines '00801','00802','00803','00804','00805','00806','00807','00808','00810','00820','00830','00850'
 
 - **coronary\_beds\_0900** Coronary Care Beds
-- **extra\_0999** All other coronary care beds including '00901','00902','00903
-- **burn\_beds\_1000 ** Burn Intensive Care Units
+- **extra\_0999** All other Coronary Care Beds including '00901','00902','00903
+- **burn\_beds\_1000** Burn Intensive Care Units
 - **extra\_1099** Other Burn Intensive Care Units  including '01001','01002','01003','01004'
 
-- **surg\_icu_beds\_01100** Surgical ICU Beds 01100
+- **surg\_icu_beds\_01100** Surgical ICU Beds
 - **extra\_1199** Other surgical ICU beds including '01101','01102','01103','01104','01105','01106','01107','01110'
 
-- **oth\_spec\_beds** Other Specialty Beds 01200
+- **oth\_spec\_beds\_1200** Other Specialty Beds
 - '**extra\_1299** Other specialty units including '01201', '01202','01203','01204','01205','01206','01210'
  
 
@@ -83,21 +86,21 @@ The sum of the above lines is given by:
 
 To make working with ICU data easier there's also a column of all 08XX lines:
 
-- **all\_icu\_beds** A summation of **icu\_beds\_0800** and **extra\_0899**. This is used to calculate total ICU utilization.
+- **all\_icu\_beds** A summation of **icu\_beds\_0800** and **extra\_0899**. This is used to calculate total ICU utilization. Be skeptical of ICU bed numbers that rely heavily on units described in extra\_0899, often a fraction of these are intended for children or infants and won't be useful for adults. We believe it's a technical error to record adult ICU beds on a subscripted line, but this appears to occasionally happen.
 
 Additional hospital bed types (not acute care beds)
 
-- **subprovider\_ipf\_beds\_1600** Subprovider Inpatient Psychiatric beds 01600
-- **subprovider\_irf\_beds\_1700**  Subprovider Inpatient Rehabilitation beds 01700
-- **subprovider\_oth\_beds\_1800**  Subprovider Inpatitent Other beds 01800
-- **skilled\_nursing\_beds\_1900**  Skilled nursing beds 01900
-- **nursing\_fac\_beds\_2000**  Nursing Facility beds 02000
-- **oth\_longterm\_beds\_2100** Other Longterm beds 02100
-- **hospice\_beds\_2400**  Hospice beds 02400
+- **subprovider\_ipf\_beds\_1600** Subprovider Inpatient Psychiatric beds
+- **subprovider\_irf\_beds\_1700**  Subprovider Inpatient Rehabilitation beds
+- **subprovider\_oth\_beds\_1800**  Subprovider Inpatitent Other beds
+- **skilled\_nursing\_beds\_1900**  Skilled nursing beds
+- **nursing\_fac\_beds\_2000**  Nursing Facility beds
+- **oth\_longterm\_beds\_2100** Other Longterm beds
+- **hospice\_beds\_2400**  Hospice beds
 
 The sum of subtotal\_acute\_beds and all additional hospital bed types is given by
 
-- **all\_beds\_2700** All Beds 02700
+- **all\_beds\_2700** All Beds
 
 - **labor\_delivery\_beds\_3200** Labor and Delivery Beds. These are *not* included in 02700 "All Beds," per CMS rules.
 
@@ -112,6 +115,10 @@ The hospital's provider number should correspond to the provider number in the n
 
 For each of the bed types described above, there is also a corresponding `_bed_days` variable. E.g. icu\_bed\_days\_0800 corresponds to icu\_beds\_0800 and 
 extra\_days\_0899 corresponds to the number of beds given in extra\_0899
+
+### Bed utilization
+
+Utilization rate, as a percent, is calculated for all\_icu\_beds and for subtotal\_acute\_beds. To estimate the spare ICU bed capacity
 
 ### Additional data files
 
@@ -155,7 +162,9 @@ Monterey Weekly, 3/25 ["Long before coronavirus, local nursing homes were strugg
 Jacob Fenton, [PublicAccountability.org](https://publicaccountability.org); Erin Petenko  [VTDigger](https://vtdigger.org/); Justin Mayo, [Big Local News](http://biglocalnews.org). Additional resources are available on the Big Local News platform. 
 
 
+## License and Attribution
 
+This data is freely available for public use.
 
 
 
