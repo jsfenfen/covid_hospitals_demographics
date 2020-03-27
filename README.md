@@ -86,7 +86,7 @@ The sum of the above lines is given by:
 
 To make working with ICU data easier there's also a column of all 08XX lines:
 
-- **all\_icu\_beds** A summation of **icu\_beds\_0800** and **extra\_0899**. This is used to calculate total ICU utilization. Be skeptical of ICU bed numbers that rely heavily on units described in extra\_0899, often a fraction of these are intended for children or infants and won't be useful for adults. We believe it's a technical error to record adult ICU beds on a subscripted line, but this appears to occasionally happen.
+- **all\_icu\_beds** A summation of **icu\_beds\_0800** and **extra\_0899**. This is used to calculate total ICU utilization. Be skeptical of ICU bed numbers that rely heavily on units described in extra\_0899, often a fraction of these are intended for children or infants and won't be useful for adults. 
 
 Additional hospital bed types (not acute care beds)
 
