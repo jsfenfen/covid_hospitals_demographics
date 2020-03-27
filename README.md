@@ -113,6 +113,12 @@ The hospital's provider number should correspond to the provider number in the n
 For each of the bed types described above, there is also a corresponding `_bed_days` variable. E.g. icu\_bed\_days\_0800 corresponds to icu\_beds\_0800 and 
 extra\_days\_0899 corresponds to the number of beds given in extra\_0899
 
+### Additional data files
+
+The hospital data file uses only the most recent cost report data for reports received in 2017 or later. But you can download cost report data for [all years since 2016 here](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/cost_report_extracts.csv). The most_recent flag indicates if the report is the most recent used.
+
+If you are really curious as to what the other bed units used by each hospital are, you can look at the [extra line data file](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/extra_line_data.csv). It gives the actual line number used by the hospitals in LINE\_NUM. These line designations do not have a consistent meaning--one hospital may use 801 to refer to pediatric ICU beds while another may use it to refer to neonatal ICU beds. 
+
 ## Census data by county by age
 
 Downloadable [csv file](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/2018_county_census.csv) ; [shapefile](https://publicaccountability.s3.amazonaws.com/rawfiles/counties_final.zip)
