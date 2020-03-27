@@ -118,7 +118,12 @@ extra\_days\_0899 corresponds to the number of beds given in extra\_0899
 
 ### Bed utilization
 
-Utilization rate, as a percent, is calculated for all\_icu\_beds and for subtotal\_acute\_beds. To estimate the spare ICU bed capacity
+Utilization rate, as a percent, is calculated for all\_icu\_beds and for subtotal\_acute\_beds. To estimate the spare ICU bed capacity, you could use: 	
+	`all_icu_beds * all_icu_utilization / 100`
+
+### Unlisted ICU rooms
+
+One of the major concerns data users have are unreported or missing ICU room beds. We found ~23 cost reports that reported ICU bed days without recording having any ICU beds. When that is the case, the field icu\_days\_no\_beds is set to true to warn that some ICU beds may have been omitted.
 
 ### Additional data files
 
