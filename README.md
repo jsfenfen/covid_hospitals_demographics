@@ -46,9 +46,9 @@ The documentation is a little hard to follow, see the instructions for completin
  
 There's an awesome [python notebook](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/analysis/HospitalICUBeds_2017.ipynb) written by [Erin Petenko](https://github.com/epetenko/) that makes a little clearer how to navigate this data.
 
-Each of the hospital bed lines corresponds directly to a line in the column 2 of worksheet S-3 (except for the ICU total). Only the "major lines" ending in '00' are used, but CMS allows a variety of other minor lines, not documented on the form, for more specific designations that are also added to the subtotal\_acute\_beds. They may be included in a later release. 
+Each of the hospital bed lines corresponds directly to a line in the column 2 of worksheet S-3 (except for the ICU total). 
 
-A numeric breakdown of the minor lines is [available here](https://docs.google.com/spreadsheets/d/1nAIbiJ7LMPmHVcJvuceMKHTUn__Hly4LYMjeevMO1mc/edit?usp=sharing) if you know of any documentation for any of these lines, please let me know! 
+A numeric breakdown of the minor lines, which do not end in '00' and are summed in their respective ext\_NN99 variables, are [available here](https://docs.google.com/spreadsheets/d/1nAIbiJ7LMPmHVcJvuceMKHTUn__Hly4LYMjeevMO1mc/edit?usp=sharing). 
 
 ### Major lines versus subscripted lines
 
