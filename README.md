@@ -16,6 +16,14 @@ The main output files are described below. In general the output files are in /d
 
 CSV: [hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv) ;  Shapefile (contains fewer bed detail columns) [hosp\_geo\_final](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hosp_geo_final.zip) 
 
+### Fast answer: COVID ready ICU beds?
+
+What's a COVID -ready ICU bed? We can't really say. Hospitals are full of creative brilliant folks who are hard at work ramping up capacity to care for patients with COVID. This data is to help understand the health system's prior baseline operations, as reported to CMS. 
+
+One way of thinking about this could be all available emergency beds, roughly arrived at by `subtotal\_acute\_beds\_1400 - acute_beds\_0700` Again, we'd caution users not to assume too much, as hospitals have difficult decisions to make in regards to separating out covid patients, expanding. The medical system is complex and shortages of PPE, ventilators, or staff to operate it may all play a larger role than beds. If you know of a good source in CMS data for ventilator charges, please let me know! 
+
+Because the lines effected do not directly imply payment, they are possibly more prone to error. If you are concerned with a figure in a particular cost report, consider consulting reports from earlier periods. A file of all reports with extracted data from 2016 through 2019 [is available here](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/cost_report_extracts.csv). 
+
 ### Background
 
 
@@ -62,7 +70,7 @@ Observation bed days are not used in utilization calculations.
 
 ### CMS line numbers to column names
 
-Here are the bed numbers used, the variable names in **bold**. In general, appended \_XXXX means that the variable appears on line XXXX in the original report, except for XX99 lines, which are summation of "other" values accepted for this bed type.
+Here are the bed numbers used, the variable names appear in **bold**. In general, appended \_XXXX means that the variable appears on line XXXX in the original report, except for XX99 lines, which are summation of "other" values accepted for this bed type.
 
 - **acute_beds\_0700** All Adult/Pediatric Acute Care Beds
 - **icu\_beds\_0800** Intensive Care Beds 
@@ -87,6 +95,7 @@ The sum of the above lines is given by:
 To make working with ICU data easier there's also a column of all 08XX lines:
 
 - **all\_icu\_beds** A summation of **icu\_beds\_0800** and **extra\_0899**. This is used to calculate total ICU utilization. Be skeptical of ICU bed numbers that rely heavily on units described in extra\_0899, often a fraction of these are intended for children or infants and won't be useful for adults. 
+
 
 Additional hospital bed types (not acute care beds)
 
