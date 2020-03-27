@@ -122,31 +122,6 @@ County-level population age data comes from the Annual Estimates of the Resident
 Population estimates are given in 5-year age ranges, e.g. 70-74. 
 
 
-## Census data 
- 
-County-level population age data comes from the Annual Estimates of the Resident Population for Selected Age Groups by Sex for the United States, States: April 1, 2010 to July 1, 2018 from the [2018 Population Estimates](https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk).
-
-The full download is rather extensive, the file [age_breakout.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/age_breakout.csv) contains just the geographic info and a selection of ages:
-
-Factfinder is schedule to be shut down at the end of this month, I'm not clear on how to grab this from the new site.
-
-**Preprocess to only the columns we care about**
-
-The larger file isn't included in this distribution. Here's the columns we pull out. All population data are estimates as of July 1, 2018. 
-
-- geo\_id	  [ full FIPs code ]
-- geo\_id2	  [ county FIPs code ]
-- geo\_display [ County name ]
-- est\_2018\_all [ County total pop ]
-- est\_2018\_50to54 [ County pop 50 to 54 years ]
-- est\_2018\_55to59 [ County pop 55 to 59 years ]
-- est2018\_60to64 [ County pop 60 to 64 years ]
-- est2018\_65to69 [ County pop 65 to 69 years ]
-- est2018\_70to74 [ County pop 70 to 74 years ]
-- est2018\_75to79 [ County pop 75 to 79 years ]
-- est2018\_80to84 [ County pop 80 to 84 years ]
-- est2018\_85plus [ County pop 85 year and over ]
-
 
 ## Geocoded nursing home locations 
 
