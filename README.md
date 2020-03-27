@@ -139,6 +139,8 @@ If you're able to use this in your work, or have relevant data to add, please le
 
 Portland Tribune, 3/14 ["As number of virus cases grows, Oregon has lowest hospital bed rate in U.S."](https://pamplinmedia.com/pt/9-news/456432-372245-as-deluge-approaches-oregon-has-lowest-hospital-bed-rate-in-us).
 
+Monterey Weekly, 3/25 ["Long before coronavirus, local nursing homes were struggling with infection control rules"](https://www.montereycountyweekly.com/news/local_news/long-before-coronavirus-local-nursing-homes-were-struggling-with-infection/article_6e19cd74-6ee0-11ea-ae32-f3dab247856f.html)
+
 ## Suggested reading: 
 ["COVID-19 story recipe: Analyzing nursing home data for infection-control problems"](https://source.opennews.org/articles/covid-19-story-recipe-analyzing-nursing-home-data/), Source, Mike Stucka, 3/16/20
 
