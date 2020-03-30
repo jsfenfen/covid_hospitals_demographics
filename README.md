@@ -168,6 +168,8 @@ Portland Tribune, 3/14 ["As number of virus cases grows, Oregon has lowest hospi
 
 Monterey Weekly, 3/25 ["Long before coronavirus, local nursing homes were struggling with infection control rules"](https://www.montereycountyweekly.com/news/local_news/long-before-coronavirus-local-nursing-homes-were-struggling-with-infection/article_6e19cd74-6ee0-11ea-ae32-f3dab247856f.html)
 
+Industry Dive, 3/30 ["How hospital capacity varies dramatically across the country](https://www.healthcaredive.com/news/how-hospital-capacity-varies-dramatically-across-the-country/574892/")
+
 ## Suggested reading: 
 ["COVID-19 story recipe: Analyzing nursing home data for infection-control problems"](https://source.opennews.org/articles/covid-19-story-recipe-analyzing-nursing-home-data/), Source, Mike Stucka, 3/16/20
 
