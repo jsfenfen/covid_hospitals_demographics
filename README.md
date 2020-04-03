@@ -12,7 +12,7 @@ In general this repo is trying to follow the datakit repo convention, it isn't *
 
 The main output files are described below. In general the output files are in /data/processed/. 
 
-**April 3 update** With help from CMS we've figured out how to get the names of odd-numbered medical units, so the 0X99 lines are now broken out into adult and infped beds. The determination of which beds units are which is visible at a hospital-by-hospital level in [extra\_line\_units.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/extra_line_units.csv)
+**April 3 update** With help from CMS we've figured out how to get the names of odd-numbered medical units, so the 0X99 lines are now broken out into adult and infped (meaning infant or pediatric) beds. The determination of which bed units are which is visible at a hospital-by-hospital level in [extra\_line\_units.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/extra_line_units.csv)
 
 ## Hospital-level bed data
 
