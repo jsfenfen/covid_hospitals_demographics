@@ -12,11 +12,11 @@ In general this repo is trying to follow the datakit repo convention, it isn't *
 
 The main output files are described below. In general the output files are in /data/processed/. 
 
-**April 3 update** With help from CMS we've figured out how to get the names of odd-numbered medical units, so the 0X99 lines are now broken out into adult and infped beds. The determination of which beds units are which is visible at a hospital-by-hospital level in [extra_line_units.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/extra_line_units.csv)
+**April 3 update** With help from CMS we've figured out how to get the names of odd-numbered medical units, so the 0X99 lines are now broken out into adult and infped beds. The determination of which beds units are which is visible at a hospital-by-hospital level in [extra\_line\_units.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/extra_line_units.csv)
 
 ## Hospital-level bed data
 
-CSV: [hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv)  
+CSV: [hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv)  Shapefile (with a subset of columns) as [hosp\_geo\_final.zip](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hosp_geo_final.zip)
 
 ### Fast answer: COVID ready ICU beds?
 
@@ -150,10 +150,10 @@ The cost unit number associated with a collection of hospital beds is given in c
 	-------------
 	35.01
 	
-Converting this value to 03501, we can then look in "worksheet" A00000 with column number '00000' and  plug the unit numnber from before in.
+Converting this value to 03501, we can then look in "worksheet" A00000 in the "alphanumeric" public release file with column number '00000' and plug the unit numnber from before in.
 
 
-	 select "ITM_VAL_NUM" from cost_reports_nmrc_alpha where "RPT_REC_NUM" = 648741 and "WKSHT_CD" = 'A000000' and "CLMN_NUM" = '00000' and "LINE_NUM" = '03501';
+	 select "ITM_VAL_NUM" from cost_reports_alpha where "RPT_REC_NUM" = 648741 and "WKSHT_CD" = 'A000000' and "CLMN_NUM" = '00000' and "LINE_NUM" = '03501';
 	ITM_VAL_NUM
 	------------------------------------
 	02080PEDIATRIC INTENSIVE CARE UNIT 
