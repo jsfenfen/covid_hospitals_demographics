@@ -12,6 +12,8 @@ In general this repo is trying to follow the datakit repo convention, it isn't *
 
 The main output files are described below. In general the output files are in /data/processed/. 
 
+**April 3 update** With help from CMS we've figured out how to get the names of odd-numbered medical units, so the 0X99 lines are now broken out into adult and infped beds. The determination of which beds units are which is visible at a hospital-by-hospital level in [extra_line_units.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/extra_line_units.csv)
+
 ## Hospital-level bed data
 
 CSV: [hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv)  
@@ -136,7 +138,27 @@ The total number of residents/interns and overall payroll employees, taken from 
 ### Additional data files
 
 
-If you are curious as to what the other bed units used by each hospital are, you can look at the [extra line units file](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/extra_line_units.csv). It gives the actual line number used by the hospitals in LINE\_NUM. These line designations do not have a consistent meaning--one hospital may use 801 to refer to pediatric ICU beds while another may use it to refer to neonatal ICU beds. 
+If you are curious as to what the other bed units used by each hospital are, you can look at the [extra line units file](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/extra_line_units.csv). It gives the actual line number used by the hospitals in LINE\_NUM. These line designations do not have a consistent meaning--one hospital may use 801 to refer to pediatric ICU beds while another may use it to refer to neonatal ICU beds.
+
+### Matching non-standard lines to column labels. 
+
+The cost unit number associated with a collection of hospital beds is given in column number 100. Using the example of cost report 648741, which lists nonstandard beds in line 1201, we can determine the cost unit numnber with a query like this
+
+	select "ITM_VAL_NUM" from cost_reports_nmrc where "WKSHT_CD" = 'S300001' and "RPT_REC_NUM" = 648741 and "LINE_NUM" = '01201' and "CLMN_NUM" = '00100' limit 100;
+
+	ITM_VAL_NUM
+	-------------
+	35.01
+	
+Converting this value to 03501, we can then look in "worksheet" A00000 with column number '00000' and  plug the unit numnber from before in.
+
+
+	 select "ITM_VAL_NUM" from cost_reports_nmrc_alpha where "RPT_REC_NUM" = 648741 and "WKSHT_CD" = 'A000000' and "CLMN_NUM" = '00000' and "LINE_NUM" = '03501';
+	ITM_VAL_NUM
+	------------------------------------
+	02080PEDIATRIC INTENSIVE CARE UNIT 
+
+Dropping the first five digits, we know these beds are associated with the hospitals "PEDIATRIC INTENSIVE CARE UNIT"
 
 ## Census data by county by age
 
