@@ -4,7 +4,7 @@ This repository is a project to present and join datasets pertinent to the COVID
 
 A simplified state-level view of this with only population breakouts for 65+ is available [here](https://docs.google.com/spreadsheets/d/1XC0SfpPgYkhLPe4CeXDKs3sgVw8Cbcqa3MpEt8tUQcY/edit#gid=0). The source data for statewide hospital beds is [here](https://www.ahd.com/state_statistics.html).
 
-In general this repo is trying to follow the datakit repo convention, it isn't *actually* a datakit repo but may become one at some point. 
+In general this repo is trying to follow the datakit repo convention, it isn't *actually* a datakit repo but may become one at some point. Source data is in /data/source/ and processed results are in /data/processed/.
 
 
 # Data
@@ -14,7 +14,7 @@ The main output files are described below. In general the output files are in /d
 
 ## Hospital-level bed data
 
-CSV: [hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv) ;  Shapefile (contains fewer bed detail columns) [hosp\_geo\_final](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hosp_geo_final.zip) 
+CSV: [hospital_data.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/hospital_data.csv)  
 
 ### Fast answer: COVID ready ICU beds?
 
@@ -52,17 +52,16 @@ A numeric breakdown of the minor lines, which do not end in '00' and are summed 
 
 ### Major lines versus subscripted lines
 
-CMS documentation describes major lines in Worksheet 3 part 1; they end in '00'. For instance, ICU beds in theory are given by line '00800'. However, CMS appears to tolerate "subscripted" lines with values other than '00800'. There's no standard as to what these mean; some hospitals might use 801 to mean neonatal intensive care unit beds, whereas others might use it to mean pediatric intensive care unit beds. After five emails with RESDAC, I believe there is no way to link the "subscripted" line descriptions with their values. 
+CMS documentation describes major lines in Worksheet 3 part 1; they end in '00'. For instance, ICU beds in theory are given by line '00800'. However, CMS appears to tolerate "subscripted" lines with values other than '00800'. There's no standard as to what these mean; some hospitals might use 801 to mean neonatal intensive care unit beds, whereas others might use it to mean pediatric intensive care unit beds. If you're interested in what each nonstandard unit means, these are listed in the [extra_line_units.csv](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/extra_line_units.csv) with the unit name given in the unit\_name column. There's also a unit\_type column that is our best guess of whether a unit is an Infant/Neonatal bed (listed as "NEO") or a pediatric bed ("PED"). 
 
-To simplify summing beds, we've summed all additional units into 00N99 rows. In other words, 00800 is listed as icu\_beds\_800 but any other units matching 008\d\d will be summed into extra\_beds\_0899. This does allow the possibility of "overcounting"--neonatal beds are unlikely to be useful in fighting the coronavirus--but it appears that some hospitals have chosen to break out all of their 00800 lines into subscripts, so it's better to overcount than leave them out entirely.
+To simplify summing beds, we've summed all additional units into 00N99 rows broken out by adult units and pediatric or infant units. In other words, 00800 is listed as icu\_beds\_800 but any other adult units matching 008\d\d will be summed into extra\_beds\_0899\_adult and any infant or pediatric units will be summed into extra\_beds\_0899\_infped. 
 
-The last caveat is that some hospitals report icu\_bed\_days despite not reporting icu beds. This could happen if icu beds are added late in the reporting period, although it could also be a mistake. If this flag is true, consider the possiblity that ICU beds are present, they just haven't been reported.
 
 ### Bed utilization
 
 CMS requires hospitals to report overall bed utilization in the form of days for the same lines as beds. The same format of summation is used: 00800 for icu beds listed as 00800; and 00899 for the sum of 00801, 00802, 00803, etc. 
 
-Bed utilization is given for all\_icu\_beds and subtotal\_acute\_beds. It's a percentage of days\_in\_period that the beds were full for each reported line. 
+Bed utilization is given for all\_adult\_icu\_beds and subtotal\_acute\_beds. It's a percentage of days\_in\_period that the beds were full for each reported line. 
 
 Observation bed days are not used in utilization calculations.
 
@@ -130,15 +129,14 @@ extra\_days\_0899 corresponds to the number of beds given in extra\_0899
 Utilization rate, as a percent, is calculated for all\_icu\_beds and for subtotal\_acute\_beds. To estimate the spare ICU bed capacity, you could use: 	
 	`all_icu_beds * all_icu_utilization / 100`
 
-### Unlisted ICU rooms
+### Employment
 
-One of the major concerns data users have are unreported or missing ICU room beds. We found ~23 cost reports that reported ICU bed days without recording having any ICU beds. When that is the case, the field icu\_days\_no\_beds is set to true to warn that some ICU beds may have been omitted.
+The total number of residents/interns and overall payroll employees, taken from line 27, is listed as well. 
 
 ### Additional data files
 
-The hospital data file uses only the most recent cost report data for reports received in 2017 or later. But you can download cost report data for [all years since 2016 here](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/cost_report_extracts.csv). The most_recent flag indicates if the report is the most recent used.
 
-If you are really curious as to what the other bed units used by each hospital are, you can look at the [extra line data file](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/extra_line_data.csv). It gives the actual line number used by the hospitals in LINE\_NUM. These line designations do not have a consistent meaning--one hospital may use 801 to refer to pediatric ICU beds while another may use it to refer to neonatal ICU beds. 
+If you are curious as to what the other bed units used by each hospital are, you can look at the [extra line units file](https://github.com/jsfenfen/covid_hospitals_demographics/blob/master/data/processed/extra_line_units.csv). It gives the actual line number used by the hospitals in LINE\_NUM. These line designations do not have a consistent meaning--one hospital may use 801 to refer to pediatric ICU beds while another may use it to refer to neonatal ICU beds. 
 
 ## Census data by county by age
 
