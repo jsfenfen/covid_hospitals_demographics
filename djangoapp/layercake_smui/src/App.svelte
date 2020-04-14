@@ -708,7 +708,35 @@
 
 <div class="title">
   <h1>State statistics</h1>
-  <h2>Deaths and cases, log scale</h2>
+</div>
+
+<div class="title">
+  <h2>Cases by region</h2>
+</div>
+  <div class="chart-container-short">
+  <LayerCake
+    padding={{ top: 0, bottom: 20, left: 85 }}
+    x='cases'
+    y='name'
+    yScale={scaleBand().paddingInner([0.05]).round(true)}
+    yDomain={['Rest of state', 'Salem Area', 'Portland Area']}
+    xDomain={[0, null]}
+    data={bar_chart_case_data}
+  >
+    <Svg>
+      <AxisX
+        gridlines={true}
+        baseline={true}
+        snapTicks={true}
+      />
+      <AxisYScaleBand gridlines={false}/>
+      <Bar/>
+    </Svg>
+  </LayerCake>
+</div>
+
+<div class="title">
+<h2>Total deaths and cases, log scale</h2>
 </div>
 
 <div class="chart-container">
@@ -731,7 +759,6 @@
       <AxisYLog
         formatTick={formatTickY}
       />
-
       <MultiLine
         colorScale={dead_v_cases_colorScale}
       />
@@ -744,10 +771,7 @@
       />
     </Html>
   </LayerCake>
-
   </div>
-
-
 
 <div class="title">
 <h2>Counties, by cases per capita</h2>
@@ -762,31 +786,6 @@
         projectionName={'geoMercator'}
         {set_fill}
       />
-    </Svg>
-  </LayerCake>
-</div>
-
-<div class="title">
-  <h2>Cases by region</h2>
-</div>
-  <div class="chart-container-short">
-  <LayerCake
-    padding={{ top: 0, bottom: 20, left: 100 }}
-    x='cases'
-    y='name'
-    yScale={scaleBand().paddingInner([0.05]).round(true)}
-    yDomain={['Rest of state', 'Salem Area', 'Portland Area']}
-    xDomain={[0, null]}
-    data={bar_chart_case_data}
-  >
-    <Svg>
-      <AxisX
-        gridlines={true}
-        baseline={true}
-        snapTicks={true}
-      />
-      <AxisYScaleBand gridlines={false}/>
-      <Bar/>
     </Svg>
   </LayerCake>
 </div>
