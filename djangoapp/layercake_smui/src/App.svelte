@@ -819,7 +819,8 @@
 </div>
 
 <div class="data-container">
-<p class="source">Sources: Population estimates as of July, 1 2019, <a href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>.</p>
+<p class="source"><b>Sources:</b> Population estimates as of July, 1 2019, <a href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>. 
+<br><b>Notes:</b> Dates of "new cases" reflect the day they were announced, not the day the individual became symptomatic. The latter information, which is more useful for epidemiology, is not released by the state.</p>
 </div>
 
 
