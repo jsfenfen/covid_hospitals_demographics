@@ -1,0 +1,6 @@
+Hospital_Capacity,Number
+Available ICU beds,360
+Available non-ICU beds,2294
+Available ventilators,715
+COVID-19 admissions,91
+COVID-19 patients on ventilators,31

@@ -1,0 +1,11 @@
+Age_group,Cases,Ever_hospitalized,Deaths
+0 to 19,10,0,0
+20 to 29,49,4,0
+30 to 39,70,6,0
+40 to 49,103,25,0
+50 to 59,109,17,0
+60 to 69,101,34,3
+70 to 79,59,25,5
+80 and over,45,18,5
+Not available,2,-,-
+Total,548,129,13

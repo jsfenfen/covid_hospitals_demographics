@@ -1,0 +1,11 @@
+Age_group,Cases,Percent,Ever_hospitalized,Deaths
+0 to 19,35,2%,3,0
+20 to 29,159,11%,15,0
+30 to 39,216,15%,21,0
+40 to 49,269,19%,50,1
+50 to 59,258,18%,51,1
+60 to 69,261,18%,92,9
+70 to 79,153,11%,65,15
+80 and over,96,7%,48,25
+Not available,0,-,0,0
+Total,1447,100%,345,51

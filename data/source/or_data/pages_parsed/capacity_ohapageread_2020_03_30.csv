@@ -1,0 +1,8 @@
+Hospital_Capacity,Number
+Available adult ICU beds,291
+Available adult non-ICU beds,2059
+Available pediatric beds,203
+Available pediatric ICU beds,67
+Available ventilators,765
+COVID-19 admissions,132
+COVID-19 patients on ventilators,39
