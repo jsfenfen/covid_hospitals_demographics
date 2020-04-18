@@ -14,6 +14,9 @@
   import AxisYScaleBand from './components/AxisYScaleBand.svelte';
   import Bar from './components/Bar.svelte';
 
+  import MapScale from './components/MapScale.svelte';
+  import AxisXScaleBand from './components/AxisXScaleBand.svelte';
+ 
 
   import { feature } from 'topojson';
   //import usStates from './data/us-states.topojson.js';
@@ -27,6 +30,8 @@
 
   /* data */
   import coviddata from './data/coviddata.js'
+
+
 
 
   let bar_chart_case_data = []
@@ -46,7 +51,23 @@
 
   let max_date_string;
 
-  const map_colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
+var labels = [
+    {'label':'0'},
+    {'label':'<299'},
+    {'label':'<399'},
+    {'label':'<499'},
+    {'label':'<599'},
+    {'label':'600+'}
+
+  ]
+  var label_array = [];
+
+  labels.forEach(row => {
+    row.value = 1;
+    label_array.push(row.label);
+  });
+
+  const map_colors = ['#ffffff', '#feedde', '#fdbe85','#fd8d3c','#e6550d','#a63603'];
 
   let results_for_table = [];
 
@@ -150,11 +171,18 @@
   const xKey = 'month';
   
   var seriesColors = [
-    '#e09d1f',
+    '#00a2e3',
     '#b71f24',
+    '#e09d1f',
     '#84878b',
   ];
 
+  // could simplify this
+  var barColors = [
+    '#00a2e3',
+    '#00a2e3',
+    '#00a2e3',
+  ];
 
 
   function get_long_data(data) {
@@ -195,7 +223,6 @@
         if (longdata[i]['values'][j]['value'] > max_value) {
           max_value = longdata[i]['values'][j]['value'];
         }
-
         if (longdata[i]['values'][j]['value'] < min_value || min_value == undefined ) {
             min_value = longdata[i]['values'][j]['value'];
         }
@@ -245,6 +272,7 @@
       state_rate_dict[key] = per_million_cases;
       var is_bold = false;
       var name_formatted = coviddata[key]['name'];
+      //name_formatted = name_formatted.replace('County', 'Cnty')
 
       if (key == '41000' || key == '41420' || key=='38900') {
         name_formatted = "<b>" + name_formatted + "</b>"
@@ -263,22 +291,25 @@
   get_state_rates();
 
 
-  function set_fill(featureid) {
+function set_fill(featureid) {
     
     var rate = state_rate_dict[featureid];
-    if (rate > 500) {
-      return map_colors[3];
+    if (rate == 0) {
+      return map_colors[0];
     }
-    if (rate > 400) {
-      return map_colors[2];
-    }
-    if (rate > 300) {
+    if (rate < 300) {
       return map_colors[1];
     }
-    if (rate == 0) {
-      return '#ffffff';
+    if (rate < 400) {
+      return map_colors[2];
     }
-    return map_colors[0];
+    if (rate < 500) {
+      return map_colors[3];
+    }
+    if (rate < 600) {
+      return map_colors[4];
+    }
+    return map_colors[5];
   }
 
 
@@ -302,16 +333,43 @@
   
 </script>
 
-<div class="title">
-  <h1>State statistics</h1>
-</div>
+<style>
+
+.scale_container {
+  margin-top:30px;
+  width: 80%;
+  max-width: 400px;
+  height: 30px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.cshead {
+   background-color: #f2f2f2;
+}
+</style>
+
 
 <div class="title">
-  <h3>Cases by region</h3>
+  <h3>Cases by Region</h3>
 </div>
   <div class="chart-container-short">
   <LayerCake
-    padding={{ top: 0, bottom: 20, left: 80, right: 10, }}
+    padding={{ top: 0, bottom: 20, left: 80, right: 20, }}
     x='cases'
     y='name'
     yScale={scaleBand().paddingInner([0.05]).round(true)}
@@ -327,14 +385,14 @@
       />
       <AxisYScaleBand gridlines={false}/>
       <Bar
-        colorScale={seriesColors}
+        colorScale={barColors}
       />
     </Svg>
   </LayerCake>
 </div>
 
 <div class="title">
-<h3>Total deaths and cases, log scale</h3>
+<h3>Total Deaths and Cases</h3>
 </div>
 
 <div class="chart-container">
@@ -370,9 +428,10 @@
     </Html>
   </LayerCake>
   </div>
+<p>Explainer text</p>
 
 <div class="title">
-<h3>Counties, by cases per capita</h3>
+<h3>Infection Rate by County</h3>
 </div>
 
 <div class="chart-container">
@@ -388,16 +447,41 @@
   </LayerCake>
 </div>
 
-<div class="data-container">
-<h2>County summary</h2>
 
+<div class="scale_container">
+  <LayerCake
+      padding={{ top: 0, right: 0, bottom: 20, left:20 }}
+      x='label'
+      y='value'
+      xScale={scaleBand().paddingInner([0.02]).round(true)}
+      xDomain={label_array}
+      yDomain={[0, null]}
+      data={labels}
+  >
+    <Svg>
+      <MapScale
+      colors={map_colors}/>
+      <AxisXScaleBand
+        gridlines={false}
+      />
+
+    </Svg>
+  </LayerCake>
+  <div style="margin-left:30px;">
+  <p class="byline">Scaled by the number of cases per million</p>
+</div>
+</div>
+
+<div class="data-container" style="margin-top:30px;">
+<h2>County Summary</h2>
+
+<p>Rates are expressed per <b>million</b> residents.</p>
 <table class="countysummary">
        <thead>
           <tr class="csrowheader">
             <th class="cshead">Area</th>
-            <th class="cshead">Pop.</th>
-            <th class="cshead">Cases/million</th>
-            <th class="cshead">Deaths/million</th>
+            <th class="cshead">Size</th>
+            <th class="cshead">Case Rate</th>
           </tr>
         </thead>
     <tbody>
@@ -406,7 +490,6 @@
         <td class="cscell">{@html region.name}</td>
         <td class="cscell">{format_number(region.pop)}</td>
         <td class="cscell">{format_rate(region.cpm)}</td>
-        <td class="cscell">{format_rate(region.dpm)}</td>
       </tr>
       {/each}
     </tbody>

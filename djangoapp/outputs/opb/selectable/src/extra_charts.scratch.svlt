@@ -1,0 +1,38 @@
+<div class="title">
+<h2>Daily new cases, {selectedValue.label}</h2>
+</div>
+
+<div class="chart-container">
+  
+  <LayerCake
+    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
+    x='month'
+    y='value'
+    yDomain={new_cases_domain}
+    flatData={flatten(new_cases_long)}
+    data={new_cases_long}
+  >
+    <Svg>
+      <AxisX
+        gridlines={false}
+        ticks={new_cases.map(d => d[xKey])}
+        formatTick={formatTickX}
+        snapTicks={true}
+      />
+      <AxisY
+        formatTick={formatTickY}
+      />
+
+      <MultiLine
+        {colorScale}
+      />
+    </Svg>
+
+    <Html>
+      <Labels/>
+      <Tooltip
+        dataset={ new_cases }
+      />
+    </Html>
+  </LayerCake>
+</div>
