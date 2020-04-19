@@ -4,8 +4,11 @@
    import { scaleLog, scaleBand } from 'd3-scale';
 
   import MultiLine from './components/MultiLine.svelte';
+//  import BarTrend from './components/BarTrend.svelte';
   import DotTrend from './components/DotTrend.svelte';
 
+
+//  import BarTrendTooltip from './components/BarTrendTooltip.svelte';
   import DotTrendTooltip from './components/DotTrendTooltip.svelte';
 
   import AxisX from './components/AxisX.svelte';
