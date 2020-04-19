@@ -14,6 +14,10 @@
   import AxisYScaleBand from './components/AxisYScaleBand.svelte';
   import Bar from './components/Bar.svelte';
 
+  import MapScale from './components/MapScale.svelte';
+  import AxisXScaleBand from './components/AxisXScaleBand.svelte';
+ 
+
 
   import { feature } from 'topojson';
   //import usStates from './data/us-states.topojson.js';
@@ -150,7 +154,25 @@
 
   let max_date_string;
 
-  const map_colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
+
+
+  var labels = [
+    {'label':'0'},
+    {'label':'<299'},
+    {'label':'<399'},
+    {'label':'<499'},
+    {'label':'<599'},
+    {'label':'600+'}
+
+  ]
+  var label_array = [];
+
+  labels.forEach(row => {
+    row.value = 1;
+    label_array.push(row.label);
+  });
+
+  const map_colors = ['#ffffff', '#feedde', '#fdbe85','#fd8d3c','#e6550d','#a63603'];
 
 
   let selectedFIPS = '41000';
@@ -456,19 +478,22 @@
   function set_fill(featureid) {
     
     var rate = state_rate_dict[featureid];
-    if (rate > 500) {
-      return map_colors[3];
+    if (rate == 0) {
+      return map_colors[0];
     }
-    if (rate > 400) {
-      return map_colors[2];
-    }
-    if (rate > 300) {
+    if (rate < 300) {
       return map_colors[1];
     }
-    if (rate == 0) {
-      return '#ffffff';
+    if (rate < 400) {
+      return map_colors[2];
     }
-    return map_colors[0];
+    if (rate < 500) {
+      return map_colors[3];
+    }
+    if (rate < 600) {
+      return map_colors[4];
+    }
+    return map_colors[5];
   }
 
 

@@ -23,8 +23,8 @@
 
 	console.log("columnWidth " + columnWidth);
 
-	const fill2 = '#e09d1f';
-	const fill1 = '#b71f24';
+	const fill2 = '#b2bc00';
+	const fill1 = '#6d6d00';
 	const stroke = '#333333';
 	const strokeWidth = 1;
 	const barstroke1 = '#cccccc';

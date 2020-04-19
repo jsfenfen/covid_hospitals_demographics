@@ -4,12 +4,12 @@
    import { scaleLog, scaleBand } from 'd3-scale';
 
   import MultiLine from './components/MultiLine.svelte';
-//  import BarTrend from './components/BarTrend.svelte';
+  import BarTrend from './components/BarTrend.svelte';
   import DotTrend from './components/DotTrend.svelte';
 
   import ReStackedBar from './components/ReStackedBar.svelte';
 
-//  import BarTrendTooltip from './components/BarTrendTooltip.svelte';
+  import BarTrendTooltip from './components/BarTrendTooltip.svelte';
   import DotTrendTooltip from './components/DotTrendTooltip.svelte';
   import ReStackedBarTooltip from './components/ReStackedBarTooltip.svelte';
 
@@ -478,7 +478,7 @@
 
   .switch-container {
     display:inline;
-    margin-left: 30px;
+    margin-left: 10px;
   }
 
   @import url(https://unpkg.com/@smui/select@latest/bare.css);
@@ -526,34 +526,19 @@
         formatTick={formatTickY}
       />
 
-      <DotTrend
+      <BarTrend
         colorScale={new_cases_colorScale}
       />
     </Svg>
 
     <Html>
-      <DotTrendTooltip
+      <BarTrendTooltip
 
         dataset={ new_cases }
       />
     </Html>
   </LayerCake>
 </div>
-<div class="title">
-<b>What this Chart Means</b>
-<div class="switch-container">
-<FormField>
-  <Switch bind:checked={show_nc} />
-  <span slot="label">{show_nc ? 'Hide explanation' : 'Show explanation'}</span>
-</FormField>
-</div>
-{#if show_nc }
-  <p>  One key question is how quickly the virus is spreading. This chart shows lab-confirmed cases, so the actual number of cases is considerably higher. Community transmission may still continue even when new cases are not being detected. Moreover, many cases are asymptomatic. Until there's widely available antibody testing, many who catch the virus will never know they had it. </p>
-  <p>The date shown is the day that the state announced the positive test result, not the day that the person caught the virus. It may take a week or more for results to become available, so this chart lags behind reality. People who catch the virus often recover within 21 days of becoming symptomatic, although less severe cases may pass quicker.</p>
-  <p><b>Notes:</b> The trend line is a lagging seven-day moving average. In other words, each point in the grey line is the average of the last seven days of new cases.</p>
-{/if}
-</div>
-
 
 <div class="title">
 <h3>Total Deaths, {regionDisplay}</h3>
@@ -593,9 +578,7 @@
     </Html>
   </LayerCake>
 </div>
-<div class="title">
-<p><b>What this Chart Means:</b><br> Our understanding of the virus is that people often become symptomatic 5-7 days after exposure. While the vast number survive, some <a href="https://www.thelancet.com/action/showPdf?pii=S0140-6736%2820%2930566-3">published reports</a> estimate the time from symptom onset until death to be 19 days, although this number is highly variable. The effects of social distancing should be evident in the number of deaths reported within about 25 days.</p>
-</div>
+
 
 <div class="title">
 <h3>Total Cases, {regionDisplay}</h3>
@@ -635,9 +618,7 @@
     </Html>
   </LayerCake>
 </div>
-<div class="title">
-<p><b>What this Chart Means:</b> <br>When transmission of the virus stops, this chart will flatten out. Early indications are that social distancing has slowed the spread of the virus, but it's not clear how much. This chart shows only laboratory-confirmed cases, so the total number of actual cases is significantly higher.</p>
-</div>
+
 
 <div class="title">
 <h3>Daily Test Results, {regionDisplay}</h3>
@@ -677,13 +658,7 @@
   </LayerCake>
 </div>
 
-<div class="title">
-<p><b>What this Chart Means</b>
 
-  <br>Widely available testing is one of the key requirements to ending social distancing, although epidemiologists argue it's <a href="https://www.statnews.com/2020/03/24/we-need-smart-coronavirus-testing-not-just-more-testing/">not just the number of tests that matter</a>. In the hardest hit areas of the country, the positive test rate has been very high, indicating very limited number of tests. Oregon's test "positivity rate" is lower than the rate in the U.S. as a whole, which has been<a href="https://www.theatlantic.com/technology/archive/2020/04/us-coronavirus-outbreak-out-control-test-positivity-rate/610132/"> estimated to be 20%</a>.
-</p>
-
-</div>
 
 <div class="data-container" style="margin-top:20px;">
 <p class="byline"><b>Sources:</b> Population estimates as of July, 1 2019, <a href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>. 

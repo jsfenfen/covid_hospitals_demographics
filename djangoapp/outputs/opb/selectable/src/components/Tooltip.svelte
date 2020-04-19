@@ -47,7 +47,7 @@
     font-size: 13px;
     pointer-events: none;
     border: 1px solid #ccc;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.95);
     transform: translate(-50%, -100%);
     padding: 5px;
     transition: left 250ms ease-out, top 250ms ease-out;

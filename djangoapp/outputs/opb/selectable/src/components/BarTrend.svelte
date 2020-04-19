@@ -21,10 +21,13 @@
 
 	console.log("columnWidth " + columnWidth);
 
-	const fill = '#e09d1f';
+	const fill = '#00a2e3';
 	const stroke = '#333333';
 	const strokeWidth = 1;
 	const barstroke = '#cccccc';
+
+	// #00a2e3',
+    // '#b71f24
 
 	const r = 4;
 

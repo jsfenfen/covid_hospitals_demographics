@@ -5,6 +5,19 @@ import os
 import datetime
 import re
 
+filebasestring = "backups_april17/ohapage*.html"
+
+
+def clean_header(header):
+	""" OHA really likes putting weird chars in their column names """
+	header = header.replace(",","")
+	header = header.replace(" ","_")
+	header = header.replace("✣","")
+	header = header.replace("*","")
+	header = header.replace("\ufeff","")
+	header = header.replace("‡","")
+	header = header.replace("†","")
+	return header
 
 def output_table(data_table, outputfile):
 	""" Writes a csv of just the table to a file """
@@ -17,8 +30,8 @@ def output_table(data_table, outputfile):
 	for i, row in enumerate(rows):
 		if i==0:
 			colheaders = row.find_all('th')
-			header_names = [i.text for i in colheaders]
-			#print(header_names)
+			header_names = [clean_header(i.text) for i in colheaders]
+			print(header_names)
 
 		else:
 			data = row.find_all('td')
@@ -58,20 +71,28 @@ def get_table_from_header(first_header, i):
 
 
 
-files = (glob.glob("backups_april13/ohapage*.html"))
+files = (glob.glob(filebasestring))
 for file in files:
 	filename = os.path.basename(file)
 	filebase = filename.replace("ohapage_", "ohapageread_")
+
+	# allow an exception for the most current file, maybe? 
+	#if '_06_15.html' in filebase or '2020_04_16_22_15' in filebase:
 
 	if '_06_15.html' in filebase:
 
 		print("\n\nProcessing file %s" % filebase)
 
+		filebase_raw = filebase
 		filebase = filebase.replace("_06_15.html","")
 		
 		filebase_parts = filebase.split('_')
 		snapshot_date = datetime.datetime(int(filebase_parts[1]), int(filebase_parts[2]), int(filebase_parts[3]))
-		prior_day = snapshot_date - datetime.timedelta(days=1)
+		prior_day = snapshot_date
+
+		if '_06_15.html' in filebase_raw:
+			prior_day = prior_day - datetime.timedelta(days=1)
+
 		print("prior day %s" % prior_day)
 
 		new_filebase = 'ohapageread_' + prior_day.strftime("%Y_%m_%d") + ".csv"

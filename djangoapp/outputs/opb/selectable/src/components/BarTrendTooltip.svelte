@@ -73,7 +73,7 @@
     position: absolute;
     background-color: transparent;
     pointer-events: none;
-    border: 1px solid black;
+    border: 2px solid black;
   }
 </style>
 
