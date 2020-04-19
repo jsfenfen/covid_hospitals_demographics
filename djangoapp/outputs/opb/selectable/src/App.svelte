@@ -7,9 +7,12 @@
 //  import BarTrend from './components/BarTrend.svelte';
   import DotTrend from './components/DotTrend.svelte';
 
+  import ReStackedBar from './components/ReStackedBar.svelte';
 
 //  import BarTrendTooltip from './components/BarTrendTooltip.svelte';
   import DotTrendTooltip from './components/DotTrendTooltip.svelte';
+  import ReStackedBarTooltip from './components/ReStackedBarTooltip.svelte';
+
 
   import AxisX from './components/AxisX.svelte';
   import AxisY from './components/AxisY.svelte';
@@ -269,7 +272,7 @@
 
         if (data_type == 'tests') {
           if (day_count > 2)  {
-            data_for_this_fips.push({'month':this_date, 'Negatives':this_jurisdiction[key]['n_n'], 'Positives':this_jurisdiction[key]['n_c']});
+            data_for_this_fips.push({'month':this_date, 'Negatives':this_jurisdiction[key]['n_n'], 'Positives':this_jurisdiction[key]['n_c'], 'Total':this_jurisdiction[key]['n_n']+this_jurisdiction[key]['n_c']});
           }
         }
 
@@ -661,14 +664,13 @@
         formatTick={formatTickY}
       />
 
-      <MultiLine
+      <ReStackedBar
         colorScale={tests_colorScale}
       />
     </Svg>
 
     <Html>
-      <Labels/>
-      <MultiTooltip
+      <ReStackedBarTooltip
         dataset={ tests }
       />
     </Html>
