@@ -109,7 +109,9 @@
   let deaths;
   let new_cases;
   let tests;
+  let positivity;
   let dead_v_cases;  // Only do this for the whole state. 
+
 
   let cases_long;
   let cases_series;
@@ -132,13 +134,17 @@
   let tests_series;
   let tests_domain;
 
-
+  let positivity_long;
+  let positivity_series;
+  let positivity_domain;
 
   let colorScale;
   let cases_colorScale;
   let deaths_colorScale;
   let new_cases_colorScale;
   let tests_colorScale;
+  let positivity_colorScale;
+
   let dead_v_cases_colorScale;
 
   let isClearable = false;
@@ -195,8 +201,6 @@
       explainer_text = '';
     }
 
-
-
     region_text = regionDisplay + " has a total population of " + format_number(coviddata[thisfips]['pop']) + " and " + format_number(100*coviddata[thisfips]['fraction_65_over'])  + "% are over 65. As of " + format_date_string(max_date_string) + " a total of " + format_number(coviddata[thisfips][max_date_string]['c']) + " confirmed cases and " + format_number(coviddata[thisfips][max_date_string]['d']) + " deaths have been reported to the state health department."
   }
 
@@ -207,6 +211,8 @@
     var day_count = 0;
 
     var new_case_ma = [-1,-1,-1,-1,-1,-1,-1];
+
+    var positivity_ma = [-1,-1,-1,-1,-1,-1,-1];
 
     Object.keys(this_jurisdiction).sort().forEach(function(key) {
       if (key.startsWith('2020')) {
@@ -244,13 +250,7 @@
             var sum=0;
             var valid_values = 0;
             // futzing with this, cleanup when we know how it should work
-            new_case_ma[0]=new_case_ma[1];
-            new_case_ma[1]=new_case_ma[2];
-            new_case_ma[2]=new_case_ma[3];
-            new_case_ma[3]=new_case_ma[4];
-            new_case_ma[4]=new_case_ma[5];
-            new_case_ma[5]=new_case_ma[6];
-            new_case_ma[6] = new_case_count;
+            new_case_ma.push(new_case_count);
 
             new_case_ma.forEach(val => { 
               if (val!=-1) {
@@ -276,14 +276,29 @@
           }
         }
 
-        if (data_type == 'test_rate') {
+        if (data_type == 'positivity') {
           if (day_count > 2)  {
             var total_tests = this_jurisdiction[key]['n_c'] + this_jurisdiction[key]['n_n'];
             var positive_rate = 0;
             if (total_tests > 0 ) {
               positive_rate = 100*this_jurisdiction[key]['n_c']/total_tests;
             }
-            data_for_this_fips.push({'month':this_date, 'Rate':positive_rate});
+
+            var this_average;
+            var sum=0;
+            var valid_values = 0;
+            // futzing with this, cleanup when we know how it should work
+            positivity_ma.push(positive_rate);
+
+            positivity_ma.forEach(val => { 
+              if (val!=-1) {
+                valid_values++;
+                sum += val;
+              }
+            });
+            this_average = sum / valid_values;
+
+            data_for_this_fips.push({'month':this_date, 'Rate':positive_rate.toFixed(1), 'Trend':this_average});
           }
         }
 
@@ -386,6 +401,7 @@
     deaths = prep_data_from_archive('deaths', fips);
     new_cases = prep_data_from_archive('new_cases', fips);
     tests = prep_data_from_archive('tests', fips);
+    positivity = prep_data_from_archive('positivity', fips);
 
     cases_long = get_long_data(cases);
     cases_series = get_series_names(cases);
@@ -394,6 +410,10 @@
     tests_long = get_long_data(tests);
     tests_series = get_series_names(tests);
     tests_domain = get_domain(tests_long,false);
+
+    positivity_long = get_long_data(positivity);
+    positivity_series = get_series_names(positivity);
+    positivity_domain = get_domain(positivity_long,false);
 
     deaths_long = get_long_data(deaths);
     deaths_series = get_series_names(deaths);
@@ -417,7 +437,11 @@
     
 
     tests_colorScale = scaleOrdinal()
-      .domain(deaths)
+      .domain(tests)
+      .range(seriesColors);
+
+    positivity_colorScale = scaleOrdinal()
+      .domain(positivity)
       .range(seriesColors);
     }
 
@@ -539,7 +563,9 @@
     </Html>
   </LayerCake>
 </div>
-
+<div class="title">
+<p><b>Notes:</b> The black line is a 7-day moving average. The date used is when the state announced the test result, not when the person became symptomatic. Many tests take several days to be processed. </p>
+</div>
 <div class="title">
 <h3>Total Deaths, {regionDisplay}</h3>
 </div>
@@ -579,6 +605,87 @@
   </LayerCake>
 </div>
 
+
+
+
+<div class="title">
+<h3>Daily Test Results, {regionDisplay}</h3>
+</div>
+
+<div class="chart-container">
+  
+  <LayerCake
+    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
+    x='month'
+    y='value'
+    yDomain={tests_domain}
+    flatData={flatten(tests_long)}
+    data={tests_long}
+  >
+    <Svg>
+      <AxisX
+        gridlines={false}
+        ticks={new_cases.map(d => d[xKey])}
+        formatTick={formatTickX}
+        snapTicks={true}
+      />
+      <AxisY
+        formatTick={formatTickY}
+      />
+
+      <ReStackedBar
+        colorScale={tests_colorScale}
+      />
+    </Svg>
+
+    <Html>
+      <ReStackedBarTooltip
+        dataset={ tests }
+      />
+    </Html>
+  </LayerCake>
+</div>
+
+<div class="title">
+<h3>Test Positivity Rate, {regionDisplay}</h3>
+</div>
+
+<div class="chart-container">
+  
+  <LayerCake
+    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
+    x='month'
+    y='value'
+    flatData={flatten(positivity_long)}
+    yDomain={positivity_domain}
+    data={positivity_long}
+  >
+    <Svg>
+      <AxisX
+        gridlines={false}
+        ticks={positivity.map(d => d[xKey])}
+        formatTick={formatTickX}
+        snapTicks={true}
+      />
+      <AxisY
+        formatTick={formatTickY}
+      />
+
+      <DotTrend
+        colorScale={positivity_colorScale}
+      />
+    </Svg>
+
+    <Html>
+      <DotTrendTooltip
+        dataset={ positivity }
+      />
+    </Html>
+  </LayerCake>
+</div>
+<div class="title">
+<p><b>Notes:</b> The black line is a 7-day moving average. The positivity rate is the percentage of tests that returned positive for the virus. The day used is the day that the results were announced. </p>
+</div>
 
 <div class="title">
 <h3>Total Cases, {regionDisplay}</h3>
@@ -620,50 +727,10 @@
 </div>
 
 
-<div class="title">
-<h3>Daily Test Results, {regionDisplay}</h3>
-</div>
-
-<div class="chart-container">
-  
-  <LayerCake
-    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
-    x='month'
-    y='value'
-    yDomain={tests_domain}
-    flatData={flatten(tests_long)}
-    data={tests_long}
-  >
-    <Svg>
-      <AxisX
-        gridlines={false}
-        ticks={new_cases.map(d => d[xKey])}
-        formatTick={formatTickX}
-        snapTicks={true}
-      />
-      <AxisY
-        formatTick={formatTickY}
-      />
-
-      <ReStackedBar
-        colorScale={tests_colorScale}
-      />
-    </Svg>
-
-    <Html>
-      <ReStackedBarTooltip
-        dataset={ tests }
-      />
-    </Html>
-  </LayerCake>
-</div>
-
-
-
 <div class="data-container" style="margin-top:20px;">
 <p class="byline"><b>Sources:</b> Population estimates as of July, 1 2019, <a href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>. 
 </p>
 </div>
 
-<div style="height: 60px;"></div>
+<div style="height: 100px;"></div>
 

@@ -15,8 +15,9 @@
 
 
 
-	const fill = '#e09d1f';
-	const stroke = '#aaaaaa';
+
+	const fill = '#00a2e3';
+	const stroke = '#333333';
 	const r = 4;
 
 

@@ -5,7 +5,7 @@ import os
 import datetime
 import re
 
-filebasestring = "backups_april17/ohapage*.html"
+filebasestring = "backups_april18/ohapage*.html"
 
 
 def clean_header(header):

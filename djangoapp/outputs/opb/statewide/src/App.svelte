@@ -30,6 +30,8 @@
 
   /* data */
   import coviddata from './data/coviddata.js'
+  import hospitalizeddata from './data/everhospitalized.js'
+
 
 
 
