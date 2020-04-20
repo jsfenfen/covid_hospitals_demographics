@@ -5,7 +5,14 @@ import os
 import datetime
 import re
 
-filebasestring = "backups_april18/ohapage*.html"
+
+"""
+scp -i ~/accounts/jf2018.pem ubuntu@34.224.37.68:/home/webuser/covid_hacks/recent_backups.tar.gz ./
+tar -xzvf recent_backups.tar.gz
+
+"""
+
+filebasestring = "backups/ohapage*.html"
 
 
 def clean_header(header):
@@ -77,9 +84,9 @@ for file in files:
 	filebase = filename.replace("ohapage_", "ohapageread_")
 
 	# allow an exception for the most current file, maybe? 
-	#if '_06_15.html' in filebase or '2020_04_16_22_15' in filebase:
+	if '_06_15.html' in filebase or '2020_04_20_20_02' in filebase:
 
-	if '_06_15.html' in filebase:
+	#if '_06_15.html' in filebase:
 
 		print("\n\nProcessing file %s" % filebase)
 

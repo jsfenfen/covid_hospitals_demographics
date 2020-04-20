@@ -34,7 +34,7 @@
 
 <style>
   .feature-path {
-    stroke: #333;
+    stroke: #999;
     stroke-width: 0.5px;
   }
 </style>

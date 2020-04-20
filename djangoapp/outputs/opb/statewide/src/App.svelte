@@ -1,22 +1,12 @@
 <script>
   import { LayerCake, Svg, Html } from 'layercake';
   import { scaleOrdinal } from 'd3-scale';
-   import { scaleLog, scaleBand } from 'd3-scale';
-
-  import MultiLine from './components/MultiLine.svelte';
-  import AxisX from './components/AxisX.svelte';
-  import AxisY from './components/AxisY.svelte';
-  import AxisYLog from './components/AxisYLog.svelte';
-  import Labels from './components/Labels.svelte';
-  import Tooltip from './components/Tooltip.svelte';
-  import MultiTooltip from './components/MultiTooltip.svelte';
-  import QuadTree from './components/QuadTree.svelte';
-  import AxisYScaleBand from './components/AxisYScaleBand.svelte';
-  import Bar from './components/Bar.svelte';
+   import { scaleBand } from 'd3-scale';
 
   import MapScale from './components/MapScale.svelte';
   import AxisXScaleBand from './components/AxisXScaleBand.svelte';
- 
+  import Points from './components/Points.svelte';
+
 
   import { feature } from 'topojson';
   //import usStates from './data/us-states.topojson.js';
@@ -30,18 +20,71 @@
 
   /* data */
   import coviddata from './data/coviddata.js'
-  import hospitalizeddata from './data/everhospitalized.js'
+  
 
 
-
-
+  let breaks =  [] 
 
   let bar_chart_case_data = []
   let region_pop_data = {}
 
   let dead_v_cases;  // Only do this for the whole state. 
 
+  let points = [
+    {'name': 'Portland',
+      'prominence':3,
+      'points': [
+        -122.6750, // Portland
+        45.5051
+    ]}
+    ,
+    {'name': 'Salem',
+    'prominence':2,
+    'points':[
+        -123.0351, // Salem
+        44.9429
+    ]},
+    {'name': 'Eugene',
+    'prominence':2,
+    'points':[
+        -123.087, 
+        44.052
+    ]},
+    {'name': 'Bend',
+    'prominence':2,
+    'points':[
+        -121.315, 
+        44.058
+    ]},
+    {'name': 'Medford',
+    'prominence':2,
+    'points':[
+        -122.876, 
+        42.327
+    ]},
+    {'name': 'Corvallis',
+    'prominence':2,
+    'points':[
+        -123.262, 
+        44.565
+    ]}
+    ];
 
+/*
+
+1 Portland  wikipedia article   632,309   45.523 / -122.676
+2 Salem  wikipedia article  164,549   44.943 / -123.035
+3 Eugene  wikipedia article   163,460   44.052 / -123.087
+4 Gresham  wikipedia article  110,553   45.498 / -122.431
+5 Hillsboro  wikipedia article  102,347   45.523 / -122.99
+6 Beaverton  wikipedia article  96,577  45.487 / -122.804
+7 Bend  wikipedia article   87,014  44.058 / -121.315
+8 Medford  wikipedia article  79,805  42.327 / -122.876
+9 Springfield  wikipedia article  60,870  44.046 / -123.022
+10  Corvallis  wikipedia article  55,780  44.565 / -123.262
+11  Albany  wikipedia article   52,175  44.637 / -123.106
+12  Tigard  wikipedia article   51,253  45.431 / -122.771
+*/
   let dead_v_cases_long
   let dead_v_cases_series;
   let dead_v_cases_domain;
@@ -53,25 +96,30 @@
 
   let max_date_string;
 
-var labels = [
-    {'label':'0'},
-    {'label':'<299'},
-    {'label':'<399'},
-    {'label':'<499'},
-    {'label':'<599'},
-    {'label':'600+'}
-
-  ]
+  let labels = []
+  
   var label_array = [];
 
-  labels.forEach(row => {
-    row.value = 1;
-    label_array.push(row.label);
-  });
 
   const map_colors = ['#ffffff', '#feedde', '#fdbe85','#fd8d3c','#e6550d','#a63603'];
 
   let results_for_table = [];
+
+  function set_labels() {
+    labels = [
+      {'label':'0'},
+      {'label':'<' + breaks[0]},
+      {'label':'<' + breaks[1]},
+      {'label':'<' + breaks[2]},
+      {'label':'<' + breaks[3]},
+      {'label': breaks[3] + '+'}
+    ]
+
+    labels.forEach(row => {
+      row.value = 1;
+      label_array.push(row.label);
+    });
+  }
 
   function format_number(num) {
     var num_raw = num.toLocaleString()
@@ -156,9 +204,11 @@ var labels = [
         }
         if (data_type == 'dead_v_cases') {
           var this_data = {'month':this_date};
-
-          if (this_jurisdiction[key]['d'] > 0 && this_jurisdiction[key]['c']) {
-            data_for_this_fips.push({'month':this_date, 'Deaths':this_jurisdiction[key]['d'], 'Cases':this_jurisdiction[key]['c']});
+          
+          if (day_count > 1) {
+            if (this_jurisdiction[key]['d'] > 0 && this_jurisdiction[key]['c']) {
+              data_for_this_fips.push({'month':this_date, 'Deaths':this_jurisdiction[key]['d'], 'Cases':this_jurisdiction[key]['c']});
+            }
           }
         }
       }
@@ -173,9 +223,9 @@ var labels = [
   const xKey = 'month';
   
   var seriesColors = [
-    '#00a2e3',
-    '#b71f24',
     '#e09d1f',
+    '#b71f24',
+    '#00a2e3',
     '#84878b',
   ];
 
@@ -240,32 +290,12 @@ var labels = [
     return interval;
   }
 
-  function set_sitewide_charts(){
-    //Run this once, these are not regenerated
-    dead_v_cases = prep_data_from_archive('dead_v_cases', '41000');
-    dead_v_cases_long = get_long_data(dead_v_cases);
-    dead_v_cases_series = get_series_names(dead_v_cases);
-    dead_v_cases_domain = get_domain(dead_v_cases_long,true);
-
-    dead_v_cases_colorScale = scaleOrdinal()
-      .domain(dead_v_cases_series)
-      .range(seriesColors);
-
-    var portland_cases = coviddata['38900'][max_date_string]['c'];
-    var salem_cases = coviddata['41420'][max_date_string]['c'];
-    var ros_cases = coviddata['41000'][max_date_string]['c'] - portland_cases - salem_cases;
-
-    bar_chart_case_data.push({'name':'Rest of state','cases':ros_cases})
-    bar_chart_case_data.push({'name':'Salem Area','cases':salem_cases})
-    bar_chart_case_data.push({'name':'Portland Area','cases':portland_cases})
-
-    region_pop_data['metro_pop'] = coviddata['38900']['pop'] + coviddata['41420']['pop'];
-    region_pop_data['rest_pop'] = coviddata['41000']['pop'] - region_pop_data['metro_pop'];  
-  }
-
-  set_sitewide_charts();
-
   function get_state_rates() {
+
+
+    // This is just setting max datestring, hmm
+    prep_data_from_archive('dead_v_cases', '41000');
+
     Object.keys(coviddata).forEach(function(key) {
       
       var per_million_cases = 1000000 * coviddata[key][max_date_string]['c']/coviddata[key]['pop'];
@@ -290,7 +320,12 @@ var labels = [
     results_for_table.sort((a, b) => (a.cpm < b.cpm) ? 1 : -1)
   }
 
+  // initial
+
+  breaks = [400,600,800,1000];
+  set_labels();
   get_state_rates();
+
 
 
 function set_fill(featureid) {
@@ -299,16 +334,16 @@ function set_fill(featureid) {
     if (rate == 0) {
       return map_colors[0];
     }
-    if (rate < 300) {
+    if (rate < breaks[0]) {
       return map_colors[1];
     }
-    if (rate < 400) {
+    if (rate < breaks[1]) {
       return map_colors[2];
     }
-    if (rate < 500) {
+    if (rate < breaks[2]) {
       return map_colors[3];
     }
-    if (rate < 600) {
+    if (rate < breaks[3]) {
       return map_colors[4];
     }
     return map_colors[5];
@@ -367,73 +402,8 @@ tr:nth-child(even) {
 
 
 <div class="title">
-  <h3>Cases by Region</h3>
-</div>
-  <div class="chart-container-short">
-  <LayerCake
-    padding={{ top: 0, bottom: 20, left: 80, right: 20, }}
-    x='cases'
-    y='name'
-    yScale={scaleBand().paddingInner([0.05]).round(true)}
-    yDomain={['Rest of state', 'Salem Area', 'Portland Area']}
-    xDomain={[0, null]}
-    data={bar_chart_case_data}
-  >
-    <Svg>
-      <AxisX
-        gridlines={true}
-        baseline={true}
-        snapTicks={true}
-      />
-      <AxisYScaleBand gridlines={false}/>
-      <Bar
-        colorScale={barColors}
-      />
-    </Svg>
-  </LayerCake>
-</div>
-
-<div class="title">
-<h3>Total Deaths and Cases</h3>
-</div>
-
-<div class="chart-container">
-  <LayerCake
-    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
-    x='month'
-    y='value'
-    flatData={flatten(dead_v_cases_long)}
-    yDomain={[1, null]}
-  yScale={scaleLog()}
-    data={dead_v_cases_long}
-  >
-    <Svg>
-      <AxisX
-        gridlines={false}
-        ticks={dead_v_cases.map(d => d[xKey])}
-        formatTick={formatTickX}
-        snapTicks={true}
-      />
-      <AxisYLog
-        formatTick={formatTickY}
-      />
-      <MultiLine
-        colorScale={dead_v_cases_colorScale}
-      />
-    </Svg>
-
-    <Html>
-      <Labels/>
-      <MultiTooltip
-        dataset={ dead_v_cases }
-      />
-    </Html>
-  </LayerCake>
-  </div>
-<p>Explainer text</p>
-
-<div class="title">
 <h3>Infection Rate by County</h3>
+<p>As of April 20, 8 a.m.</p>
 </div>
 
 <div class="chart-container">
@@ -445,10 +415,13 @@ tr:nth-child(even) {
         projectionName={'geoMercator'}
         {set_fill}
       />
+      <Points 
+        projectionName={'geoMercator'}
+        pointsData={points}
+      />
     </Svg>
   </LayerCake>
 </div>
-
 
 <div class="scale_container">
   <LayerCake
@@ -498,7 +471,8 @@ tr:nth-child(even) {
   </table>
 </div>
 
-<div class="data-container">
+<div class="data-container" style="margin-top:20px; margin-bottom: 50px;">
 <p class="byline"><b>Sources:</b> Population estimates as of July, 1 2019, <a href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>. 
-<br><b>Notes:</b> Dates of "new cases" reflect the day they were announced, not the day the individual became symptomatic. </p>
+</p>
 </div>
+<div style="height: 100px;"></div>

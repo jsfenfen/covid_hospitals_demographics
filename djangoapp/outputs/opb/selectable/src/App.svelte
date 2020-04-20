@@ -524,7 +524,7 @@
 <div class="title">
 
 <h3>New Confirmed Cases, {regionDisplay}</h3>
-
+<p>As of April 20, 8 a.m.</p>
 <p>{explainer_text}</p>
 <!--- <p>{region_text}</p> -->
 </div>
@@ -606,7 +606,44 @@
 </div>
 
 
+<div class="title">
+<h3>Total Cases, {regionDisplay}</h3>
+</div>
 
+<div class="chart-container">
+  
+  <LayerCake
+    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
+    x='month'
+    y='value'
+    flatData={flatten(cases_long)}
+    yDomain={cases_domain}
+    data={cases_long}
+  >
+    <Svg>
+      <AxisX
+        gridlines={false}
+        ticks={cases.map(d => d[xKey])}
+        formatTick={formatTickX}
+        snapTicks={true}
+      />
+      <AxisY
+        formatTick={formatTickY}
+      />
+
+      <MultiLine
+        colorScale={cases_colorScale}
+      />
+    </Svg>
+
+    <Html>
+      <Labels/>
+      <Tooltip
+        dataset={ cases }
+      />
+    </Html>
+  </LayerCake>
+</div>
 
 <div class="title">
 <h3>Daily Test Results, {regionDisplay}</h3>
@@ -687,47 +724,10 @@
 <p><b>Notes:</b> The black line is a 7-day moving average. The positivity rate is the percentage of tests that returned positive for the virus. The day used is the day that the results were announced. </p>
 </div>
 
-<div class="title">
-<h3>Total Cases, {regionDisplay}</h3>
-</div>
-
-<div class="chart-container">
-  
-  <LayerCake
-    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
-    x='month'
-    y='value'
-    flatData={flatten(cases_long)}
-    yDomain={cases_domain}
-    data={cases_long}
-  >
-    <Svg>
-      <AxisX
-        gridlines={false}
-        ticks={cases.map(d => d[xKey])}
-        formatTick={formatTickX}
-        snapTicks={true}
-      />
-      <AxisY
-        formatTick={formatTickY}
-      />
-
-      <MultiLine
-        colorScale={cases_colorScale}
-      />
-    </Svg>
-
-    <Html>
-      <Labels/>
-      <Tooltip
-        dataset={ cases }
-      />
-    </Html>
-  </LayerCake>
-</div>
 
 
-<div class="data-container" style="margin-top:20px;">
+
+<div class="data-container" style="margin-top:20px; margin-bottom: 50px;">
 <p class="byline"><b>Sources:</b> Population estimates as of July, 1 2019, <a href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>. 
 </p>
 </div>

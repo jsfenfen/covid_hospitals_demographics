@@ -8,9 +8,11 @@
   export let dataset;
 
   const w = 150;
-  const w2 = w / 2;
   let top = 0;
   let top2 = 0;
+  let top3 = 0;
+
+
 
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -35,12 +37,13 @@
       };
     }).sort((a, b) => b.value - a.value);
 
-    top = $yScale(rows[1].value) - 20;
+    top = $yScale(rows[1].value);
     top2 = $yScale(rows[0].value);
+    top3 = $yScale(rows[2].value);
 
     return `
       <div style="font-weight: bold;">${monthNames[result[$originalSettings.x].getUTCMonth()]} ${result[$originalSettings.x].getUTCDate()}</div>
-      ${rows.map(row => `<div><span style="color: #999; width: 65px;display:inline-block;">${capitalize(row.key)}:</span> ${addCommas(row.value)}</div>`).join('')}`;
+      ${rows.map(row => `<div><span style="color: #999; width: 70px;display:inline-block;">${capitalize(row.key)}:</span> ${addCommas(row.value)}</div>`).join('')}`;
   }
 </script>
 
@@ -65,15 +68,7 @@
   width: 10px;
   height: 10px;
 }
-.sweepline {
-  position: absolute;
-  background-color: none;
-  pointer-events: none;
-  border-left:1px dashed #999;
-  border-right:none;
-  border-top:none;
-  width:1px;
-}
+
 </style>
 
 <QuadTree
@@ -85,18 +80,19 @@
   let:found
   let:e
 >
-  <div class="sweepline"
-          style="top:{top2}px;left:{x}px;height:{top-top2+20}px;display: { visible ? 'block' : 'none' };"
-    ></div>
+
 
   <div
     class="tooltip"
-    style="width:{w}px;display: { visible ? 'block' : 'none' };top:{(top+80+top2)/2}px;left:{Math.min(Math.max(w2, x), $width - w2)}px;">{@html setContents(found)}</div>
+    style="width:{w}px;display: { visible ? 'block' : 'none' };top:{top}px;left:{Math.min(Math.max(w, x), $width - w)}px;">{@html setContents(found)}</div>
     <div class="circle"
-          style="top:{top+20}px;left:{x}px;display: { visible ? 'block' : 'none' };"
+          style="top:{top}px;left:{x}px;display: { visible ? 'block' : 'none' };"
         ></div>
     <div class="circle"
           style="top:{top2}px;left:{x}px;display: { visible ? 'block' : 'none' };"
+    ></div>
+    <div class="circle"
+          style="top:{top3}px;left:{x}px;display: { visible ? 'block' : 'none' };"
     ></div>
     
 
