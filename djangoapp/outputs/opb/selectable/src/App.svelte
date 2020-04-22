@@ -29,7 +29,7 @@
   import FormField from '@smui/form-field';
 
 
-  /* import { onMount } from 'svelte'; */
+  import { onMount } from 'svelte';
 
   /* data */
   import coviddata from './data/coviddata.js'
@@ -184,7 +184,6 @@
   function handleSelect(thisfips) {
     
     if (!thisfips) {
-      console.log("fips undefined, skipping");
       return null;
 
     }
@@ -202,6 +201,10 @@
     }
 
     region_text = regionDisplay + " has a total population of " + format_number(coviddata[thisfips]['pop']) + " and " + format_number(100*coviddata[thisfips]['fraction_65_over'])  + "% are over 65. As of " + format_date_string(max_date_string) + " a total of " + format_number(coviddata[thisfips][max_date_string]['c']) + " confirmed cases and " + format_number(coviddata[thisfips][max_date_string]['d']) + " deaths have been reported to the state health department."
+
+    // Assumes that pymchild is defined on the page before here! 
+    setTimeout(function(){ pymChild.sendHeight(); }, 20);
+    //console.log("height sent");
   }
 
   function prep_data_from_archive(data_type, fips) {
@@ -325,8 +328,7 @@
         }
       }
     });
-    console.log('data for fips ' + data_type + ' fips: ' + fips );
-    console.log(data_for_this_fips);
+    
 
     return data_for_this_fips;
     
@@ -450,7 +452,8 @@
   function formatTickX (d) {
     const date = new Date(d);
     var day = date.getDate();
-    if (day%5==0) {
+    var dayofweek = date.getDay()
+    if (dayofweek==6 && day != 21) {
       return `${monthNames[date.getUTCMonth()]} ${date.getUTCDate()}`;
     } else {
       return '';
@@ -463,6 +466,11 @@
     }
     return d;
   }
+
+  onMount(() => {
+    // Assumes that pymchild is defined on the page before here! 
+    pymChild.sendHeight();
+  });
 
 </script>
 
@@ -524,7 +532,7 @@
 <div class="title">
 
 <h3>New Confirmed Cases, {regionDisplay}</h3>
-<p>As of April 20, 8 a.m.</p>
+<p>As of April 21, 8 a.m.</p>
 <p>{explainer_text}</p>
 <!--- <p>{region_text}</p> -->
 </div>
@@ -564,7 +572,13 @@
   </LayerCake>
 </div>
 <div class="title">
-<p><b>Notes:</b> The black line is a 7-day moving average. The date used is when the state announced the test result, not when the person became symptomatic. Many tests take several days to be processed. </p>
+
+<b>What this Chart Means:</b><br>
+<p> One key question is how quickly the virus is spreading. This chart shows lab-confirmed cases, so the actual number of cases is considerably higher. Community transmission may still continue even when new cases are not being detected. Moreover, many cases are asymptomatic. Until there's widely available antibody testing, many who catch the virus will never know they had it. </p>
+<p>The date shown is the day that the state announced the positive test result, not the day that the person caught the virus. It may take several days to a week for results to become available, so this chart lags behind reality. People who catch the virus often recover within 21 days of becoming symptomatic, although less severe cases may pass quicker.</p>
+
+
+<p><b>Notes:</b> The black line is a 7-day moving average. </p>
 </div>
 <div class="title">
 <h3>Total Deaths, {regionDisplay}</h3>
@@ -604,7 +618,9 @@
     </Html>
   </LayerCake>
 </div>
-
+<div class="title">
+<p><b>What this Chart Means:</b><br> Our understanding of the virus is that people often become symptomatic 5-7 days after exposure. While the vast number survive, some <a href="https://www.thelancet.com/action/showPdf?pii=S0140-6736%2820%2930566-3" target="_blank">published reports</a> estimate the time from symptom onset until death to be 19 days, although this number varies. The effects of social distancing should be evident in deaths reported within about 25 days.</p>
+</div>
 
 <div class="title">
 <h3>Total Cases, {regionDisplay}</h3>
@@ -646,6 +662,12 @@
 </div>
 
 <div class="title">
+<p><b>What this Chart Means:</b> <br>When transmission of the virus stops, this chart will flatten out. Early indications are that social distancing has slowed the spread of the virus. This chart shows only laboratory-confirmed cases, so the total number of actual cases is significantly higher.</p>
+</div>
+
+
+
+<div class="title">
 <h3>Daily Test Results, {regionDisplay}</h3>
 </div>
 
@@ -682,6 +704,14 @@
     </Html>
   </LayerCake>
 </div>
+
+ <div class="title">
+<p><b>What this Chart Means</b>
+
+<br>Widely available testing is one of the key requirements to ending social distancing, although epidemiologists argue it's <a  target="_blank" href="https://www.statnews.com/2020/03/24/we-need-smart-coronavirus-testing-not-just-more-testing/">not just the number of tests that matter</a>. One team at Harvard suggests reopening states would require <a  target="_blank" href="https://www.nytimes.com/interactive/2020/04/17/us/coronavirus-testing-states.html">152 tests per 100,000 residents</a>, which translates into more than 6,400 tests in Oregon daily.
+</p>
+</div>
+
 
 <div class="title">
 <h3>Test Positivity Rate, {regionDisplay}</h3>
@@ -720,17 +750,21 @@
     </Html>
   </LayerCake>
 </div>
-<div class="title">
-<p><b>Notes:</b> The black line is a 7-day moving average. The positivity rate is the percentage of tests that returned positive for the virus. The day used is the day that the results were announced. </p>
+
+  <div class="title">
+<p><b>What this Chart Means</b>
+
+<br>The positivity rate is the percentage of tests that returned positive for the virus. The day used is the day that the results were announced. Very high positivity rates have been seen in the hardest-hit parts of the country, but Oregon's rate is lower than the rate in the U.S. as a whole. The national rate has been<a  target="_blank" href="https://www.theatlantic.com/technology/archive/2020/04/us-coronavirus-outbreak-out-control-test-positivity-rate/610132/"> estimated to be 20%</a>.
+</p>
+
+
+<p><b>Notes:</b> The black line is a 7-day moving average. </p>
 </div>
 
-
-
-
-<div class="data-container" style="margin-top:20px; margin-bottom: 50px;">
-<p class="byline"><b>Sources:</b> Population estimates as of July, 1 2019, <a href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>. 
+<div class="data-container" style="margin-top:20px; margin-bottom: 100px;">
+<p class="byline"><b>Sources:</b> Population estimates as of July, 1 2019, <a  target="_blank" href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a  target="_blank" href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>. 
 </p>
 </div>
+<div style="height:100px;"></div>
 
-<div style="height: 100px;"></div>
 

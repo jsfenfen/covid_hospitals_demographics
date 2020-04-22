@@ -38,7 +38,7 @@ def output_table(data_table, outputfile):
 		if i==0:
 			colheaders = row.find_all('th')
 			header_names = [clean_header(i.text) for i in colheaders]
-			print(header_names)
+			#print(header_names)
 
 		else:
 			data = row.find_all('td')
@@ -79,16 +79,29 @@ def get_table_from_header(first_header, i):
 
 
 files = (glob.glob(filebasestring))
+
+files.sort()
+
+print(files[-1])
+
+current_file = files[-1]
+most_recent = False
+
 for file in files:
 	filename = os.path.basename(file)
-	filebase = filename.replace("ohapage_", "ohapageread_")
 
 	# allow an exception for the most current file, maybe? 
-	if '_06_15.html' in filebase or '2020_04_20_20_02' in filebase:
+	if '_06_15.html' in filename or file == current_file:
 
-	#if '_06_15.html' in filebase:
+		if file == current_file:
+			most_recent = True
+		else:
+			most_recent = False
 
-		print("\n\nProcessing file %s" % filebase)
+		filebase = filename.replace("ohapage_", "ohapageread_")
+
+
+		print("\nProcessing file %s" % filebase)
 
 		filebase_raw = filebase
 		filebase = filebase.replace("_06_15.html","")
@@ -100,13 +113,13 @@ for file in files:
 		if '_06_15.html' in filebase_raw:
 			prior_day = prior_day - datetime.timedelta(days=1)
 
-		print("prior day %s" % prior_day)
+		#print("prior day %s" % prior_day)
 
 		new_filebase = 'ohapageread_' + prior_day.strftime("%Y_%m_%d") + ".csv"
 
 		filebase = new_filebase
 
-		print("filebase: %s" % filebase)
+		#print("filebase: %s" % filebase)
 
 
 		raw_page = open(file, 'r').read()
@@ -122,10 +135,22 @@ for file in files:
 
 			if i == 0:
 				table_name = 'summary'
+				if most_recent:
+
+					# Data current as of 4/20/2020, 8:00 a.m. Updated daily.
+					fixed_header = first_header.replace('Updated daily.', '')
+					fixed_header = fixed_header.strip(' ')
+
+					day_string = prior_day.strftime("%d/%Y")
+					month = int(prior_day.strftime("%m"))
+					day_string_fixed = str(month) + "/" + day_string
+					
+					# make sure the most recent file has data for the correct day
+					assert day_string_fixed in fixed_header
 			else:
 				table_name = get_table_from_header(first_header, i)
 
-			print("%s -- %s --%s" % (i, first_header, table_name))
+			#print("%s -- %s --%s" % (i, first_header, table_name))
 
 			if table_name:
 				#print("Got table name %s" % table_name)
@@ -134,7 +159,7 @@ for file in files:
 
 				output_table(table,outfile)
 			else:
-				print("**No table for '%s'" % first_header)
+				#print("**No table for '%s'" % first_header)
 				pass
 		
 

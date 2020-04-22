@@ -18,15 +18,25 @@
   const geojson = feature(ORCounties, ORCounties.objects.reprojection);
 
 
+  import Chip, {Set, Icon, Text} from '@smui/chips';
+
   /* data */
   import coviddata from './data/coviddata.js'
-  
 
+  onMount(() => {
+    // Assumes that pymchild is defined on the page before here! 
+    pymChild.sendHeight();
+  });
 
   let breaks =  [] 
 
+
   let bar_chart_case_data = []
   let region_pop_data = {}
+  let table_choice = 'Metro Areas';
+
+    // Hmm... https://stackoverflow.com/questions/56983938/in-svelte-how-to-console-logyes-when-a-variable-changed
+  $: table_choice, handleSelect(table_choice);
 
   let dead_v_cases;  // Only do this for the whole state. 
 
@@ -70,21 +80,6 @@
     ]}
     ];
 
-/*
-
-1 Portland  wikipedia article   632,309   45.523 / -122.676
-2 Salem  wikipedia article  164,549   44.943 / -123.035
-3 Eugene  wikipedia article   163,460   44.052 / -123.087
-4 Gresham  wikipedia article  110,553   45.498 / -122.431
-5 Hillsboro  wikipedia article  102,347   45.523 / -122.99
-6 Beaverton  wikipedia article  96,577  45.487 / -122.804
-7 Bend  wikipedia article   87,014  44.058 / -121.315
-8 Medford  wikipedia article  79,805  42.327 / -122.876
-9 Springfield  wikipedia article  60,870  44.046 / -123.022
-10  Corvallis  wikipedia article  55,780  44.565 / -123.262
-11  Albany  wikipedia article   52,175  44.637 / -123.106
-12  Tigard  wikipedia article   51,253  45.431 / -122.771
-*/
   let dead_v_cases_long
   let dead_v_cases_series;
   let dead_v_cases_domain;
@@ -93,6 +88,9 @@
   let dead_v_cases_colorScale;
 
   let state_rate_dict = {};
+
+  let regions_table = [];
+  let counties_table = [];
 
   let max_date_string;
 
@@ -290,6 +288,12 @@
     return interval;
   }
 
+  function handleSelect() {
+    setTimeout(function(){ pymChild.sendHeight(); }, 20);
+  }
+
+
+
   function get_state_rates() {
 
 
@@ -306,18 +310,33 @@
       var name_formatted = coviddata[key]['name'];
       //name_formatted = name_formatted.replace('County', 'Cnty')
 
-      if (key == '41000' || key == '41420' || key=='38900') {
-        name_formatted = "<b>" + name_formatted + "</b>"
-      }
+     
       var this_row = {
         name: name_formatted,
         pop: parseInt(coviddata[key]['pop']),
         cpm: per_million_cases,
         dpm: per_million_deaths,
+        sortby: per_million_cases,
+        isbold:is_bold
       }
-      results_for_table.push(this_row);
+
+      if (key == '41000') {
+        this_row['name'] = "<b>Oregon Statewide</b>";
+        this_row['sortby'] = -99999999;
+        this_row['is_bold'] = true;
+        regions_table.push(this_row);
+        counties_table.push(this_row);
+      }
+      else if (key == '41420' || key=='38900') {
+        regions_table.push(this_row);
+      } else {
+        counties_table.push(this_row);
+      }
     });
-    results_for_table.sort((a, b) => (a.cpm < b.cpm) ? 1 : -1)
+
+    regions_table.sort((a, b) => (a.sortby < b.sortby) ? 1 : -1);
+    counties_table.sort((a, b) => (a.sortby < b.sortby) ? 1 : -1);
+
   }
 
   // initial
@@ -367,6 +386,8 @@ function set_fill(featureid) {
     return d;
   }
 
+
+
   
 </script>
 
@@ -388,7 +409,12 @@ table {
 
 th, td {
   text-align: left;
-  padding: 10px;
+  padding: 7px;
+}
+
+
+.indented {
+    text-indent: 10px;
 }
 
 tr:nth-child(even) {
@@ -398,12 +424,18 @@ tr:nth-child(even) {
 .cshead {
    background-color: #f2f2f2;
 }
+
+.mdc-chip {
+
+    font-family: Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
+    
+}
 </style>
 
 
 <div class="title">
 <h3>Infection Rate by County</h3>
-<p>As of April 20, 8 a.m.</p>
+<p>As of April 21, 8 a.m.</p>
 </div>
 
 <div class="chart-container">
@@ -443,36 +475,69 @@ tr:nth-child(even) {
     </Svg>
   </LayerCake>
   <div style="margin-left:30px;">
-  <p class="byline">Scaled by the number of cases per million</p>
+  <p class="byline">Scaled by cases per million</p>
 </div>
 </div>
 
 <div class="data-container" style="margin-top:30px;">
-<h2>County Summary</h2>
+<h2>Summary</h2>
+
+<div style="margin:0px; padding:0px;">
+    <Set chips={['Metro Areas', 'All Counties']} let:chip choice bind:selected={table_choice}>
+      <Chip tabindex="0">{chip}</Chip>
+    </Set>
+  </div>
+
 
 <p>Rates are expressed per <b>million</b> residents.</p>
-<table class="countysummary">
+{#if table_choice=='Metro Areas'}
+  <table class="countysummary">
        <thead>
           <tr class="csrowheader">
             <th class="cshead">Area</th>
-            <th class="cshead">Size</th>
+            <th class="cshead">Pop.</th>
             <th class="cshead">Case Rate</th>
           </tr>
         </thead>
     <tbody>
-      {#each results_for_table as region}
+      {#each regions_table as region}
       <tr class="csrow">
         <td class="cscell">{@html region.name}</td>
         <td class="cscell">{format_number(region.pop)}</td>
         <td class="cscell">{format_rate(region.cpm)}</td>
       </tr>
       {/each}
+
     </tbody>
   </table>
+  <p>
+    The Portland area consists of Clackamas, Columbia, Multnomah, Washington and Yamhill counties. The Salem area consists of Marion and Polk counties.
+      </p>
+{:else}
+  <table class="countysummary">
+       <thead>
+          <tr class="csrowheader">
+            <th class="cshead">Area</th>
+            <th class="cshead">Pop.</th>
+            <th class="cshead">Case Rate</th>
+          </tr>
+        </thead>
+    <tbody>
+      {#each counties_table as region}
+      <tr class="csrow">
+        <td class="cscell">{@html region.name}</td>
+        <td class="cscell">{format_number(region.pop)}</td>
+        <td class="cscell">{format_rate(region.cpm)}</td>
+      </tr>
+      {/each}
+
+    </tbody>
+  </table>
+{/if}
 </div>
 
-<div class="data-container" style="margin-top:20px; margin-bottom: 50px;">
-<p class="byline"><b>Sources:</b> Population estimates as of July, 1 2019, <a href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>. 
+<div class="data-container" style="margin-top:20px; height: 120px;">
+<p class="byline"><b>Sources:</b> Population estimates as of July, 1 2019, <a  target="_blank" href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a  target="_blank" href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>. 
 </p>
 </div>
-<div style="height: 100px;"></div>
+
