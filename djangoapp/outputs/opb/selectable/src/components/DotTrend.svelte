@@ -2,8 +2,8 @@
 	import { getContext } from 'svelte';
 	const { data, xGet, yGet } = getContext('LayerCake');
 	export let colorScale = d => '#000';
-	console.log("Dot trend with data");
-	console.log($data);
+	//console.log("Dot trend with data");
+	//console.log($data);
 
 	$: path = values => {
 		return 'M' + values
@@ -23,7 +23,7 @@
 
 	for (var i=0; i<$data[0]['values'].length; i++) {
 		var this_x = $xGet($data[0]['values'][i]);
-		console.log(i + ' this_x ' + this_x);
+		//console.log(i + ' this_x ' + this_x);
 	}
 
 </script>

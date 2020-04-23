@@ -101,7 +101,15 @@ if __name__ == "__main__":
                 except IndexError:
                     pass
 
-                cases_return[county_fips][datestring] = {'c':int(cases.replace(',','')),'d':int(deaths.replace(',','')),'n':int(negatives.replace(',',''))}
+
+                
+                try: 
+                    negatives = int(negatives.replace(',',''))
+                except ValueError:
+                    print("\n****\n pending negatives wtf")
+                    negatives = -999
+
+                cases_return[county_fips][datestring] = {'c':int(cases.replace(',','')),'d':int(deaths.replace(',','')),'n':negatives}
                 
 
 
@@ -142,9 +150,17 @@ if __name__ == "__main__":
             if i > 0:
                 yesterdays_data = cases_return[countyfips][prior_datestring]
 
+
                 todays_data['n_c'] = todays_data['c'] - yesterdays_data['c']
                 todays_data['n_d'] = todays_data['d'] - yesterdays_data['d']
-                todays_data['n_n'] = todays_data['n'] - yesterdays_data['n']
+
+
+                if todays_data['n'] == -999:
+                    # hack for state's april 22 data problem
+                    todays_data['n_n'] = 0
+                    todays_data['n'] = yesterdays_data['n']
+                else:
+                    todays_data['n_n'] = todays_data['n'] - yesterdays_data['n']
                 
                 cases_return[countyfips][datestring] = todays_data
 

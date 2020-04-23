@@ -435,7 +435,7 @@ tr:nth-child(even) {
 
 <div class="title">
 <h3>Infection Rate by County</h3>
-<p>As of April 21, 8 a.m.</p>
+<p>As of April 23, 8 a.m.</p>
 </div>
 
 <div class="chart-container">
@@ -536,7 +536,7 @@ tr:nth-child(even) {
 {/if}
 </div>
 
-<div class="data-container" style="margin-top:20px; height: 120px;">
+<div class="data-container" style="margin-top:20px; height: 80px;">
 <p class="byline"><b>Sources:</b> Population estimates as of July, 1 2019, <a  target="_blank" href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a  target="_blank" href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>. 
 </p>
 </div>

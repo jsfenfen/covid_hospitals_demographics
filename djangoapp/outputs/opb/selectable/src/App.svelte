@@ -301,7 +301,10 @@
             });
             this_average = sum / valid_values;
 
-            data_for_this_fips.push({'month':this_date, 'Rate':positive_rate.toFixed(1), 'Trend':this_average});
+
+            if (day_count != 34 && day_count != 35) {
+              data_for_this_fips.push({'month':this_date, 'Rate':positive_rate.toFixed(1), 'Trend':this_average});
+            }
           }
         }
 
@@ -532,7 +535,7 @@
 <div class="title">
 
 <h3>New Confirmed Cases, {regionDisplay}</h3>
-<p>As of April 21, 8 a.m.</p>
+<p>As of April 23, 8 a.m.</p>
 <p>{explainer_text}</p>
 <!--- <p>{region_text}</p> -->
 </div>
@@ -710,6 +713,7 @@
 
 <br>Widely available testing is one of the key requirements to ending social distancing, although epidemiologists argue it's <a  target="_blank" href="https://www.statnews.com/2020/03/24/we-need-smart-coronavirus-testing-not-just-more-testing/">not just the number of tests that matter</a>. One team at Harvard suggests reopening states would require <a  target="_blank" href="https://www.nytimes.com/interactive/2020/04/17/us/coronavirus-testing-states.html">152 tests per 100,000 residents</a>, which translates into more than 6,400 tests in Oregon daily.
 </p>
+<p><b>Notes:</b> On April 22 state authorities did not provide a negative test count, noting instead that negative "results are pending due to a technical issue with the test reporting database".</p>
 </div>
 
 
@@ -754,17 +758,17 @@
   <div class="title">
 <p><b>What this Chart Means</b>
 
-<br>The positivity rate is the percentage of tests that returned positive for the virus. The day used is the day that the results were announced. Very high positivity rates have been seen in the hardest-hit parts of the country, but Oregon's rate is lower than the rate in the U.S. as a whole. The national rate has been<a  target="_blank" href="https://www.theatlantic.com/technology/archive/2020/04/us-coronavirus-outbreak-out-control-test-positivity-rate/610132/"> estimated to be 20%</a>.
+<br>The positivity rate is the percentage of tests that returned positive for the virus. The day used is the day that the results were announced. Very high positivity rates have been seen in the hardest-hit parts of the country, but Oregon's rate is lower than the rate in the U.S. as a whole. The national rate has been<a  target="_blank" href="https://www.theatlantic.com/technology/archive/2020/04/us-coronavirus-outbreak-out-control-test-positivity-rate/610132/"> estimated to be 20%</a>.</p>
+<p><b>Notes:</b> This isn't calculated for April 22-23, when the state delayed reporting negative cases due to a technical issue. 
 </p>
 
 
 <p><b>Notes:</b> The black line is a 7-day moving average. </p>
 </div>
 
-<div class="data-container" style="margin-top:20px; margin-bottom: 100px;">
+<div class="data-container" style="margin-top:20px; height: 80px;">
 <p class="byline"><b>Sources:</b> Population estimates as of July, 1 2019, <a  target="_blank" href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a  target="_blank" href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>. 
 </p>
 </div>
-<div style="height:100px;"></div>
 
 
