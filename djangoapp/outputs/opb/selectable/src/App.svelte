@@ -36,6 +36,8 @@
 
   /* svelte smui */
 
+
+  let recent_date_text = 'April 25 at 8 a.m.'
   
   import {MDCSelect} from '@material/select';
   import Select, { Option } from "@smui/select";
@@ -108,10 +110,13 @@
   let cases;
   let deaths;
   let new_cases;
+  let new_deaths;
   let tests;
   let positivity;
   let dead_v_cases;  // Only do this for the whole state. 
 
+
+  let has_deaths = false;
 
   let cases_long;
   let cases_series;
@@ -129,6 +134,9 @@
   let new_cases_series;
   let new_cases_domain;
 
+  let new_deaths_long;
+  let new_deaths_series;
+  let new_deaths_domain;
 
   let tests_long;
   let tests_series;
@@ -141,6 +149,8 @@
   let colorScale;
   let cases_colorScale;
   let deaths_colorScale;
+  let new_deaths_colorScale;
+
   let new_cases_colorScale;
   let tests_colorScale;
   let positivity_colorScale;
@@ -200,7 +210,15 @@
       explainer_text = '';
     }
 
-    region_text = regionDisplay + " has a total population of " + format_number(coviddata[thisfips]['pop']) + " and " + format_number(100*coviddata[thisfips]['fraction_65_over'])  + "% are over 65. As of " + format_date_string(max_date_string) + " a total of " + format_number(coviddata[thisfips][max_date_string]['c']) + " confirmed cases and " + format_number(coviddata[thisfips][max_date_string]['d']) + " deaths have been reported to the state health department."
+    var case_plural = (coviddata[thisfips][max_date_string]['n_c'] != 1 ? 's':'');
+    var death_plural = (coviddata[thisfips][max_date_string]['n_d'] != 1 ? 's':'');
+
+
+    region_text = regionDisplay + " reported a total of " + format_number(coviddata[thisfips][max_date_string]['c']) + " confirmed cases and " + format_number(coviddata[thisfips][max_date_string]['d']) + " deaths as of " + format_date_string(max_date_string) + ", including <b>" + coviddata[thisfips][max_date_string]['n_c'] + "</b> new case" + case_plural + " and <b>" + coviddata[thisfips][max_date_string]['n_d'] + "</b> new death" + death_plural; 
+
+
+    has_deaths = coviddata[thisfips][max_date_string]['d'] > 0;
+    
 
     // Assumes that pymchild is defined on the page before here! 
     setTimeout(function(){ pymChild.sendHeight(); }, 20);
@@ -214,6 +232,7 @@
     var day_count = 0;
 
     var new_case_ma = [-1,-1,-1,-1,-1,-1,-1];
+    var new_death_ma = [-1,-1,-1,-1,-1,-1,-1];
 
     var positivity_ma = [-1,-1,-1,-1,-1,-1,-1];
 
@@ -287,12 +306,17 @@
               positive_rate = 100*this_jurisdiction[key]['n_c']/total_tests;
             }
 
+
+            // futzing with this, cleanup when we know how it should work
+            if (day_count == 34 || day_count == 35) {
+              positivity_ma.push(-1);
+            } else {
+              positivity_ma.push(positive_rate);
+            }
+
             var this_average;
             var sum=0;
             var valid_values = 0;
-            // futzing with this, cleanup when we know how it should work
-            positivity_ma.push(positive_rate);
-
             positivity_ma.forEach(val => { 
               if (val!=-1) {
                 valid_values++;
@@ -313,15 +337,34 @@
         if (data_type == 'new_deaths') {
 
           if (day_count > 1)  {
+
             var new_death_count = this_jurisdiction[key]['n_d'];
             // Don't show less than zero
             // This happens if they retrospectively move a death
             if (new_death_count < 0) {
               new_death_count = 0;
             }
-            data_for_this_fips.push({'month':this_date, 'New Deaths':new_death_count});
+
+            var this_average;
+            var sum=0;
+            var valid_values = 0;
+            // futzing with this, cleanup when we know how it should work
+            new_death_ma.push(new_death_count);
+
+            new_death_ma.forEach(val => { 
+              if (val!=-1) {
+                valid_values++;
+                sum += val;
+              }
+            });
+            this_average = sum / valid_values;
+
+
+            data_for_this_fips.push({'month':this_date, 'New Deaths':new_death_count, 'Trend':this_average});
           }
         }
+
+
         if (data_type == 'dead_v_cases') {
           var this_data = {'month':this_date};
 
@@ -347,6 +390,13 @@
     '#00a2e3',
     '#b71f24',
   ];
+
+
+  var seriesColors2 = [
+    '#6d6d00',
+    '#b2bc00',
+  ];
+
 
 
   function get_long_data(data) {
@@ -405,6 +455,7 @@
     cases = prep_data_from_archive('cases', fips);
     deaths = prep_data_from_archive('deaths', fips);
     new_cases = prep_data_from_archive('new_cases', fips);
+    new_deaths = prep_data_from_archive('new_deaths', fips);
     tests = prep_data_from_archive('tests', fips);
     positivity = prep_data_from_archive('positivity', fips);
 
@@ -424,6 +475,14 @@
     deaths_series = get_series_names(deaths);
     deaths_domain = get_domain(deaths_long,false);
 
+    new_deaths_long = get_long_data(new_deaths);
+    new_deaths_series = get_series_names(new_deaths);
+    new_deaths_domain = get_domain(new_deaths_long,false);
+
+    console.log("New deaths");
+    console.log(new_deaths);
+
+
     new_cases_long = get_long_data(new_cases);
     new_cases_series = get_series_names(new_cases);
     new_cases_domain = get_domain(new_cases_long,false);
@@ -440,6 +499,9 @@
       .domain(deaths)
       .range(seriesColors);
     
+    new_deaths_colorScale = scaleOrdinal()
+      .domain(new_deaths)
+      .range(seriesColors2);
 
     tests_colorScale = scaleOrdinal()
       .domain(tests)
@@ -456,7 +518,7 @@
     const date = new Date(d);
     var day = date.getDate();
     var dayofweek = date.getDay()
-    if (dayofweek==6 && day != 21) {
+    if (dayofweek==6 && day != 21 && day != 25) {
       return `${monthNames[date.getUTCMonth()]} ${date.getUTCDate()}`;
     } else {
       return '';
@@ -535,9 +597,9 @@
 <div class="title">
 
 <h3>New Confirmed Cases, {regionDisplay}</h3>
-<p>As of April 23, 8 a.m.</p>
 <p>{explainer_text}</p>
-<!--- <p>{region_text}</p> -->
+<p>{@html region_text}</p>
+
 </div>
 
 <div class="chart-container">
@@ -583,6 +645,61 @@
 
 <p><b>Notes:</b> The black line is a 7-day moving average. </p>
 </div>
+
+
+{#if has_deaths }
+
+<div class="title">
+
+<h3>New Deaths, {regionDisplay}</h3>
+</div>
+
+<div class="chart-container">
+  
+  <LayerCake
+    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
+    x='month'
+    y='value'
+    yDomain={new_deaths_domain}
+    flatData={flatten(new_deaths_long)}
+    data={new_deaths_long}
+  >
+    <Svg>
+      <AxisX
+        gridlines={false}
+        ticks={new_deaths.map(d => d[xKey])}
+        formatTick={formatTickX}
+        snapTicks={true}
+      />
+      <AxisY
+        formatTick={formatTickY}
+      />
+
+      <BarTrend
+        colorScale={new_cases_colorScale}
+        fill="#6d6d00"
+      />
+    </Svg>
+
+    <Html>
+      <BarTrendTooltip
+
+        dataset={ new_deaths }
+      />
+    </Html>
+  </LayerCake>
+</div>
+<div class="title">
+
+<b>What this Chart Means:</b><br>
+<p>This chart shows known deaths due to COVID-19, although it is likely an undercount. In other areas total deaths have been adjusted upwards to include deaths at home, in homeless camps, and where testing was not immediately available.</p>
+
+
+<p><b>Notes:</b> The black line is a 7-day moving average. </p>
+</div>
+
+
+
 <div class="title">
 <h3>Total Deaths, {regionDisplay}</h3>
 </div>
@@ -624,6 +741,8 @@
 <div class="title">
 <p><b>What this Chart Means:</b><br> Our understanding of the virus is that people often become symptomatic 5-7 days after exposure. While the vast number survive, some <a href="https://www.thelancet.com/action/showPdf?pii=S0140-6736%2820%2930566-3" target="_blank">published reports</a> estimate the time from symptom onset until death to be 19 days, although this number varies. The effects of social distancing should be evident in deaths reported within about 25 days.</p>
 </div>
+
+{/if }
 
 <div class="title">
 <h3>Total Cases, {regionDisplay}</h3>
@@ -759,11 +878,7 @@
 <p><b>What this Chart Means</b>
 
 <br>The positivity rate is the percentage of tests that returned positive for the virus. The day used is the day that the results were announced. Very high positivity rates have been seen in the hardest-hit parts of the country, but Oregon's rate is lower than the rate in the U.S. as a whole. The national rate has been<a  target="_blank" href="https://www.theatlantic.com/technology/archive/2020/04/us-coronavirus-outbreak-out-control-test-positivity-rate/610132/"> estimated to be 20%</a>.</p>
-<p><b>Notes:</b> This isn't calculated for April 22-23, when the state delayed reporting negative cases due to a technical issue. 
-</p>
-
-
-<p><b>Notes:</b> The black line is a 7-day moving average. </p>
+<p><b>Notes:</b> This isn't calculated for April 22-23, when the state delayed reporting negative cases due to a technical issue. The black line is a 7-day moving average. </p>
 </div>
 
 <div class="data-container" style="margin-top:20px; height: 80px;">

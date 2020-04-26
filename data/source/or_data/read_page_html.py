@@ -95,6 +95,7 @@ for file in files:
 
 		if file == current_file:
 			most_recent = True
+			print("\n\nProcessing most current ")
 		else:
 			most_recent = False
 
@@ -112,6 +113,8 @@ for file in files:
 
 		if '_06_15.html' in filebase_raw:
 			prior_day = prior_day - datetime.timedelta(days=1)
+		else:
+			prior_day = snapshot_date 
 
 		#print("prior day %s" % prior_day)
 
@@ -140,6 +143,7 @@ for file in files:
 					# Data current as of 4/20/2020, 8:00 a.m. Updated daily.
 					fixed_header = first_header.replace('Updated daily.', '')
 					fixed_header = fixed_header.strip(' ')
+					print("Fixed header is " + fixed_header)
 
 					day_string = prior_day.strftime("%d/%Y")
 					month = int(prior_day.strftime("%m"))

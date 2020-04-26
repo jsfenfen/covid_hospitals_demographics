@@ -2,7 +2,10 @@
 	import { getContext } from 'svelte';
 	const { data, xGet, yGet, height, width } = getContext('LayerCake');
 	export let colorScale = d => '#000';
-	console.log("Dot trend with data");
+
+	export let fill = '#00a2e3';
+
+	console.log("Bar trend with data");
 	console.log($data);
 
 	$: path = values => {
@@ -19,15 +22,12 @@
 
 	const columnWidth = $width / $data[0]['values'].length;
 
-	console.log("columnWidth " + columnWidth);
+	console.log("bartrend columnWidth " + columnWidth);
 
-	const fill = '#00a2e3';
 	const stroke = '#333333';
 	const strokeWidth = 1;
-	const barstroke = '#cccccc';
+	export let barstroke = '#cccccc';
 
-	// #00a2e3',
-    // '#b71f24
 
 	const r = 4;
 

@@ -435,7 +435,7 @@ tr:nth-child(even) {
 
 <div class="title">
 <h3>Infection Rate by County</h3>
-<p>As of April 23, 8 a.m.</p>
+<p>As of April 25, 8 a.m.</p>
 </div>
 
 <div class="chart-container">
