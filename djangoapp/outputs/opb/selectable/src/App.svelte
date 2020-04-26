@@ -273,6 +273,7 @@
             var valid_values = 0;
             // futzing with this, cleanup when we know how it should work
             new_case_ma.push(new_case_count);
+            new_case_ma.shift();
 
             new_case_ma.forEach(val => { 
               if (val!=-1) {
@@ -313,6 +314,7 @@
             } else {
               positivity_ma.push(positive_rate);
             }
+            positivity_ma.shift();
 
             var this_average;
             var sum=0;
@@ -350,6 +352,8 @@
             var valid_values = 0;
             // futzing with this, cleanup when we know how it should work
             new_death_ma.push(new_death_count);
+
+            new_death_ma.shift();
 
             new_death_ma.forEach(val => { 
               if (val!=-1) {
