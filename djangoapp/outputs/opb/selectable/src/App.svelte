@@ -254,6 +254,7 @@
             var valid_values = 0;
             // futzing with this, cleanup when we know how it should work
             new_case_ma.push(new_case_count);
+            new_case_ma.shift();
 
             new_case_ma.forEach(val => { 
               if (val!=-1) {
@@ -291,8 +292,11 @@
             var sum=0;
             var valid_values = 0;
             // futzing with this, cleanup when we know how it should work
-            positivity_ma.push(positive_rate);
 
+            if (day_count != 34 && day_count != 35) {
+              positivity_ma.push(positive_rate);
+              positivity_ma.shift();
+            }
             positivity_ma.forEach(val => { 
               if (val!=-1) {
                 valid_values++;
