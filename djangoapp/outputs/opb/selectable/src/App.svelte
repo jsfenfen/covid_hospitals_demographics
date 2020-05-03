@@ -37,7 +37,6 @@
   /* svelte smui */
 
 
-  let recent_date_text = 'April 25 at 8 a.m.'
   
   import {MDCSelect} from '@material/select';
   import Select, { Option } from "@smui/select";
@@ -165,6 +164,7 @@
 
   const map_colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
 
+  let recent_date_text = 'May 2 at 8 a.m.'
 
   let selectedFIPS = '41000';
   let regionDisplay = 'Oregon statewide';
@@ -214,7 +214,7 @@
     var death_plural = (coviddata[thisfips][max_date_string]['n_d'] != 1 ? 's':'');
 
 
-    region_text = regionDisplay + " reported a total of " + format_number(coviddata[thisfips][max_date_string]['c']) + " confirmed cases and " + format_number(coviddata[thisfips][max_date_string]['d']) + " deaths as of " + format_date_string(max_date_string) + ", including <b>" + coviddata[thisfips][max_date_string]['n_c'] + "</b> new case" + case_plural + " and <b>" + coviddata[thisfips][max_date_string]['n_d'] + "</b> new death" + death_plural; 
+    region_text = regionDisplay + " reported a total of " + format_number(coviddata[thisfips][max_date_string]['c']) + " confirmed cases and " + format_number(coviddata[thisfips][max_date_string]['d']) + " deaths as of " + format_date_string(max_date_string) + ", including <b>" + coviddata[thisfips][max_date_string]['n_c'] + "</b> new case" + case_plural + " and <b>" + coviddata[thisfips][max_date_string]['n_d'] + "</b> new death" + death_plural + "."; 
 
 
     has_deaths = coviddata[thisfips][max_date_string]['d'] > 0;
@@ -522,7 +522,7 @@
     const date = new Date(d);
     var day = date.getDate();
     var dayofweek = date.getDay()
-    if (dayofweek==6 && day != 21 && day != 25) {
+    if (dayofweek==0 ) {
       return `${monthNames[date.getUTCMonth()]} ${date.getUTCDate()}`;
     } else {
       return '';
@@ -696,10 +696,54 @@
 <div class="title">
 
 <b>What this Chart Means:</b><br>
-<p>This chart shows known deaths due to COVID-19, although it is likely an undercount. In other areas total deaths have been adjusted upwards to include deaths at home, in homeless camps, and where testing was not immediately available.</p>
+<p>This chart shows known deaths due to COVID-19. It is an undercount. In other areas total deaths have been adjusted upwards later to include deaths at home, in homeless camps, and where testing was not immediately available.</p>
 
 
 <p><b>Notes:</b> The black line is a 7-day moving average. </p>
+</div>
+
+
+<div class="title">
+<h3>Total Cases, {regionDisplay}</h3>
+</div>
+
+<div class="chart-container">
+  
+  <LayerCake
+    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
+    x='month'
+    y='value'
+    flatData={flatten(cases_long)}
+    yDomain={cases_domain}
+    data={cases_long}
+  >
+    <Svg>
+      <AxisX
+        gridlines={false}
+        ticks={cases.map(d => d[xKey])}
+        formatTick={formatTickX}
+        snapTicks={true}
+      />
+      <AxisY
+        formatTick={formatTickY}
+      />
+
+      <MultiLine
+        colorScale={cases_colorScale}
+      />
+    </Svg>
+
+    <Html>
+      <Labels/>
+      <Tooltip
+        dataset={ cases }
+      />
+    </Html>
+  </LayerCake>
+</div>
+
+<div class="title">
+<p><b>What this Chart Means:</b> <br>When transmission of the virus stops, this chart will flatten out. Early indications are that social distancing has slowed the spread of the virus. This chart shows only laboratory-confirmed cases, so the total number of actual cases is significantly higher.</p>
 </div>
 
 
@@ -747,50 +791,6 @@
 </div>
 
 {/if }
-
-<div class="title">
-<h3>Total Cases, {regionDisplay}</h3>
-</div>
-
-<div class="chart-container">
-  
-  <LayerCake
-    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
-    x='month'
-    y='value'
-    flatData={flatten(cases_long)}
-    yDomain={cases_domain}
-    data={cases_long}
-  >
-    <Svg>
-      <AxisX
-        gridlines={false}
-        ticks={cases.map(d => d[xKey])}
-        formatTick={formatTickX}
-        snapTicks={true}
-      />
-      <AxisY
-        formatTick={formatTickY}
-      />
-
-      <MultiLine
-        colorScale={cases_colorScale}
-      />
-    </Svg>
-
-    <Html>
-      <Labels/>
-      <Tooltip
-        dataset={ cases }
-      />
-    </Html>
-  </LayerCake>
-</div>
-
-<div class="title">
-<p><b>What this Chart Means:</b> <br>When transmission of the virus stops, this chart will flatten out. Early indications are that social distancing has slowed the spread of the virus. This chart shows only laboratory-confirmed cases, so the total number of actual cases is significantly higher.</p>
-</div>
-
 
 
 <div class="title">

@@ -145,7 +145,8 @@ for file in files:
 					fixed_header = fixed_header.strip(' ')
 					print("Fixed header is " + fixed_header)
 
-					day_string = prior_day.strftime("%d/%Y")
+					day = str(int(prior_day.strftime("%d")))
+					day_string = day + prior_day.strftime("/%Y")
 					month = int(prior_day.strftime("%m"))
 					day_string_fixed = str(month) + "/" + day_string
 					

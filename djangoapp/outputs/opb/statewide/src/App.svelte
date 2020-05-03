@@ -39,6 +39,7 @@
   $: table_choice, handleSelect(table_choice);
 
   let dead_v_cases;  // Only do this for the whole state. 
+  let recent_date_text = 'May 2 at 8 a.m.'
 
   let points = [
     {'name': 'Portland',
@@ -435,7 +436,7 @@ tr:nth-child(even) {
 
 <div class="title">
 <h3>Infection Rate by County</h3>
-<p>As of April 25, 8 a.m.</p>
+<p>As of { recent_date_text}</p>
 </div>
 
 <div class="chart-container">
