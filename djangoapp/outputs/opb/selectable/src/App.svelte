@@ -50,17 +50,17 @@
     {value: '41005', label: 'Clackamas County', group: 'Counties'},
     {value: '41007', label: 'Clatsop County', group: 'Counties'},
     {value: '41009', label: 'Columbia County', group: 'Counties'},
-    //{value: '41011', label: 'Coos County', group: 'Counties'},
+    {value: '41011', label: 'Coos County', group: 'Counties'},
     {value: '41013', label: 'Crook County', group: 'Counties'},
     {value: '41015', label: 'Curry County', group: 'Counties'},
     {value: '41017', label: 'Deschutes County', group: 'Counties'},
     {value: '41019', label: 'Douglas County', group: 'Counties'},
     //{value: '41021', label: 'Gilliam County', group: 'Counties'},
     {value: '41023', label: 'Grant County', group: 'Counties'},
-    //{value: '41025', label: 'Harney County', group: 'Counties'},
+    {value: '41025', label: 'Harney County', group: 'Counties'},
     {value: '41027', label: 'Hood River County', group: 'Counties'},
     {value: '41029', label: 'Jackson County', group: 'Counties'},
-    //{value: '41031', label: 'Jefferson County', group: 'Counties'},
+    {value: '41031', label: 'Jefferson County', group: 'Counties'},
     {value: '41033', label: 'Josephine County', group: 'Counties'},
     {value: '41035', label: 'Klamath County', group: 'Counties'},
     //{value: '41037', label: 'Lake County', group: 'Counties'},
@@ -268,6 +268,10 @@
           if (day_count > 1)  {
           
             var new_case_count = this_jurisdiction[key]['n_c'];
+            if (new_case_count < 0) {
+              new_case_count = 0;
+            }
+
             var this_average;
             var sum=0;
             var valid_values = 0;
@@ -306,6 +310,9 @@
             if (total_tests > 0 ) {
               positive_rate = 100*this_jurisdiction[key]['n_c']/total_tests;
             }
+            if (positive_rate < 0) {
+              positive_rate = 0;
+            }
 
 
             // futzing with this, cleanup when we know how it should work
@@ -329,7 +336,7 @@
 
 
             if (day_count != 34 && day_count != 35) {
-              data_for_this_fips.push({'month':this_date, 'Rate':positive_rate.toFixed(1), 'Trend':this_average});
+              data_for_this_fips.push({'month':this_date, 'Rate':parseFloat(positive_rate.toFixed(1)), 'Trend':this_average});
             }
           }
         }
@@ -474,6 +481,8 @@
     positivity_long = get_long_data(positivity);
     positivity_series = get_series_names(positivity);
     positivity_domain = get_domain(positivity_long,false);
+    console.log("Got positivity domain " + positivity_domain + " from ");
+    console.log(positivity_long);
 
     deaths_long = get_long_data(deaths);
     deaths_series = get_series_names(deaths);
