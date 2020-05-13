@@ -149,6 +149,7 @@ for file in files:
 					day_string = day + prior_day.strftime("/%Y")
 					month = int(prior_day.strftime("%m"))
 					day_string_fixed = str(month) + "/" + day_string
+					print("day_string_fixed:   %s fixed_header: %s" % (day_string_fixed, fixed_header) )
 					
 					# make sure the most recent file has data for the correct day
 					assert day_string_fixed in fixed_header

@@ -164,7 +164,7 @@
 
   const map_colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
 
-  let recent_date_text = 'May 2 at 8 a.m.'
+  let recent_date_text = 'May 11 at 8 a.m.'
 
   let selectedFIPS = '41000';
   let regionDisplay = 'Oregon statewide';
@@ -652,8 +652,8 @@
 <div class="title">
 
 <b>What this Chart Means:</b><br>
-<p> One key question is how quickly the virus is spreading. This chart shows lab-confirmed cases, so the actual number of cases is considerably higher. Community transmission may still continue even when new cases are not being detected. Moreover, many cases are asymptomatic. Until there's widely available antibody testing, many who catch the virus will never know they had it. </p>
-<p>The date shown is the day that the state announced the positive test result, not the day that the person caught the virus. It may take several days to a week for results to become available, so this chart lags behind reality. People who catch the virus often recover within 21 days of becoming symptomatic, although less severe cases may pass quicker.</p>
+<p> One key question is how quickly the virus is spreading. This chart shows lab-confirmed cases and state-designated "presumptive" cases, in which patients show COVID-like symptoms and have been in "close contact with a confirmed case". The actual number of cases is likely considerably higher. Many cases are asymptomatic. Until there's widely available antibody testing, many who catch the virus will never know they had it. </p>
+<p>The date shown is the day that the state announced the case, not the day that the person caught the virus. It may take several days to a week for results to become available, so this chart lags behind reality. People who catch the virus often recover within 21 days of becoming symptomatic, although less severe cases may pass quicker.</p>
 
 
 <p><b>Notes:</b> The black line is a 7-day moving average. </p>

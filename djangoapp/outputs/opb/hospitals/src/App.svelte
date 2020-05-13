@@ -15,9 +15,11 @@
   import Bar from './components/Bar.svelte';
 
   import ReStackedBar from './components/ReStackedBar.svelte';
-
-
   import ReStackedBarTooltip from './components/ReStackedBarTooltip.svelte';
+
+  import ReStackedBarPD from './components/RestackedBarPD.svelte';
+  import ReStackedBarPDTooltip from './components/RestackedBarPDTooltip.svelte';
+
 
   import MapScale from './components/MapScale.svelte';
   import AxisXScaleBand from './components/AxisXScaleBand.svelte';
@@ -749,13 +751,13 @@ tr:nth-child(even) {
         formatTick={formatTickY}
       />
 
-      <ReStackedBar
+      <ReStackedBarPD
         colorScale={current_icu_colorScale}
       />
     </Svg>
 
     <Html>
-      <ReStackedBarTooltip
+      <ReStackedBarPDTooltip
         dataset={ current_icu }
       />
     </Html>
@@ -796,13 +798,13 @@ tr:nth-child(even) {
         formatTick={formatTickY}
       />
 
-      <ReStackedBar
+      <ReStackedBarPD
         colorScale={current_vent_colorScale}
       />
     </Svg>
 
     <Html>
-      <ReStackedBarTooltip
+      <ReStackedBarPDTooltip
         dataset={ current_vent }
       />
     </Html>

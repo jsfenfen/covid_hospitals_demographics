@@ -17,7 +17,6 @@
   const geojson = feature(ORCounties, ORCounties.objects.reprojection);
 
 
-  import Chip, {Set, Icon, Text} from '@smui/chips';
 
   import Tab, {Label as TabLabel} from '@smui/tab';
   import TabBar from '@smui/tab-bar';
@@ -34,8 +33,16 @@
   $: active, handleMapChange(active);
 
   let table_choice = 'Metro Areas';
-  $: table_choice, handleSelect(table_choice);
 
+  export const view_tabs = [
+  { id: 'metro',  label: 'Metro Area' },
+  { id: 'county',  label: 'County' },
+  ];
+
+  let activeTab;
+  activeTab = view_tabs[0]; 
+
+  $: activeTab, handleSelecta();
 
   onMount(() => {
     // Assumes that pymchild is defined on the page before here! 
@@ -44,13 +51,11 @@
 
   let breaks =  [] 
 
-
   let bar_chart_case_data = []
   let region_pop_data = {}
 
-
   let dead_v_cases;  // Only do this for the whole state. 
-  let recent_date_text = 'May 2 at 8 a.m.'
+  let recent_date_text = 'May 12 at 8 a.m.'
 
   let points = [
     {'name': 'Portland',
@@ -128,9 +133,7 @@
   
   var label_array = [];
 
-
   const map_colors = ['#ffffff', '#feedde', '#fdbe85','#fd8d3c','#e6550d','#a63603'];
-
 
   function set_labels() {
 
@@ -352,6 +355,16 @@
     setTimeout(function(){ pymChild.sendHeight(); }, 20);
   }
 
+  function handleSelecta() {
+    console.log("Handle Selecta "  + activeTab.id);
+    if (activeTab.id == 'metro') {
+      table_choice = 'Metro Areas';
+    } else {
+      table_choice = 'All Counties';
+    }
+    setTimeout(function(){ pymChild.sendHeight(); }, 20);
+  }
+
   function get_state_rates() {
 
     // This is just setting max datestring, hmm
@@ -386,8 +399,6 @@
       var per_million_deaths = 1000000 * coviddata[key][max_date_string]['d']/coviddata[key]['pop'];
       var is_bold = false;
       var name_formatted = coviddata[key]['name'];
-      //name_formatted = name_formatted.replace('County', 'Cnty')
-
      
       var this_row = {
         name: name_formatted,
@@ -423,10 +434,34 @@
       }
     });
 
+    // Create a synthetic "rest of state"
+    var ros_pop = parseInt(coviddata['41000']['pop']) - parseInt(coviddata['38900']['pop']) - parseInt(coviddata['41420']['pop'])
+
+    var ros_cases_two_weeks_ago  = parseInt(coviddata['41000'][two_weeks_ago_datestring]['c']) - ( parseInt(coviddata['41420'][two_weeks_ago_datestring]['c']) + parseInt(coviddata['38900'][two_weeks_ago_datestring]['c']) )
+    var ros_cases = parseInt(coviddata['41000'][max_date_string]['c']) - ( parseInt(coviddata['41420'][max_date_string]['c']) + parseInt(coviddata['38900'][max_date_string]['c']) )
+    var ros_nc = ros_cases - ros_cases_two_weeks_ago;
+    var ros_deaths = parseInt(coviddata['41000'][max_date_string]['d']) - ( parseInt(coviddata['41420'][max_date_string]['d']) + parseInt(coviddata['38900'][max_date_string]['d']) )
+
+    var ros_pop = parseInt(coviddata['41000']['pop']) - parseInt(coviddata['38900']['pop']) - parseInt(coviddata['41420']['pop'])
+
+    var ros_per_million_new_cases = 1000000 * ros_nc / ros_pop;
+    var ros_per_million_cases = 1000000 * ros_cases/ros_pop;
+    var ros_per_million_deaths = 1000000 * ros_deaths/ros_pop;
+
+    var rest_of_state_row = {
+      name: "Rest of state",
+      pop: ros_pop,
+      nc:ros_nc,
+      cases:ros_cases,
+      deaths:ros_deaths,
+      cpm: ros_per_million_cases,
+      dpm: ros_per_million_deaths,
+      npm: ros_per_million_new_cases,
+    }
+    regions_table.push(rest_of_state_row);
 
   }
 
-  // initial
 
   function set_breaks(these_breaks, display_type) {
     breaks = these_breaks;
@@ -514,14 +549,11 @@
       counties_table.sort((a, b) => (a.npm < b.npm) ? 1 : -1);
       scaleword = "new cases";
     }
-
+    // We may have to do these assignments to trigger svelte updates? 
     regions_table = regions_table;
     counties_table = counties_table;
+  } 
 
-
-  }
-
-  
 </script>
 
 <style>
@@ -573,7 +605,7 @@ tr:nth-child(even) {
 
 <div class="title">
 <h3>Virus Spread by County</h3>
-<p>As of { recent_date_text} New cases are confirmed positives tests reported within the last two weeks.</p>
+<p>As of { recent_date_text} New cases are confirmed and "presumptive" positives reported within the last two weeks.</p>
 </div>
 
 
@@ -630,22 +662,19 @@ tr:nth-child(even) {
 </div>
 
 <div class="data-container" style="margin-top:30px;">
-<h2>Summary</h2>
-
+<h2>Summary by area</h2>
 
 <div class="title">
-
-<div style="margin:0px; padding:0px;">
-    <Set chips={['Metro Areas', 'All Counties']} let:chip choice bind:selected={table_choice}>
-      <Chip tabindex="0">{chip}</Chip>
-    </Set>
+  <div style="margin:0px; padding:0px;">
+    <TabBar tabs={view_tabs} let:tab minWidth bind:active={activeTab}>
+      <Tab {tab}>
+        <TabLabel>{tab.label}</TabLabel>
+      </Tab>
+    </TabBar>
   </div>
-
 </div>
 
-
-
-<p>Rates are expressed per <b>million</b> residents. New cases are the number of confirmed positives in the last two weeks.</p>
+<p>Rates are expressed per <b>million</b> residents. New cases are the number announced in the last two weeks. Includes state-designated "presumptive" cases, in which patients show COVID-like symptoms and have been in "close contact with a confirmed case".</p>
 {#if table_choice=='Metro Areas'}
   <table class="countysummary">
        <thead>
@@ -699,5 +728,8 @@ tr:nth-child(even) {
 <div class="data-container" style="margin-top:20px; height: 80px;">
 <p class="byline"><b>Sources:</b> Population estimates as of July, 1 2019, <a  target="_blank" href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a  target="_blank" href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>. 
 </p>
+
 </div>
+
+
 
