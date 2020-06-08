@@ -55,7 +55,7 @@
   let region_pop_data = {}
 
   let dead_v_cases;  // Only do this for the whole state. 
-  let recent_date_text = 'May 12 at 8 a.m.'
+  let recent_date_text = 'June 7 at 12:01 a.m.'
 
   let points = [
     {'name': 'Portland',
@@ -356,7 +356,6 @@
   }
 
   function handleSelecta() {
-    console.log("Handle Selecta "  + activeTab.id);
     if (activeTab.id == 'metro') {
       table_choice = 'Metro Areas';
     } else {
@@ -384,7 +383,7 @@
     var this_month = String(two_weeks_ago.getMonth() + 1); // js months!
     this_month = this_month.padStart(2,'0');
     var this_year = two_weeks_ago.getFullYear();
-    var this_day = two_weeks_ago.getDate();
+    var this_day = String(two_weeks_ago.getDate()).padStart(2,'0');
 
     var two_weeks_ago_datestring = this_year + "_" + this_month + "_" + this_day;
 
@@ -392,11 +391,11 @@
       
       var cases_in_last_two_weeks = coviddata[key][max_date_string]['c'] - coviddata[key][two_weeks_ago_datestring]['c']
 
-      var per_million_new_cases = 1000000 * cases_in_last_two_weeks / coviddata[key]['pop']
+      var per_10K_new_cases = 10000 * cases_in_last_two_weeks / coviddata[key]['pop']
 
-      var per_million_cases = 1000000 * coviddata[key][max_date_string]['c']/coviddata[key]['pop'];
+      var per_10K_cases = 10000 * coviddata[key][max_date_string]['c']/coviddata[key]['pop'];
 
-      var per_million_deaths = 1000000 * coviddata[key][max_date_string]['d']/coviddata[key]['pop'];
+      var per_10K_deaths = 10000 * coviddata[key][max_date_string]['d']/coviddata[key]['pop'];
       var is_bold = false;
       var name_formatted = coviddata[key]['name'];
      
@@ -406,17 +405,17 @@
         nc:parseInt(cases_in_last_two_weeks),
         cases:parseInt(coviddata[key][max_date_string]['c']),
         deaths:parseInt(coviddata[key][max_date_string]['d']),
-        cpm: per_million_cases,
-        dpm: per_million_deaths,
-        npm: per_million_new_cases,
-        sortby: per_million_cases,
+        cpm: per_10K_cases,
+        dpm: per_10K_deaths,
+        npm: per_10K_new_cases,
+        sortby: per_10K_cases,
         isbold:is_bold
       }
 
       state_rate_dict[key] = {
-        cpm: per_million_cases,
-        dpm: per_million_deaths,
-        npm: per_million_new_cases
+        cpm: per_10K_cases,
+        dpm: per_10K_deaths,
+        npm: per_10K_new_cases
       }
 
 
@@ -444,9 +443,9 @@
 
     var ros_pop = parseInt(coviddata['41000']['pop']) - parseInt(coviddata['38900']['pop']) - parseInt(coviddata['41420']['pop'])
 
-    var ros_per_million_new_cases = 1000000 * ros_nc / ros_pop;
-    var ros_per_million_cases = 1000000 * ros_cases/ros_pop;
-    var ros_per_million_deaths = 1000000 * ros_deaths/ros_pop;
+    var ros_per_10K_new_cases = 10000 * ros_nc / ros_pop;
+    var ros_per_10K_cases = 10000 * ros_cases/ros_pop;
+    var ros_per_10K_deaths = 10000 * ros_deaths/ros_pop;
 
     var rest_of_state_row = {
       name: "Rest of state",
@@ -454,9 +453,9 @@
       nc:ros_nc,
       cases:ros_cases,
       deaths:ros_deaths,
-      cpm: ros_per_million_cases,
-      dpm: ros_per_million_deaths,
-      npm: ros_per_million_new_cases,
+      cpm: ros_per_10K_cases,
+      dpm: ros_per_10K_deaths,
+      npm: ros_per_10K_new_cases,
     }
     regions_table.push(rest_of_state_row);
 
@@ -528,14 +527,14 @@
   function handleMapChange(maptype) {
 
     if (maptype == 'Deaths') {
-      set_breaks([20,40,60,80], 'dpm');
+      set_breaks([0.25,0.5,0.75,1], 'dpm');
       table_variable_name = 'Deaths';
       regions_table.sort((a, b) => (a.dpm < b.dpm) ? 1 : -1);
       counties_table.sort((a, b) => (a.dpm < b.dpm) ? 1 : -1);
       scaleword = "deaths";
     }
     if (maptype == 'Cases') {
-      set_breaks([400,600,800,1000], 'cpm');
+      set_breaks([5,10,15,20], 'cpm');
       table_variable_name = 'Cases';
       regions_table.sort((a, b) => (a.cpm < b.cpm) ? 1 : -1);
       counties_table.sort((a, b) => (a.cpm < b.cpm) ? 1 : -1);
@@ -543,7 +542,7 @@
 
     }
     if (maptype == 'New') {
-      set_breaks([200,300,400,500], 'npm');
+      set_breaks([2.5,5,7.5,10], 'npm');
       table_variable_name = 'New Cases';
       regions_table.sort((a, b) => (a.npm < b.npm) ? 1 : -1);
       counties_table.sort((a, b) => (a.npm < b.npm) ? 1 : -1);
@@ -657,7 +656,7 @@ tr:nth-child(even) {
     </Svg>
   </LayerCake>
   <div style="margin-left:20px;">
-  <p class="byline"><b>Note:</b> Scaled by {scaleword} per million.</p>
+  <p class="byline"><b>Note:</b> Scaled by {scaleword} per 10,000.</p>
 </div>
 </div>
 
@@ -674,7 +673,7 @@ tr:nth-child(even) {
   </div>
 </div>
 
-<p>Rates are expressed per <b>million</b> residents. New cases are the number announced in the last two weeks. Includes state-designated "presumptive" cases, in which patients show COVID-like symptoms and have been in "close contact with a confirmed case".</p>
+<p>Rates are expressed per <b>10,000</b> residents. New cases are the number announced in the last two weeks. Includes state-designated "presumptive" cases, in which patients show COVID-like symptoms and have been in "close contact with a confirmed case".</p>
 {#if table_choice=='Metro Areas'}
   <table class="countysummary">
        <thead>

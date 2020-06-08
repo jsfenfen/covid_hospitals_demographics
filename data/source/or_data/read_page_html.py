@@ -26,7 +26,7 @@ def clean_header(header):
 	header = header.replace("†","")
 	return header
 
-def output_table(data_table, outputfile):
+def output_table(data_table, outputfile, verbose=False):
 	""" Writes a csv of just the table to a file """
 
 	header_names = []
@@ -38,15 +38,18 @@ def output_table(data_table, outputfile):
 		if i==0:
 			colheaders = row.find_all('th')
 			header_names = [clean_header(i.text) for i in colheaders]
-			#print(header_names)
+			if verbose:
+				print(header_names)
 
 		else:
 			data = row.find_all('td')
 			data_fixed = [i.text for i in data]
-			#print(data_fixed)
+			if verbose:
+				print(data_fixed)
 			data_rows.append(data_fixed)
 
 	outfileh = open(outputfile, 'w')
+	print ('writing to %s' % outputfile)
 	writer = csv.writer(outfileh, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 	writer.writerow(header_names)
 	for data_row in data_rows:
@@ -89,7 +92,9 @@ most_recent = False
 
 for file in files:
 	filename = os.path.basename(file)
+	
 
+	print("processing %s" % filename)
 	# allow an exception for the most current file, maybe? 
 	if '_06_15.html' in filename or file == current_file:
 
@@ -132,8 +137,13 @@ for file in files:
 		for i,table in enumerate(tables):
 
 			first_row = table.find_all('tr')[0]
-			first_header = first_row.find_all('th')[0].text
-			
+
+			try:
+				first_header = first_row.find_all('th')[0].text
+			except IndexError:
+				print("Couldn't get header from first_row, table %s" % i)
+				continue
+
 			table_name = ''
 
 			if i == 0:
@@ -163,7 +173,8 @@ for file in files:
 
 				outfile = "pages_parsed/" + table_name + "_" + filebase
 
-				output_table(table,outfile)
+
+				output_table(table,outfile, False)
 			else:
 				#print("**No table for '%s'" % first_header)
 				pass

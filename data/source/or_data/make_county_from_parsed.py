@@ -37,7 +37,7 @@ if __name__ == "__main__":
 
             reader = csv.DictReader(csvfile)
             for row in reader:
-                print("read counties %s" % row['county'])
+                #print("read counties %s" % row['county'])
                 county_lookup[row['county']] = row['statecountyfips']
                 cases_return[row['statecountyfips']] = row
                 
@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
             reader = csv.DictReader(csvfile)
             for row in reader:
-                print("read county pop %s" % row['fips'])
+                #print("read county pop %s" % row['fips'])
                 county_pops[row['fips']] = row
 
     read_counties()
@@ -62,17 +62,17 @@ if __name__ == "__main__":
 
 
     files = (glob.glob("pages_parsed/county_ohapageread_*.csv"))
-    for file in files:
+    for file in sorted(files):
         
         filename = os.path.basename(file)
-        print("\n\n\nProcessing file %s" % filename)
+        #print("\n\n\nProcessing file %s" % filename)
 
         infile = open(file, 'r')
         reader = csv.reader(infile)
 
         datestring = file.split('county_ohapageread_')[1]
         datestring = datestring.replace(".csv", "")
-        print(datestring)
+        #print(datestring)
 
         try:
             datestrings[datestring]
@@ -90,17 +90,22 @@ if __name__ == "__main__":
                 if not county_fips:
                     continue
                 
-                #print("handling county fips %s row %s" % (county_fips, row))
+                
 
 
                 cases = row[1]
                 deaths = row[2]
                 negatives = '0'
+
+
+
                 try:
                     negatives = row[3]
                 except IndexError:
                     pass
 
+                if county_fips == '41000':
+                    print (negatives)
 
                 
                 try: 
@@ -109,6 +114,10 @@ if __name__ == "__main__":
                     print("\n****\n pending negatives wtf")
                     negatives = -999
 
+                if county_fips == '41000' and datestring in ['2020_05_23', '2020_05_24', '2020_05_25']:
+                    print("Statewide first iteration %s negatives %s" % (datestring, negatives))
+
+
                 cases_return[county_fips][datestring] = {'c':int(cases.replace(',','')),'d':int(deaths.replace(',','')),'n':negatives}
                 
 
@@ -116,13 +125,13 @@ if __name__ == "__main__":
     ## Now that all the data is in, calculate the new deaths and new cases. 
     all_datestrings = list(datestrings.keys())
     all_datestrings.sort()
-    print(all_datestrings)
+    #print(all_datestrings)
 
     county_list = list(county_lookup.keys())
     county_list.sort()
     county_fips_list = [county_lookup[i] for i in county_list]
 
-    print(cases_return)
+    #print(cases_return)
     for i,datestring in enumerate(all_datestrings):
         print("Handling date %s" % datestring)
 
@@ -133,18 +142,22 @@ if __name__ == "__main__":
 
             prior_datestring = prior_day.strftime("%Y_%m_%d") 
 
-            print("prior day %s" % prior_datestring)
+            #print("prior day %s" % prior_datestring)
 
 
         for countyfips in county_fips_list:
-            print("handling county %s" % countyfips)
+            
 
             try:
                 todays_data = cases_return[countyfips][datestring]
+
+                if countyfips == '41000':
+                    print("statewide: %s" % todays_data)
+
             except KeyError:
-                print("missing %s %s" % (countyfips, datestring))
+                #print("missing %s %s" % (countyfips, datestring))
                 todays_data = {'c':0,'d':0,'n':0}
-                print("adding to: %s" % cases_return[countyfips])
+                #print("adding to: %s" % cases_return[countyfips])
                 cases_return[countyfips][datestring] = todays_data
 
             if i > 0:
@@ -157,6 +170,7 @@ if __name__ == "__main__":
 
                 if todays_data['n'] == -999:
                     # hack for state's april 22 data problem
+                    #print("Dealing with april 22 data problem ")
                     todays_data['n_n'] = 0
                     todays_data['n'] = yesterdays_data['n']
                 else:
@@ -176,7 +190,7 @@ if __name__ == "__main__":
         cases_return[cbsa] = {"countyfips": cbsa, "cbsacode":""}
         
         for i,datestring in enumerate(all_datestrings):
-            print("Handling date %s" % datestring)
+            #print("Handling date %s" % datestring)
             c = 0
             n_c = 0
             d = 0 
@@ -187,10 +201,10 @@ if __name__ == "__main__":
             for county_fips in list(cases_return.keys()):
                 this_cbsa_code = cases_return[county_fips]['cbsacode']
                 if this_cbsa_code == cbsa:
-                    print("county fips %s datestring %s" % (county_fips, datestring))
+                    #print("county fips %s datestring %s" % (county_fips, datestring))
                     c += cases_return[county_fips][datestring]['c']
                     d += cases_return[county_fips][datestring]['d']
-                    n += cases_return[county_fips][datestring]['d']
+                    n += cases_return[county_fips][datestring]['n']
                     if i>0:
                         n_c += cases_return[county_fips][datestring]['n_c']
                         n_d += cases_return[county_fips][datestring]['n_d']
