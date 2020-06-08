@@ -12,12 +12,13 @@
   let bar_bottom = $height;
 
   $: columnHeight = d => {
-    //console.log("col height " + $height + " $yGet(d) " + $yGet(d));
+    console.log("col height " + $height + " $yGet(d) " + $yGet(d));
     return $height - $yGet(d);
   };
 
   const columnWidth = $width / $data[0]['values'].length;
 
+  console.log("DTTT columnWidth " + columnWidth);
 
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -45,9 +46,9 @@
 
     //.sort((a, b) => b.value - a.value);
 
-    top = $yScale(rows[0].value);
+    top = $yScale(rows[2].value);
 
-    var display_rows = [rows[0]];
+    var display_rows = [rows[0], rows[1], rows[2]];
 
     return `
       <div style="font-weight: bold;">${monthNames[result[$originalSettings.x].getUTCMonth()]} ${result[$originalSettings.x].getUTCDate()}</div>

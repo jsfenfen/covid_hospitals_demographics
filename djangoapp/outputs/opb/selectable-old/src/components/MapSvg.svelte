@@ -5,8 +5,7 @@
   const { data, width, height } = getContext('LayerCake');
 
   export let projectionName = 'geoAlbersUsa';
-  export let fill_mapping;
-  export let name;
+  export let set_fill = d => '#ffffff';
 
   /* --------------------------------------------
    * Add this in case you want to plot only a subset of the features
@@ -19,9 +18,7 @@
 
   $: geoPath = geo.geoPath(projection);
 
-  function set_fill(key) {
-    return fill_mapping[key];
-  }
+  const colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
 
 </script>
 
@@ -37,7 +34,7 @@
 
 <style>
   .feature-path {
-    stroke: #999;
+    stroke: #333;
     stroke-width: 0.5px;
   }
 </style>

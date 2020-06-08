@@ -9,7 +9,6 @@
 
 
   import { feature } from 'topojson';
-  //import usStates from './data/us-states.topojson.js';
   import ORCounties from './data/orcounties.js';
 
   import { onMount } from 'svelte';
@@ -18,10 +17,32 @@
   const geojson = feature(ORCounties, ORCounties.objects.reprojection);
 
 
-  import Chip, {Set, Icon, Text} from '@smui/chips';
+
+  import Tab, {Label as TabLabel} from '@smui/tab';
+  import TabBar from '@smui/tab-bar';
 
   /* data */
   import coviddata from './data/coviddata.js'
+
+  let active = 'New';
+  let table_variable_name = 'New';
+  let fill_mapping = {};
+
+  let scaleword = "new cases";
+
+  $: active, handleMapChange(active);
+
+  let table_choice = 'Metro Areas';
+
+  export const view_tabs = [
+  { id: 'metro',  label: 'Metro Area' },
+  { id: 'county',  label: 'County' },
+  ];
+
+  let activeTab;
+  activeTab = view_tabs[0]; 
+
+  $: activeTab, handleSelecta();
 
   onMount(() => {
     // Assumes that pymchild is defined on the page before here! 
@@ -30,16 +51,11 @@
 
   let breaks =  [] 
 
-
   let bar_chart_case_data = []
   let region_pop_data = {}
-  let table_choice = 'Metro Areas';
-
-    // Hmm... https://stackoverflow.com/questions/56983938/in-svelte-how-to-console-logyes-when-a-variable-changed
-  $: table_choice, handleSelect(table_choice);
 
   let dead_v_cases;  // Only do this for the whole state. 
-  let recent_date_text = 'May 2 at 8 a.m.'
+  let recent_date_text = 'May 12 at 8 a.m.'
 
   let points = [
     {'name': 'Portland',
@@ -78,13 +94,31 @@
     'points':[
         -123.262, 
         44.565
+    ]},
+    {'name': 'Hermiston',
+    'prominence':2,
+    'points':[
+        -119.2857, 
+        45.8328
+    ]},
+    {'name': 'Coos Bay',
+    'prominence':2,
+    'points':[
+        -124.2179, 
+        43.3665
+    ]},
+    {'name': 'Madras',
+    'prominence':2,
+    'points':[
+        -121.1295, 
+        44.6335
     ]}
+
     ];
 
   let dead_v_cases_long
   let dead_v_cases_series;
   let dead_v_cases_domain;
-
 
   let dead_v_cases_colorScale;
 
@@ -99,12 +133,10 @@
   
   var label_array = [];
 
-
   const map_colors = ['#ffffff', '#feedde', '#fdbe85','#fd8d3c','#e6550d','#a63603'];
 
-  let results_for_table = [];
-
   function set_labels() {
+
     labels = [
       {'label':'0'},
       {'label':'<' + breaks[0]},
@@ -113,6 +145,8 @@
       {'label':'<' + breaks[3]},
       {'label': breaks[3] + '+'}
     ]
+
+    label_array = [];
 
     labels.forEach(row => {
       row.value = 1;
@@ -127,8 +161,36 @@
     return num_parts.join(".");
   }
 
+  function format_number_type(region) {
+    if (active == 'Deaths') {
+      return format_number(region.deaths);
+    }
+    if (active == 'Cases') {
+      return format_number(region.cases);
+    }
+    if (active == 'New') {
+      return format_number(region.nc);
+    }
+  }
+
+  
+
+
   function format_rate(num) {
     return parseFloat(num.toFixed(1));
+  }
+
+  function format_rate_type(region) {
+    if (active == 'Deaths') {
+      return format_rate(region.dpm);
+    }
+    if (active == 'Cases') {
+      return format_rate(region.cpm);
+    }
+    if (active == 'New') {
+      return format_rate(region.npm);
+    }
+
   }
 
   function format_date_string(this_date_string) {
@@ -293,33 +355,70 @@
     setTimeout(function(){ pymChild.sendHeight(); }, 20);
   }
 
-
+  function handleSelecta() {
+    console.log("Handle Selecta "  + activeTab.id);
+    if (activeTab.id == 'metro') {
+      table_choice = 'Metro Areas';
+    } else {
+      table_choice = 'All Counties';
+    }
+    setTimeout(function(){ pymChild.sendHeight(); }, 20);
+  }
 
   function get_state_rates() {
-
 
     // This is just setting max datestring, hmm
     prep_data_from_archive('dead_v_cases', '41000');
 
+    var key_parts = max_date_string.split("_")
+
+    var month = parseInt(key_parts[1]);
+    var year = parseInt(key_parts[0]);
+    var day = parseInt(key_parts[2]);
+
+    // javascript has a month implementation bug
+    var two_weeks_ago = new Date(year, month-1, day);
+
+    two_weeks_ago.setDate( two_weeks_ago.getDate() - 14 );
+
+    var this_month = String(two_weeks_ago.getMonth() + 1); // js months!
+    this_month = this_month.padStart(2,'0');
+    var this_year = two_weeks_ago.getFullYear();
+    var this_day = two_weeks_ago.getDate();
+
+    var two_weeks_ago_datestring = this_year + "_" + this_month + "_" + this_day;
+
     Object.keys(coviddata).forEach(function(key) {
       
+      var cases_in_last_two_weeks = coviddata[key][max_date_string]['c'] - coviddata[key][two_weeks_ago_datestring]['c']
+
+      var per_million_new_cases = 1000000 * cases_in_last_two_weeks / coviddata[key]['pop']
+
       var per_million_cases = 1000000 * coviddata[key][max_date_string]['c']/coviddata[key]['pop'];
 
       var per_million_deaths = 1000000 * coviddata[key][max_date_string]['d']/coviddata[key]['pop'];
-      state_rate_dict[key] = per_million_cases;
       var is_bold = false;
       var name_formatted = coviddata[key]['name'];
-      //name_formatted = name_formatted.replace('County', 'Cnty')
-
      
       var this_row = {
         name: name_formatted,
         pop: parseInt(coviddata[key]['pop']),
+        nc:parseInt(cases_in_last_two_weeks),
+        cases:parseInt(coviddata[key][max_date_string]['c']),
+        deaths:parseInt(coviddata[key][max_date_string]['d']),
         cpm: per_million_cases,
         dpm: per_million_deaths,
+        npm: per_million_new_cases,
         sortby: per_million_cases,
         isbold:is_bold
       }
+
+      state_rate_dict[key] = {
+        cpm: per_million_cases,
+        dpm: per_million_deaths,
+        npm: per_million_new_cases
+      }
+
 
       if (key == '41000') {
         this_row['name'] = "<b>Oregon Statewide</b>";
@@ -335,22 +434,49 @@
       }
     });
 
-    regions_table.sort((a, b) => (a.sortby < b.sortby) ? 1 : -1);
-    counties_table.sort((a, b) => (a.sortby < b.sortby) ? 1 : -1);
+    // Create a synthetic "rest of state"
+    var ros_pop = parseInt(coviddata['41000']['pop']) - parseInt(coviddata['38900']['pop']) - parseInt(coviddata['41420']['pop'])
+
+    var ros_cases_two_weeks_ago  = parseInt(coviddata['41000'][two_weeks_ago_datestring]['c']) - ( parseInt(coviddata['41420'][two_weeks_ago_datestring]['c']) + parseInt(coviddata['38900'][two_weeks_ago_datestring]['c']) )
+    var ros_cases = parseInt(coviddata['41000'][max_date_string]['c']) - ( parseInt(coviddata['41420'][max_date_string]['c']) + parseInt(coviddata['38900'][max_date_string]['c']) )
+    var ros_nc = ros_cases - ros_cases_two_weeks_ago;
+    var ros_deaths = parseInt(coviddata['41000'][max_date_string]['d']) - ( parseInt(coviddata['41420'][max_date_string]['d']) + parseInt(coviddata['38900'][max_date_string]['d']) )
+
+    var ros_pop = parseInt(coviddata['41000']['pop']) - parseInt(coviddata['38900']['pop']) - parseInt(coviddata['41420']['pop'])
+
+    var ros_per_million_new_cases = 1000000 * ros_nc / ros_pop;
+    var ros_per_million_cases = 1000000 * ros_cases/ros_pop;
+    var ros_per_million_deaths = 1000000 * ros_deaths/ros_pop;
+
+    var rest_of_state_row = {
+      name: "Rest of state",
+      pop: ros_pop,
+      nc:ros_nc,
+      cases:ros_cases,
+      deaths:ros_deaths,
+      cpm: ros_per_million_cases,
+      dpm: ros_per_million_deaths,
+      npm: ros_per_million_new_cases,
+    }
+    regions_table.push(rest_of_state_row);
 
   }
 
-  // initial
 
-  breaks = [400,600,800,1000];
-  set_labels();
+  function set_breaks(these_breaks, display_type) {
+    breaks = these_breaks;
+    set_labels();
+    make_fill_mapping(display_type);
+    fill_mapping = fill_mapping;
+    geojson = geojson;
+  }
+
   get_state_rates();
 
 
 
-function set_fill(featureid) {
+  function set_fill(rate) {
     
-    var rate = state_rate_dict[featureid];
     if (rate == 0) {
       return map_colors[0];
     }
@@ -367,6 +493,17 @@ function set_fill(featureid) {
       return map_colors[4];
     }
     return map_colors[5];
+  }
+
+  function make_fill_mapping(lookupkey) {
+    // iey should be cpm, dpm or npm for cases, deaths, new cases
+    fill_mapping = {};
+
+    Object.keys(coviddata).forEach(function(key) {
+      var this_rate = state_rate_dict[key][lookupkey];
+      var this_fill = set_fill(this_rate);
+      fill_mapping[key] = this_fill;
+    });
   }
 
 
@@ -388,8 +525,35 @@ function set_fill(featureid) {
   }
 
 
+  function handleMapChange(maptype) {
 
-  
+    if (maptype == 'Deaths') {
+      set_breaks([20,40,60,80], 'dpm');
+      table_variable_name = 'Deaths';
+      regions_table.sort((a, b) => (a.dpm < b.dpm) ? 1 : -1);
+      counties_table.sort((a, b) => (a.dpm < b.dpm) ? 1 : -1);
+      scaleword = "deaths";
+    }
+    if (maptype == 'Cases') {
+      set_breaks([400,600,800,1000], 'cpm');
+      table_variable_name = 'Cases';
+      regions_table.sort((a, b) => (a.cpm < b.cpm) ? 1 : -1);
+      counties_table.sort((a, b) => (a.cpm < b.cpm) ? 1 : -1);
+      scaleword = "cases";
+
+    }
+    if (maptype == 'New') {
+      set_breaks([200,300,400,500], 'npm');
+      table_variable_name = 'New Cases';
+      regions_table.sort((a, b) => (a.npm < b.npm) ? 1 : -1);
+      counties_table.sort((a, b) => (a.npm < b.npm) ? 1 : -1);
+      scaleword = "new cases";
+    }
+    // We may have to do these assignments to trigger svelte updates? 
+    regions_table = regions_table;
+    counties_table = counties_table;
+  } 
+
 </script>
 
 <style>
@@ -410,7 +574,7 @@ table {
 
 th, td {
   text-align: left;
-  padding: 7px;
+  padding: 3px;
 }
 
 
@@ -431,12 +595,28 @@ tr:nth-child(even) {
     font-family: Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
     
 }
+
+
 </style>
 
 
+
+
+
 <div class="title">
-<h3>Infection Rate by County</h3>
-<p>As of { recent_date_text}</p>
+<h3>Virus Spread by County</h3>
+<p>As of { recent_date_text} New cases are confirmed and "presumptive" positives reported within the last two weeks.</p>
+</div>
+
+
+<div class="title">
+<div style="margin-bottom: 20px;">
+    <TabBar tabs={['New', 'Cases', 'Deaths']} let:tab bind:active>
+      <Tab {tab} minWidth>
+        <TabLabel>{tab}</TabLabel>
+      </Tab>
+    </TabBar>
+  </div>
 </div>
 
 <div class="chart-container">
@@ -446,7 +626,8 @@ tr:nth-child(even) {
     <Svg>
       <MapSvg
         projectionName={'geoMercator'}
-        {set_fill}
+        fill_mapping={fill_mapping}
+        features={geojson.features}
       />
       <Points 
         projectionName={'geoMercator'}
@@ -475,29 +656,33 @@ tr:nth-child(even) {
 
     </Svg>
   </LayerCake>
-  <div style="margin-left:30px;">
-  <p class="byline">Scaled by cases per million</p>
+  <div style="margin-left:20px;">
+  <p class="byline"><b>Note:</b> Scaled by {scaleword} per million.</p>
 </div>
 </div>
 
 <div class="data-container" style="margin-top:30px;">
-<h2>Summary</h2>
+<h2>Summary by area</h2>
 
-<div style="margin:0px; padding:0px;">
-    <Set chips={['Metro Areas', 'All Counties']} let:chip choice bind:selected={table_choice}>
-      <Chip tabindex="0">{chip}</Chip>
-    </Set>
+<div class="title">
+  <div style="margin:0px; padding:0px;">
+    <TabBar tabs={view_tabs} let:tab minWidth bind:active={activeTab}>
+      <Tab {tab}>
+        <TabLabel>{tab.label}</TabLabel>
+      </Tab>
+    </TabBar>
   </div>
+</div>
 
-
-<p>Rates are expressed per <b>million</b> residents.</p>
+<p>Rates are expressed per <b>million</b> residents. New cases are the number announced in the last two weeks. Includes state-designated "presumptive" cases, in which patients show COVID-like symptoms and have been in "close contact with a confirmed case".</p>
 {#if table_choice=='Metro Areas'}
   <table class="countysummary">
        <thead>
           <tr class="csrowheader">
             <th class="cshead">Area</th>
             <th class="cshead">Pop.</th>
-            <th class="cshead">Case Rate</th>
+            <th class="cshead">{ table_variable_name }</th>
+            <th class="cshead">Rate</th>
           </tr>
         </thead>
     <tbody>
@@ -505,7 +690,8 @@ tr:nth-child(even) {
       <tr class="csrow">
         <td class="cscell">{@html region.name}</td>
         <td class="cscell">{format_number(region.pop)}</td>
-        <td class="cscell">{format_rate(region.cpm)}</td>
+        <td class="cscell">{format_number_type(region)}</td>
+        <td class="cscell">{format_rate_type(region)}</td>
       </tr>
       {/each}
 
@@ -520,7 +706,8 @@ tr:nth-child(even) {
           <tr class="csrowheader">
             <th class="cshead">Area</th>
             <th class="cshead">Pop.</th>
-            <th class="cshead">Case Rate</th>
+            <th class="cshead">{ table_variable_name }</th>
+            <th class="cshead">Rate</th>
           </tr>
         </thead>
     <tbody>
@@ -528,7 +715,8 @@ tr:nth-child(even) {
       <tr class="csrow">
         <td class="cscell">{@html region.name}</td>
         <td class="cscell">{format_number(region.pop)}</td>
-        <td class="cscell">{format_rate(region.cpm)}</td>
+        <td class="cscell">{format_number_type(region)}</td>
+        <td class="cscell">{format_rate_type(region)}</td>
       </tr>
       {/each}
 
@@ -540,5 +728,8 @@ tr:nth-child(even) {
 <div class="data-container" style="margin-top:20px; height: 80px;">
 <p class="byline"><b>Sources:</b> Population estimates as of July, 1 2019, <a  target="_blank" href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a  target="_blank" href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>. 
 </p>
+
 </div>
+
+
 

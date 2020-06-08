@@ -12,12 +12,13 @@
   let bar_bottom = $height;
 
   $: columnHeight = d => {
-    //console.log("col height " + $height + " $yGet(d) " + $yGet(d));
+    console.log("col height " + $height + " $yGet(d) " + $yGet(d));
     return $height - $yGet(d);
   };
 
   const columnWidth = $width / $data[0]['values'].length;
 
+  console.log("DTTT columnWidth " + columnWidth);
 
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 

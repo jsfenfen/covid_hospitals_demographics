@@ -12,11 +12,10 @@
   let bar_bottom = $height;
 
   $: columnHeight = d => {
-    //console.log("col height " + $height + " $yGet(d) " + $yGet(d));
     return $height - $yGet(d);
   };
 
-  const columnWidth = $width / $data[0]['values'].length;
+  const columnWidth = (1/2)*$width / $data[0]['values'].length;
 
 
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -37,21 +36,30 @@
     if (Object.keys(result).length === 0) return '';
     const rows = Object.keys(result).filter(d => d !== $originalSettings.x).map(key => {
 
+      var valtoshow = result[key];
+      if (valtoshow == '0') {
+        valtoshow = 'NA';
+      }
       return {
         key,
-        value: result[key]
+        value: valtoshow
       };
     })
 
     //.sort((a, b) => b.value - a.value);
 
-    top = $yScale(rows[0].value);
+    top = $yScale(rows[2].value);
 
-    var display_rows = [rows[0]];
+    var display_rows = [rows[0], rows[1], rows[2]];
 
     return `
       <div style="font-weight: bold;">${monthNames[result[$originalSettings.x].getUTCMonth()]} ${result[$originalSettings.x].getUTCDate()}</div>
       ${display_rows.map(row => `<div><span style="color: #999; width: 65px;display:inline-block;">${capitalize(row.key)}:</span> ${addCommas(row.value)}</div>`).join('')}`;
+  }
+
+  function shouldbe_visible(visible) {
+    return visible ? 'block' : 'none' 
+
   }
 </script>
 
@@ -72,7 +80,7 @@
     position: absolute;
     background-color: transparent;
     pointer-events: none;
-    border: 2px solid black;
+    border: 1px solid black;
   }
 </style>
 
@@ -91,7 +99,7 @@
 
 
       <div class="fauxbar"
-          style="top:{top}px;left:{x-columnWidth/2}px; width:{columnWidth}px; height:{$height-top}px; display: { visible ? 'block' : 'none' };"
+          style="top:{top}px;left:{x-columnWidth/2}px; width:{columnWidth}px; height:{$height-top}px; display: { shouldbe_visible(visible)};"
       ></div>
 
 </QuadTree>

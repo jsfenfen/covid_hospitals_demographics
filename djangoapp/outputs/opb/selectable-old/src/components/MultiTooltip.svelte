@@ -3,21 +3,14 @@
 
   import QuadTree from './QuadTree.svelte';
 
-  const { height, width, yScale, originalSettings, data, yGet } = getContext('LayerCake');
+  const { width, yScale, originalSettings } = getContext('LayerCake');
 
   export let dataset;
 
   const w = 150;
+  const w2 = w / 2;
   let top = 0;
-  let bar_bottom = $height;
-
-  $: columnHeight = d => {
-    //console.log("col height " + $height + " $yGet(d) " + $yGet(d));
-    return $height - $yGet(d);
-  };
-
-  const columnWidth = $width / $data[0]['values'].length;
-
+  let top2 = 0;
 
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -36,22 +29,18 @@
   function setContents (result) {
     if (Object.keys(result).length === 0) return '';
     const rows = Object.keys(result).filter(d => d !== $originalSettings.x).map(key => {
-
       return {
         key,
         value: result[key]
       };
-    })
+    }).sort((a, b) => b.value - a.value);
 
-    //.sort((a, b) => b.value - a.value);
-
-    top = $yScale(rows[0].value);
-
-    var display_rows = [rows[0]];
+    top = $yScale(rows[1].value) - 20;
+    top2 = $yScale(rows[0].value);
 
     return `
       <div style="font-weight: bold;">${monthNames[result[$originalSettings.x].getUTCMonth()]} ${result[$originalSettings.x].getUTCDate()}</div>
-      ${display_rows.map(row => `<div><span style="color: #999; width: 65px;display:inline-block;">${capitalize(row.key)}:</span> ${addCommas(row.value)}</div>`).join('')}`;
+      ${rows.map(row => `<div><span style="color: #999; width: 65px;display:inline-block;">${capitalize(row.key)}:</span> ${addCommas(row.value)}</div>`).join('')}`;
   }
 </script>
 
@@ -67,13 +56,24 @@
     transition: left 250ms ease-out, top 250ms ease-out;
     z-index: 15;
   }
-
-.fauxbar {
-    position: absolute;
-    background-color: transparent;
-    pointer-events: none;
-    border: 2px solid black;
-  }
+  .circle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(27,27, 27);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  width: 10px;
+  height: 10px;
+}
+.sweepline {
+  position: absolute;
+  background-color: none;
+  pointer-events: none;
+  border-left:1px dashed #999;
+  border-right:none;
+  border-top:none;
+  width:1px;
+}
 </style>
 
 <QuadTree
@@ -85,14 +85,20 @@
   let:found
   let:e
 >
+  <div class="sweepline"
+          style="top:{top2}px;left:{x}px;height:{top-top2+20}px;display: { visible ? 'block' : 'none' };"
+    ></div>
 
-  <div class="tooltip"
-    style="width:{w}px;display: { visible ? 'block' : 'none' };top:{top-20}px;left:{Math.min(Math.max(w, x), $width - w)}px;">{@html setContents(found)}</div>
-
-
-      <div class="fauxbar"
-          style="top:{top}px;left:{x-columnWidth/2}px; width:{columnWidth}px; height:{$height-top}px; display: { visible ? 'block' : 'none' };"
-      ></div>
+  <div
+    class="tooltip"
+    style="width:{w}px;display: { visible ? 'block' : 'none' };top:{(top+80+top2)/2}px;left:{Math.min(Math.max(w2, x), $width - w2)}px;">{@html setContents(found)}</div>
+    <div class="circle"
+          style="top:{top+20}px;left:{x}px;display: { visible ? 'block' : 'none' };"
+        ></div>
+    <div class="circle"
+          style="top:{top2}px;left:{x}px;display: { visible ? 'block' : 'none' };"
+    ></div>
+    
 
 </QuadTree>
 

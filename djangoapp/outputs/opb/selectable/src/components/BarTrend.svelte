@@ -5,8 +5,7 @@
 
 	export let fill = '#00a2e3';
 
-	console.log("Bar trend with data");
-	console.log($data);
+
 
 	$: path = values => {
 		return 'M' + values
@@ -22,7 +21,6 @@
 
 	const columnWidth = $width / $data[0]['values'].length;
 
-	console.log("bartrend columnWidth " + columnWidth);
 
 	const stroke = '#333333';
 	const strokeWidth = 1;

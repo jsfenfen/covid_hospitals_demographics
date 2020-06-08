@@ -2,8 +2,6 @@
 	import { getContext } from 'svelte';
 	const { data, xGet, yGet } = getContext('LayerCake');
 	export let colorScale = d => '#000';
-	//console.log("Dot trend with data");
-	//console.log($data);
 
 	$: path = values => {
 		return 'M' + values
@@ -12,37 +10,15 @@
 			})
 			.join('L');
 	};
-
-
-
-
-	const fill = '#00a2e3';
-	const stroke = '#333333';
-	const r = 4;
-
-
-	for (var i=0; i<$data[0]['values'].length; i++) {
-		var this_x = $xGet($data[0]['values'][i]);
-	}
-
 </script>
 
 <g class="line-group">
+	{#each $data as group}
 		<path
 			class='path-line'
-			d='{path($data[1].values)}'
-			stroke="{stroke}"
+			d='{path(group.values)}'
+			stroke="{colorScale(group.key)}"
 		></path>
-</g>
-
-<g class="scatter-group">
-	{#each $data[0]['values'] as d}
-		<circle
-			cx={$xGet(d)}
-			cy={$yGet(d)}
-			{r}
-			{fill}
-		/>
 	{/each}
 </g>
 

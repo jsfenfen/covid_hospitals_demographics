@@ -3,6 +3,10 @@
 	const { data, xGet, yGet, height, width } = getContext('LayerCake');
 	export let colorScale = d => '#000';
 
+	export let fill = '#00a2e3';
+
+	console.log("Bar trend with data");
+	console.log($data);
 
 	$: path = values => {
 		return 'M' + values
@@ -12,20 +16,18 @@
 			.join('L');
 	};
 
-
 	$: columnHeight = d => {
 		return $height - $yGet(d);
 	};
 
 	const columnWidth = $width / $data[0]['values'].length;
 
+	console.log("bartrend columnWidth " + columnWidth);
 
-	const fill2 = '#b2bc00';
-	const fill1 = '#6d6d00';
 	const stroke = '#333333';
 	const strokeWidth = 1;
-	const barstroke1 = '#cccccc';
-	const barstroke2 = '#cccccc';
+	export let barstroke = '#cccccc';
+
 
 	const r = 4;
 
@@ -34,7 +36,7 @@
 
 
 <g class="column-group">
-	{#each $data[2]['values'] as d, i}
+	{#each $data[0]['values'] as d, i}
 		<rect
 			class='group-rect'
 			data-id="{i}"
@@ -42,33 +44,21 @@
 			y="{$yGet(d)}"
 			width="{columnWidth}"
 			height="{columnHeight(d)}"
-			fill="{fill2}"
-			stroke="{barstroke1}"
+			{fill}
+			stroke="{barstroke}"
 			stroke-width="{strokeWidth}"
 		></rect>
 	{/each}
 </g>
 
 
-<g class="column-group">
-	{#each $data[1]['values'] as d, i}
-		<rect
-			class='group-rect'
-			data-id="{i}"
-			x="{$xGet(d)-columnWidth/2}"
-			y="{$yGet(d)}"
-			width="{columnWidth}"
-			height="{columnHeight(d)}"
-			fill="{fill1}"
-			stroke="{barstroke2}"
-			stroke-width="{strokeWidth}"
-		></rect>
-	{/each}
+<g class="line-group">
+		<path
+			class='path-line'
+			d='{path($data[1].values)}'
+			stroke="{stroke}"
+		></path>
 </g>
-
-
-
-
 
 
 

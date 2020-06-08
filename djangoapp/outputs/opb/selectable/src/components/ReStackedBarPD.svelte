@@ -1,23 +1,25 @@
 <script>
 	import { getContext } from 'svelte';
-	const { data, xGet, yGet, height, width } = getContext('LayerCake');
+	const { data, xGet, yGet, height, width, xDomain } = getContext('LayerCake');
 	export let colorScale = d => '#000';
-
-
-	$: path = values => {
-		return 'M' + values
-			.map(d => {
-				return $xGet(d) + ',' + $yGet(d);
-			})
-			.join('L');
-	};
 
 
 	$: columnHeight = d => {
 		return $height - $yGet(d);
 	};
 
-	const columnWidth = $width / $data[0]['values'].length;
+	const columnWidth2 = (1/2)*$width / $data[0]['values'].length;
+
+
+
+  	// To calculate the time difference of two dates 
+	var Difference_In_Time = $xDomain[1].getTime() - $xDomain[0].getTime(); 
+  
+	// To calculate the no. of days between two dates 
+	var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); 
+
+	const columnWidth =  ( $data[2]['values'].length / Difference_In_Days) * ( $width / $data[0]['values'].length );
+
 
 
 	const fill2 = '#b2bc00';
@@ -30,11 +32,14 @@
 	const r = 4;
 
 
+
+
 </script>
 
 
 <g class="column-group">
 	{#each $data[2]['values'] as d, i}
+		{#if d['Suspected']!=-1 }
 		<rect
 			class='group-rect'
 			data-id="{i}"
@@ -46,12 +51,14 @@
 			stroke="{barstroke1}"
 			stroke-width="{strokeWidth}"
 		></rect>
+		{/if}
 	{/each}
 </g>
 
 
 <g class="column-group">
 	{#each $data[1]['values'] as d, i}
+
 		<rect
 			class='group-rect'
 			data-id="{i}"

@@ -23,6 +23,7 @@
 
 	for (var i=0; i<$data[0]['values'].length; i++) {
 		var this_x = $xGet($data[0]['values'][i]);
+		//console.log(i + ' this_x ' + this_x);
 	}
 
 </script>

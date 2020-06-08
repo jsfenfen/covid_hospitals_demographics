@@ -2,7 +2,9 @@
 	import { getContext } from 'svelte';
 	const { data, xGet, yGet, height, width } = getContext('LayerCake');
 	export let colorScale = d => '#000';
+	console.log("Restacked bar with data");
 
+	console.log("1");
 
 	$: path = values => {
 		return 'M' + values
@@ -19,6 +21,7 @@
 
 	const columnWidth = $width / $data[0]['values'].length;
 
+	console.log("columnWidth " + columnWidth);
 
 	const fill2 = '#b2bc00';
 	const fill1 = '#6d6d00';

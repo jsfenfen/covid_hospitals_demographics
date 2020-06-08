@@ -8,13 +8,10 @@
   import DotTrend from './components/DotTrend.svelte';
 
   import ReStackedBar from './components/ReStackedBar.svelte';
-  import ReStackedBarTooltip from './components/ReStackedBarTooltip.svelte';
 
   import BarTrendTooltip from './components/BarTrendTooltip.svelte';
   import DotTrendTooltip from './components/DotTrendTooltip.svelte';
-
-  import ReStackedBarPD from './components/RestackedBarPD.svelte';
-  import ReStackedBarPDTooltip from './components/RestackedBarPDTooltip.svelte';
+  import ReStackedBarTooltip from './components/ReStackedBarTooltip.svelte';
 
 
   import AxisX from './components/AxisX.svelte';
@@ -36,15 +33,9 @@
 
   /* data */
   import coviddata from './data/coviddata.js'
-  import hospitalizeddata from './data/everhospitalized.js'
-  import coviddetails from './data/coviddetails.js'
 
   /* svelte smui */
 
-
-
-  import Tab, {Label as TabLabel} from '@smui/tab';
-  import TabBar from '@smui/tab-bar';
 
   
   import {MDCSelect} from '@material/select';
@@ -101,16 +92,11 @@
   });
 
 
-  let active = 'Cases';
-  $: active, handleViewChange();
-
-
   let dialog;
   let submitdialog;
 
   let explainer_text = '';
   let region_text = '';
-  let region_pop_data = {};
 
   let show_nc = true;
   let show_d = true;
@@ -172,50 +158,13 @@
 
   let isClearable = false;
 
-  let epoch_start = new Date(2020, 2, 20);
-  let epoch_end = new Date(2020, 3, 29);
-
-  let epoch_domain = [epoch_start, epoch_end];
-
-  let total_hospitalized;
-  let total_hospitalized_long
-  let total_hospitalized_series;
-  let total_hospitalized_domain;
-  let total_hospitalized_colorScale;
-
-
-  let current_hospitalized; 
-  let current_hospitalized_long
-  let current_hospitalized_series;
-  let current_hospitalized_domain;
-
-  let current_icu; 
-  let current_icu_long
-  let current_icu_series;
-  let current_icu_domain;
-  let current_icu_colorScale;
-
-
-  let current_vent; 
-  let current_vent_long
-  let current_vent_series;
-  let current_vent_domain;
-  let current_vent_colorScale;
-
-  let current_hospitalized_colorScale;
-
-  let full_domain = [];
-
-
   let state_rate_dict = {};
 
   let max_date_string;
-  let max_date;
-
 
   const map_colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
 
-  let recent_date_text = 'May 2 at 8 a.m.'
+  let recent_date_text = 'May 11 at 8 a.m.'
 
   let selectedFIPS = '41000';
   let regionDisplay = 'Oregon statewide';
@@ -276,98 +225,6 @@
     //console.log("height sent");
   }
 
-  function prep_covid_details(data_type) {
-    var data_to_return = [];
-
-    Object.keys(coviddetails).forEach(function(key) {
-      var this_data = coviddetails[key];
-
-      var key_parts = key.split("_")
-
-      var month = parseInt(key_parts[1]);
-      var year = parseInt(key_parts[0]);
-      var day = parseInt(key_parts[2]);
-
-      // javascript has a month implementation bug
-      var this_date = new Date(year, month-1, day);
-
-      if (data_type == 'current_hospitalized') {
-
-          var suspected = 0;
-          var confirmed = this_data['h_c'];
-          var total = this_data['h_t'];
-
-          if (this_data['h_c'] == '-1') {
-            confirmed = 0;
-          } else {
-            suspected = total - confirmed;
-          }
-
-          if (this_data['h_t'] == '-1') {
-            total = 0;
-          }
-          if (this_data['h_s'] == '-1') {
-            suspected = 0;
-          }
-        if (this_data['h_t'] != '-1') {
-            data_to_return.push({'month':this_date, 'Suspected':suspected, 'Confirmed':confirmed, 'Total':total,});
-          }
-        full_domain.push({'month':this_date})
-
-        }
-
-      if (data_type == 'current_icu') {
-          var suspected = 0;
-          var confirmed = this_data['i_c'];
-          var total = this_data['i_t'];
-
-          if (this_data['i_c'] == '-1') {
-            confirmed = 0;
-          } else {
-            suspected = total - confirmed;
-          }
-
-          if (this_data['i_t'] == '-1') {
-            total = 0;
-          }
-          if (this_data['i_s'] == '-1') {
-            suspected = 0;
-          }
-        if (this_data['i_t'] != '-1') {
-            data_to_return.push({'month':this_date, 'Suspected':suspected, 'Confirmed':confirmed, 'Total':total,});
-          }
-      }
-
-      if (data_type == 'current_vent') {
-          var suspected = 0;
-          var confirmed = this_data['v_c'];
-          var total = this_data['v_t'];
-
-          if (this_data['v_c'] == '-1') {
-            confirmed = 0;
-          } else {
-            suspected = total - confirmed;
-          }
-
-          if (this_data['v_t'] == '-1') {
-            total = 0;
-          }
-          if (this_data['v_s'] == '-1') {
-            suspected = 0;
-          }
-        if (this_data['v_t'] != '-1') {
-            data_to_return.push({'month':this_date, 'Suspected':suspected, 'Confirmed':confirmed, 'Total':total,});
-          }
-      }
-
-
-
-      });
-
-      return data_to_return;
-    }
-
-
   function prep_data_from_archive(data_type, fips) {
 
     var data_for_this_fips = [];
@@ -388,13 +245,8 @@
         var year = parseInt(key_parts[0]);
         var day = parseInt(key_parts[2]);
 
-        var this_date = new Date(year, month-1, day);
-
-
         if (key > max_date_string || !max_date_string) {
           max_date_string = key;
-          max_date = this_date;
-
         }
 
         // javascript has a month implementation bug
@@ -524,34 +376,11 @@
         }
 
 
-        if (data_type == 'total_hospitalized') {
-          var this_data = {'month':this_date};
-          var this_hospitalized = -1;
-          if (key in hospitalizeddata) {
-            this_hospitalized = parseInt(hospitalizeddata[key]['yes']);
-          }
-          if (day_count > 1 && this_hospitalized > 0) {
-            data_for_this_fips.push({'month':this_date, 'Hospitalized':this_hospitalized});
-          }
-        }
-
-
-
         if (data_type == 'dead_v_cases') {
           var this_data = {'month':this_date};
 
-          var this_hospitalized = -1;
-
-          if (key in hospitalizeddata) {
-
-            this_hospitalized = parseInt(hospitalizeddata[key]['yes']);
-
-          }
-          
-          if (day_count > 1) {
-            if (this_jurisdiction[key]['d'] > 0 && this_jurisdiction[key]['c']) {
-              data_for_this_fips.push({'month':this_date, 'Deaths':this_jurisdiction[key]['d'], 'Cases':this_jurisdiction[key]['c'], 'Hospitalized':this_hospitalized});
-            }
+          if (this_jurisdiction[key]['d'] > 0 && this_jurisdiction[key]['c']) {
+            data_for_this_fips.push({'month':this_date, 'Deaths':this_jurisdiction[key]['d'], 'Cases':this_jurisdiction[key]['c']});
           }
         }
       }
@@ -580,11 +409,6 @@
   ];
 
 
-
-  function handleViewChange() {
-    //console.log("handleViewChange send height");
-    setTimeout(function(){ pymChild.sendHeight(); }, 50);
-  }
 
   function get_long_data(data) {
     const data_long = Object.keys(data[0]).map(key => {
@@ -657,7 +481,8 @@
     positivity_long = get_long_data(positivity);
     positivity_series = get_series_names(positivity);
     positivity_domain = get_domain(positivity_long,false);
-
+    console.log("Got positivity domain " + positivity_domain + " from ");
+    console.log(positivity_long);
 
     deaths_long = get_long_data(deaths);
     deaths_series = get_series_names(deaths);
@@ -667,6 +492,8 @@
     new_deaths_series = get_series_names(new_deaths);
     new_deaths_domain = get_domain(new_deaths_long,false);
 
+    console.log("New deaths");
+    console.log(new_deaths);
 
 
     new_cases_long = get_long_data(new_cases);
@@ -696,98 +523,16 @@
     positivity_colorScale = scaleOrdinal()
       .domain(positivity)
       .range(seriesColors);
-
-
-
     }
 
   set_data('41000');
-  epoch_domain = [epoch_start, max_date];
-
-
-
-  function set_sitewide_charts(){
-    //Run this once, these are not regenerated
-    dead_v_cases = prep_data_from_archive('dead_v_cases', '41000');
-
-    dead_v_cases_long = get_long_data(dead_v_cases);
-    dead_v_cases_series = get_series_names(dead_v_cases);
-    dead_v_cases_domain = get_domain(dead_v_cases_long,true);
-
-    dead_v_cases_colorScale = scaleOrdinal()
-      .domain(dead_v_cases_series)
-      .range(seriesColors);
-
-    total_hospitalized = prep_data_from_archive('total_hospitalized', '41000');
-    total_hospitalized_long = get_long_data(total_hospitalized);
-    total_hospitalized_series = get_series_names(total_hospitalized);
-    total_hospitalized_domain = get_domain(total_hospitalized_long,false);
-
-    total_hospitalized_colorScale = scaleOrdinal()
-      .domain(total_hospitalized_series)
-      .range(seriesColors);
-
-
-    var portland_cases = coviddata['38900'][max_date_string]['c'];
-    var salem_cases = coviddata['41420'][max_date_string]['c'];
-    var ros_cases = coviddata['41000'][max_date_string]['c'] - portland_cases - salem_cases;
-
-    region_pop_data['metro_pop'] = coviddata['38900']['pop'] + coviddata['41420']['pop'];
-    region_pop_data['rest_pop'] = coviddata['41000']['pop'] - region_pop_data['metro_pop'];  
-
-
-
-    current_hospitalized = prep_covid_details('current_hospitalized');
-
-    current_hospitalized_long = get_long_data(current_hospitalized);
-    current_hospitalized_series = get_series_names(current_hospitalized);
-    current_hospitalized_domain = get_domain(current_hospitalized_long,true);
-  
-    current_hospitalized_colorScale = scaleOrdinal()
-      .domain(current_hospitalized_series)
-      .range(seriesColors);
-
-
-    current_icu = prep_covid_details('current_icu');
-    current_icu_long = get_long_data(current_icu);
-    current_icu_series = get_series_names(current_icu);
-    current_icu_domain = get_domain(current_icu_long,true);
-  
-    current_icu_colorScale = scaleOrdinal()
-      .domain(current_icu_series)
-      .range(seriesColors);
-
-
-    current_vent = prep_covid_details('current_vent');
-    current_vent_long = get_long_data(current_vent);
-    current_vent_series = get_series_names(current_vent);
-    current_vent_domain = get_domain(current_vent_long,true);
-  
-    current_vent_colorScale = scaleOrdinal()
-      .domain(current_icu_series)
-      .range(seriesColors);
-
-
-
-  }
-
-  set_sitewide_charts();
-  let now = new Date();
-  let onejan = new Date(now.getFullYear(), 0, 1);
 
   function formatTickX (d) {
     const date = new Date(d);
     var day = date.getDate();
     var dayofweek = date.getDay()
-
-    if (dayofweek==6 ) {
-      var weeknum = Math.ceil( (((date - onejan) / 86400000) + onejan.getDay() + 1) / 7 );
-      if (weeknum%2==0) {
-        return `${monthNames[date.getUTCMonth()]} ${date.getUTCDate()}`;
-      }
-      else {
-        return '';
-      }
+    if (dayofweek==0 ) {
+      return `${monthNames[date.getUTCMonth()]} ${date.getUTCDate()}`;
     } else {
       return '';
     }
@@ -851,21 +596,6 @@
 </style>
 
 
-
-  <div class="title">
-<div style="margin-bottom: 20px;">
-    <TabBar tabs={['Cases', 'Deaths', 'Hospitals']} let:tab bind:active>
-      <Tab {tab} minWidth>
-        <TabLabel>{tab}</TabLabel>
-      </Tab>
-    </TabBar>
-  </div>
-</div>
-
-
-{#if active=='Cases' || active=='Deaths' }
-
-
 <div class="title">
 <div class="selectionholder">
 <Select variant="outlined" enhanced bind:value={selectedFIPS} label="Select a region" class="demo-select-width" menu$class="demo-select-width">
@@ -877,12 +607,8 @@
 </div>
 </div>
 
-{/if }
-
-
-{#if active=='Cases' }
-
 <div class="title">
+
 <h3>New Confirmed Cases, {regionDisplay}</h3>
 <p>{explainer_text}</p>
 <p>{@html region_text}</p>
@@ -933,6 +659,59 @@
 <p><b>Notes:</b> The black line is a 7-day moving average. </p>
 </div>
 
+
+{#if has_deaths }
+
+<div class="title">
+
+<h3>New Deaths, {regionDisplay}</h3>
+</div>
+
+<div class="chart-container">
+  
+  <LayerCake
+    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
+    x='month'
+    y='value'
+    yDomain={new_deaths_domain}
+    flatData={flatten(new_deaths_long)}
+    data={new_deaths_long}
+  >
+    <Svg>
+      <AxisX
+        gridlines={false}
+        ticks={new_deaths.map(d => d[xKey])}
+        formatTick={formatTickX}
+        snapTicks={true}
+      />
+      <AxisY
+        formatTick={formatTickY}
+      />
+
+      <BarTrend
+        colorScale={new_cases_colorScale}
+        fill="#6d6d00"
+      />
+    </Svg>
+
+    <Html>
+      <BarTrendTooltip
+
+        dataset={ new_deaths }
+      />
+    </Html>
+  </LayerCake>
+</div>
+<div class="title">
+
+<b>What this Chart Means:</b><br>
+<p>This chart shows known deaths due to COVID-19. It is an undercount. In other areas total deaths have been adjusted upwards later to include deaths at home, in homeless camps, and where testing was not immediately available.</p>
+
+
+<p><b>Notes:</b> The black line is a 7-day moving average. </p>
+</div>
+
+
 <div class="title">
 <h3>Total Cases, {regionDisplay}</h3>
 </div>
@@ -975,6 +754,52 @@
 <div class="title">
 <p><b>What this Chart Means:</b> <br>When transmission of the virus stops, this chart will flatten out. Early indications are that social distancing has slowed the spread of the virus. This chart shows only laboratory-confirmed cases, so the total number of actual cases is significantly higher.</p>
 </div>
+
+
+
+<div class="title">
+<h3>Total Deaths, {regionDisplay}</h3>
+</div>
+
+<div class="chart-container">
+  
+  <LayerCake
+    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
+    x='month'
+    y='value'
+    flatData={flatten(deaths_long)}
+    yDomain={deaths_domain}
+    data={deaths_long}
+  >
+    <Svg>
+      <AxisX
+        gridlines={false}
+        ticks={deaths.map(d => d[xKey])}
+        formatTick={formatTickX}
+        snapTicks={true}
+      />
+      <AxisY
+        formatTick={formatTickY}
+      />
+
+      <MultiLine
+        colorScale={deaths_colorScale}
+      />
+    </Svg>
+
+    <Html>
+      <Labels/>
+      <Tooltip
+        dataset={ deaths }
+      />
+    </Html>
+  </LayerCake>
+</div>
+<div class="title">
+<p><b>What this Chart Means:</b><br> Our understanding of the virus is that people often become symptomatic 5-7 days after exposure. While the vast number survive, some <a href="https://www.thelancet.com/action/showPdf?pii=S0140-6736%2820%2930566-3" target="_blank">published reports</a> estimate the time from symptom onset until death to be 19 days, although this number varies. The effects of social distancing should be evident in deaths reported within about 25 days.</p>
+</div>
+
+{/if }
 
 
 <div class="title">
@@ -1062,318 +887,13 @@
   </LayerCake>
 </div>
 
-
-
-
   <div class="title">
 <p><b>What this Chart Means</b>
 
 <br>The positivity rate is the percentage of tests that returned positive for the virus. The day used is the day that the results were announced. Very high positivity rates have been seen in the hardest-hit parts of the country, but Oregon's rate is lower than the rate in the U.S. as a whole. The national rate has been<a  target="_blank" href="https://www.theatlantic.com/technology/archive/2020/04/us-coronavirus-outbreak-out-control-test-positivity-rate/610132/"> estimated to be 20%</a>.</p>
-<p><b>Notes:</b>  Beginning May 4, Oregon began including "presumptives" in the daily case count. This records someone lacking a positive test but who "is showing symptoms and has had close contact with a confirmed case". Including these cases artificially boosts the positivity rate on the day they are announced, although this should eventually even itself out when test results confirm it. The black line is a 7-day moving average. </p>
+<p><b>Notes:</b> This isn't calculated for April 22-23, when the state delayed reporting negative cases due to a technical issue. The black line is a 7-day moving average. </p>
 </div>
 
-{/if }
-
-{#if active == 'Deaths' }
-
-<div class="title">
-
-<h3>New Deaths, {regionDisplay}</h3>
-<p>{explainer_text}</p>
-<p>{@html region_text}</p>
-</div>
-
-<div class="chart-container">
-  
-  <LayerCake
-    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
-    x='month'
-    y='value'
-    yDomain={new_deaths_domain}
-    flatData={flatten(new_deaths_long)}
-    data={new_deaths_long}
-  >
-    <Svg>
-      <AxisX
-        gridlines={false}
-        ticks={new_deaths.map(d => d[xKey])}
-        formatTick={formatTickX}
-        snapTicks={true}
-      />
-      <AxisY
-        formatTick={formatTickY}
-      />
-
-      <BarTrend
-        colorScale={new_cases_colorScale}
-        fill="#6d6d00"
-      />
-    </Svg>
-
-    <Html>
-      <BarTrendTooltip
-
-        dataset={ new_deaths }
-      />
-    </Html>
-  </LayerCake>
-</div>
-<div class="title">
-
-<b>What this Chart Means:</b><br>
-<p>This chart shows known deaths due to COVID-19. It is an undercount. In other areas total deaths have been adjusted upwards later to include deaths at home, in homeless camps, and where testing was not immediately available.</p>
-
-
-<p><b>Notes:</b> The black line is a 7-day moving average. </p>
-</div>
-
-
-<div class="title">
-<h3>Total Deaths, {regionDisplay}</h3>
-</div>
-
-<div class="chart-container">
-  
-  <LayerCake
-    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
-    x='month'
-    y='value'
-    flatData={flatten(deaths_long)}
-    yDomain={deaths_domain}
-    data={deaths_long}
-  >
-    <Svg>
-      <AxisX
-        gridlines={false}
-        ticks={deaths.map(d => d[xKey])}
-        formatTick={formatTickX}
-        snapTicks={true}
-      />
-      <AxisY
-        formatTick={formatTickY}
-      />
-
-      <MultiLine
-        colorScale={deaths_colorScale}
-      />
-    </Svg>
-
-    <Html>
-      <Labels/>
-      <Tooltip
-        dataset={ deaths }
-      />
-    </Html>
-  </LayerCake>
-</div>
-<div class="title">
-<p><b>What this Chart Means:</b><br> Our understanding of the virus is that people often become symptomatic 5-7 days after exposure. While the vast number survive, some <a href="https://www.thelancet.com/action/showPdf?pii=S0140-6736%2820%2930566-3" target="_blank">published reports</a> estimate the time from symptom onset until death to be 19 days, although this number varies. The effects of social distancing should be evident in deaths reported within about 25 days.</p>
-</div>
-
-{/if }
-
-{#if active == 'Hospitals' }
-
-<div class="title">
-<p>Hospitalization data is only available statewide. Beginning June 6, the Oregon Health Authority stopped reporting hospitalization data on the weekends. </p>
-</div>
-
-
-<div class="title">
-<h3>Total Hospitalized Statewide</h3>
-</div>
-
-<div class="chart-container">
-  
-  <LayerCake
-    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
-    x='month'
-    y='value'
-    flatData={flatten(total_hospitalized_long)}
-    yDomain={total_hospitalized_domain}
-    data={total_hospitalized_long}
-  >
-    <Svg>
-      <AxisX
-        gridlines={false}
-        ticks={total_hospitalized.map(d => d[xKey])}
-        formatTick={formatTickX}
-        snapTicks={true}
-      />
-      <AxisY
-        formatTick={formatTickY}
-      />
-
-      <MultiLine
-        colorScale={total_hospitalized_colorScale}
-      />
-    </Svg>
-
-    <Html>
-      <Tooltip
-        dataset={ total_hospitalized }
-      />
-    </Html>
-  </LayerCake>
-</div>
-
-
-<div class="title">
-<p><b>What this Chart Means</b>
-<br>This chart shows the cumulative total of COVID-positive patients who have ever been admitted to a hospital in Oregon. Data are provisional. <p></p>
-<p><b>Notes: </b>The spike in hospitalizations around April 6 appears to reflect an error in provisional data that was later revised downwards.</p>
-</div>
-
-
-
-<div class="title">
-<h3>Current Hospitalizations, Oregon Statewide</h3>
-</div>
-
-<div class="chart-container">
-  <LayerCake
-    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
-    x='month'
-    y='value'
-    xDomain={epoch_domain}
-    yDomain={current_hospitalized_domain}
-    flatData={flatten(current_hospitalized_long)}
-    data={current_hospitalized_long}
-  >
-    <Svg>
-      <AxisX
-        gridlines={false}
-        ticks={full_domain.map(d => d[xKey])}
-        formatTick={formatTickX}
-        snapTicks={true}
-      />
-      <AxisY
-        formatTick={formatTickY}
-      />
-
-      <ReStackedBarPD
-        colorScale={current_hospitalized_colorScale}
-      />
-    </Svg>
-
-    <Html>
-      <ReStackedBarPDTooltip
-        dataset={ current_hospitalized }
-      />
-    </Html>
-  </LayerCake>
-</div>
-
- <div class="title">
-<p><b>What this Chart Means</b>
-
-<br>This chart shows the daily count of hospital beds filled by patients who are either confirmed to have the virus or are suspected of having it. There are about 7,500 hospital beds in OR, about 2,000 of which are available day-to-day.</p>
-
-
-<p><b>Notes: </b>This data was not available before April 6.</p>
-
-</div>
-
-
-
-<div class="title">
-<h3>Current ICU, Oregon Statewide</h3>
-</div>
-
-<div class="chart-container">
-  
-  <LayerCake
-    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
-    x='month'
-    y='value'
-    xDomain={epoch_domain}
-    yDomain={[0,130]}
-    flatData={flatten(current_icu_long)}
-    data={current_icu_long}
-  >
-    <Svg>
-      <AxisX
-        gridlines={false}
-        ticks={full_domain.map(d => d[xKey])}
-        formatTick={formatTickX}
-        snapTicks={true}
-      />
-      <AxisY
-        formatTick={formatTickY}
-      />
-
-      <ReStackedBarPD
-        colorScale={current_icu_colorScale}
-      />
-    </Svg>
-
-    <Html>
-      <ReStackedBarPDTooltip
-        dataset={ current_icu }
-      />
-    </Html>
-  </LayerCake>
-</div>
-
- <div class="title">
-<p><b>What this Chart Means</b>
-
-<br>This chart shows the total number of intensive care beds filled by patients who are either confirmed to have the virus or are suspected of having it. There are about 800 adult ICU beds in the state, about 300 of which are available day-to-day.</p>
-<p><b>Notes: </b>This data was not available before April 8.</p>
-
-</div>
-
-
-<div class="title">
-<h3>Current Ventilator Usage, Oregon Statewide</h3>
-</div>
-
-<div class="chart-container">
-  
-  <LayerCake
-    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
-    x='month'
-    y='value'
-    xDomain={epoch_domain}
-    yDomain={[0,82]}
-    flatData={flatten(current_vent_long)}
-    data={current_vent_long}
-  >
-    <Svg>
-      <AxisX
-        gridlines={false}
-        ticks={full_domain.map(d => d[xKey])}
-        formatTick={formatTickX}
-        snapTicks={true}
-      />
-      <AxisY
-        formatTick={formatTickY}
-      />
-
-      <ReStackedBarPD
-        colorScale={current_vent_colorScale}
-      />
-    </Svg>
-
-    <Html>
-      <ReStackedBarPDTooltip
-        dataset={ current_vent }
-      />
-    </Html>
-  </LayerCake>
-</div>
-
- <div class="title">
-<p><b>What this Chart Means</b>
-
-<br>This chart shows the total number of patients on mechanical ventilators who are either confirmed to have the virus or are suspected of having it. There are about 800 ventilators at hospitals in statewide.</p>
-
-<p><b>Notes: </b>This data was not available before April 6.</p>
-
-</div>
-
-
-{/if }
 <div class="data-container" style="margin-top:20px; height: 80px;">
 <p class="byline"><b>Sources:</b> Population estimates as of July, 1 2019, <a  target="_blank" href="https://www.pdx.edu/prc/population-reports-estimates">PSU</a>. Case and deaths are from the <a  target="_blank" href="https://govstatus.egov.com/OR-OHA-COVID-19">Oregon Health Authority</a>. 
 </p>
