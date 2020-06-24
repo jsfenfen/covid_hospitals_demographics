@@ -1,4 +1,4 @@
-facility,county,first_reported,start_date,cases,deaths,report_date
+facility,county,first_reported,cases,deaths,report_date
 Healthcare at Foster Creek,Multnomah,3/24/2020,119,29,2020-05-19
 Corvallis Manor,Benton,3/27/2020,19,3,2020-05-19
 Salem Transitional Care,Marion,3/27/2020,25,3,2020-05-19

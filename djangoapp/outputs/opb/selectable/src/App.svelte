@@ -462,9 +462,9 @@
               positive_rate = 0;
             }
 
-
+            console.log("positivity day number: " + day_count);
             // futzing with this, cleanup when we know how it should work
-            if (day_count == 34 || day_count == 35) {
+            if (day_count == 34 || day_count == 35  ) {
               positivity_ma.push(-1);
             } else {
               positivity_ma.push(positive_rate);
@@ -483,7 +483,7 @@
             this_average = sum / valid_values;
 
 
-            if (day_count != 34 && day_count != 35) {
+            if (day_count != 34 && day_count != 35  ) {
               data_for_this_fips.push({'month':this_date, 'Rate':parseFloat(positive_rate.toFixed(1)), 'Trend':this_average});
             }
           }
@@ -780,7 +780,7 @@
     var day = date.getDate();
     var dayofweek = date.getDay()
 
-    if (dayofweek==6 ) {
+    if (dayofweek==5 ) {
       var weeknum = Math.ceil( (((date - onejan) / 86400000) + onejan.getDay() + 1) / 7 );
       if (weeknum%2==0) {
         return `${monthNames[date.getUTCMonth()]} ${date.getUTCDate()}`;
@@ -1020,7 +1020,7 @@
 
 <br>Widely available testing is one of the key requirements to ending social distancing, although epidemiologists argue it's <a  target="_blank" href="https://www.statnews.com/2020/03/24/we-need-smart-coronavirus-testing-not-just-more-testing/">not just the number of tests that matter</a>. One team at Harvard suggests reopening states would require <a  target="_blank" href="https://www.nytimes.com/interactive/2020/04/17/us/coronavirus-testing-states.html">152 tests per 100,000 residents</a>, which translates into more than 6,400 tests in Oregon daily.
 </p>
-<p><b>Notes:</b> On April 22 state authorities did not provide a negative test count, noting instead that negative "results are pending due to a technical issue with the test reporting database".</p>
+<p><b>Notes:</b> On April 22 authorities did not provide a negative test count.</p>
 </div>
 
 

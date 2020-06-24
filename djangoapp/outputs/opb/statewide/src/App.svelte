@@ -55,7 +55,7 @@
   let region_pop_data = {}
 
   let dead_v_cases;  // Only do this for the whole state. 
-  let recent_date_text = 'June 7 at 12:01 a.m.'
+  let recent_date_text = 'June 23 at 12:01 a.m.'
 
   let points = [
     {'name': 'Portland',
@@ -534,7 +534,7 @@
       scaleword = "deaths";
     }
     if (maptype == 'Cases') {
-      set_breaks([5,10,15,20], 'cpm');
+      set_breaks([15,30,45,60], 'cpm');
       table_variable_name = 'Cases';
       regions_table.sort((a, b) => (a.cpm < b.cpm) ? 1 : -1);
       counties_table.sort((a, b) => (a.cpm < b.cpm) ? 1 : -1);
@@ -542,7 +542,7 @@
 
     }
     if (maptype == 'New') {
-      set_breaks([2.5,5,7.5,10], 'npm');
+      set_breaks([5,10,15,20], 'npm');
       table_variable_name = 'New Cases';
       regions_table.sort((a, b) => (a.npm < b.npm) ? 1 : -1);
       counties_table.sort((a, b) => (a.npm < b.npm) ? 1 : -1);

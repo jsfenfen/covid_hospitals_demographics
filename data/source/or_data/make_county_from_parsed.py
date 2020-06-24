@@ -65,14 +65,15 @@ if __name__ == "__main__":
     for file in sorted(files):
         
         filename = os.path.basename(file)
-        #print("\n\n\nProcessing file %s" % filename)
+        print("\n\n\nProcessing file %s" % filename)
 
         infile = open(file, 'r')
         reader = csv.reader(infile)
 
         datestring = file.split('county_ohapageread_')[1]
         datestring = datestring.replace(".csv", "")
-        #print(datestring)
+        print("Datestring %s" % datestring)
+
 
         try:
             datestrings[datestring]

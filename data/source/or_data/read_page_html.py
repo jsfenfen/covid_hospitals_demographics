@@ -90,6 +90,10 @@ print(files[-1])
 current_file = files[-1]
 most_recent = False
 
+
+
+
+
 for file in files:
 	filename = os.path.basename(file)
 	
@@ -114,6 +118,9 @@ for file in files:
 		
 		filebase_parts = filebase.split('_')
 		snapshot_date = datetime.datetime(int(filebase_parts[1]), int(filebase_parts[2]), int(filebase_parts[3]))
+		
+			
+
 		prior_day = snapshot_date
 
 		if '_06_15.html' in filebase_raw:
@@ -121,7 +128,12 @@ for file in files:
 		else:
 			prior_day = snapshot_date 
 
-		#print("prior day %s" % prior_day)
+		print("prior day %s" % prior_day)
+
+		weekday = prior_day.weekday() 
+		if ( int(filebase_parts[2]) >= 6  and weekday >= 5):
+			print("Skipping weekend %s" % snapshot_date)
+			continue
 
 		new_filebase = 'ohapageread_' + prior_day.strftime("%Y_%m_%d") + ".csv"
 
@@ -178,5 +190,8 @@ for file in files:
 			else:
 				#print("**No table for '%s'" % first_header)
 				pass
+
+
+
 		
 
