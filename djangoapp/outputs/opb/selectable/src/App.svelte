@@ -50,11 +50,12 @@
   import {MDCSelect} from '@material/select';
   import Select, { Option } from "@smui/select";
 
+  // As of 7.5 Wheeler have no cases at all
   const items = [
     {value: '41000', label: 'Oregon', group: 'State'},
     {value: '38900', label: 'Portland', group: 'Metro Areas'},
     {value: '41420', label: 'Salem', group: 'Metro Areas'},
-    //{value: '41001', label: 'Baker County', group: 'Counties'},
+    {value: '41001', label: 'Baker County', group: 'Counties'},
     {value: '41003', label: 'Benton County', group: 'Counties'},
     {value: '41005', label: 'Clackamas County', group: 'Counties'},
     {value: '41007', label: 'Clatsop County', group: 'Counties'},
@@ -64,7 +65,7 @@
     {value: '41015', label: 'Curry County', group: 'Counties'},
     {value: '41017', label: 'Deschutes County', group: 'Counties'},
     {value: '41019', label: 'Douglas County', group: 'Counties'},
-    //{value: '41021', label: 'Gilliam County', group: 'Counties'},
+    {value: '41021', label: 'Gilliam County', group: 'Counties'},
     {value: '41023', label: 'Grant County', group: 'Counties'},
     {value: '41025', label: 'Harney County', group: 'Counties'},
     {value: '41027', label: 'Hood River County', group: 'Counties'},
@@ -72,7 +73,7 @@
     {value: '41031', label: 'Jefferson County', group: 'Counties'},
     {value: '41033', label: 'Josephine County', group: 'Counties'},
     {value: '41035', label: 'Klamath County', group: 'Counties'},
-    //{value: '41037', label: 'Lake County', group: 'Counties'},
+    {value: '41037', label: 'Lake County', group: 'Counties'},
     {value: '41039', label: 'Lane County', group: 'Counties'},
     {value: '41041', label: 'Lincoln County', group: 'Counties'},
     {value: '41043', label: 'Linn County', group: 'Counties'},
@@ -265,7 +266,7 @@
     var death_plural = (coviddata[thisfips][max_date_string]['n_d'] != 1 ? 's':'');
 
 
-    region_text = regionDisplay + " reported a total of " + format_number(coviddata[thisfips][max_date_string]['c']) + " confirmed cases and " + format_number(coviddata[thisfips][max_date_string]['d']) + " deaths as of " + format_date_string(max_date_string) + ", including <b>" + coviddata[thisfips][max_date_string]['n_c'] + "</b> new case" + case_plural + " and <b>" + coviddata[thisfips][max_date_string]['n_d'] + "</b> new death" + death_plural + "."; 
+    region_text = regionDisplay + " reported a total of " + format_number(coviddata[thisfips][max_date_string]['c']) + " confirmed cases and " + format_number(coviddata[thisfips][max_date_string]['d']) + " deaths as of " + format_date_string(max_date_string) + ", including a daily net increase in total cases of <b>" + coviddata[thisfips][max_date_string]['n_c'] +"</b> and <b>" + coviddata[thisfips][max_date_string]['n_d'] + "</b> new death" + death_plural + "."; 
 
 
     has_deaths = coviddata[thisfips][max_date_string]['d'] > 0;
@@ -462,9 +463,8 @@
               positive_rate = 0;
             }
 
-            console.log("positivity day number: " + day_count);
             // futzing with this, cleanup when we know how it should work
-            if (day_count == 34 || day_count == 35  ) {
+            if (day_count == 34 || day_count == 35  || day_count == 99  || day_count == 100 || day_count == 107 || day_count == 108 ) {
               positivity_ma.push(-1);
             } else {
               positivity_ma.push(positive_rate);
@@ -482,8 +482,7 @@
             });
             this_average = sum / valid_values;
 
-
-            if (day_count != 34 && day_count != 35  ) {
+            if (day_count != 34 && day_count != 35 && day_count != 99 && day_count != 100 && day_count != 107  || day_count == 108) {
               data_for_this_fips.push({'month':this_date, 'Rate':parseFloat(positive_rate.toFixed(1)), 'Trend':this_average});
             }
           }
@@ -926,11 +925,11 @@
 <div class="title">
 
 <b>What this Chart Means:</b><br>
-<p> One key question is how quickly the virus is spreading. This chart shows lab-confirmed cases and state-designated "presumptive" cases, in which patients show COVID-like symptoms and have been in "close contact with a confirmed case". The actual number of cases is likely considerably higher. Many cases are asymptomatic. Until there's widely available antibody testing, many who catch the virus will never know they had it. </p>
+<p> One key question is how quickly the virus is spreading. This chart shows lab-confirmed cases and state-designated "presumptive" cases, in which patients show COVID-like symptoms and have been in "close contact with a confirmed case". The actual number of cases is likely considerably higher.</p>
 <p>The date shown is the day that the state announced the case, not the day that the person caught the virus. It may take several days to a week for results to become available, so this chart lags behind reality. People who catch the virus often recover within 21 days of becoming symptomatic, although less severe cases may pass quicker.</p>
 
 
-<p><b>Notes:</b> The black line is a 7-day moving average. </p>
+<p><b>Notes:</b> The daily case count is the <b>difference</b> between total cases announced by OHA on consecutive days. Because some presumptive cases are eventually shown not to be cases, and subtracted from the count, the actual number of daily new cases may be slightly higher than shown. The black line is a 7-day moving average. </p>
 </div>
 
 <div class="title">
@@ -1020,7 +1019,7 @@
 
 <br>Widely available testing is one of the key requirements to ending social distancing, although epidemiologists argue it's <a  target="_blank" href="https://www.statnews.com/2020/03/24/we-need-smart-coronavirus-testing-not-just-more-testing/">not just the number of tests that matter</a>. One team at Harvard suggests reopening states would require <a  target="_blank" href="https://www.nytimes.com/interactive/2020/04/17/us/coronavirus-testing-states.html">152 tests per 100,000 residents</a>, which translates into more than 6,400 tests in Oregon daily.
 </p>
-<p><b>Notes:</b> On April 22 authorities did not provide a negative test count.</p>
+<p><b>Notes:</b> On April 22, June 26 and July 4 authorities did not provide a negative test count.</p>
 </div>
 
 
@@ -1069,7 +1068,7 @@
 <p><b>What this Chart Means</b>
 
 <br>The positivity rate is the percentage of tests that returned positive for the virus. The day used is the day that the results were announced. Very high positivity rates have been seen in the hardest-hit parts of the country, but Oregon's rate is lower than the rate in the U.S. as a whole. The national rate has been<a  target="_blank" href="https://www.theatlantic.com/technology/archive/2020/04/us-coronavirus-outbreak-out-control-test-positivity-rate/610132/"> estimated to be 20%</a>.</p>
-<p><b>Notes:</b>  Beginning May 4, Oregon began including "presumptives" in the daily case count. This records someone lacking a positive test but who "is showing symptoms and has had close contact with a confirmed case". Including these cases artificially boosts the positivity rate on the day they are announced, although this should eventually even itself out when test results confirm it. The black line is a 7-day moving average. </p>
+<p><b>Notes:</b>  Beginning May 4, Oregon began including "presumptives" in the daily case count. This records someone lacking a positive test but who "is showing symptoms and has had close contact with a confirmed case". Including these cases artificially boosts the positivity rate on the day they are announced, although this should eventually even itself out when test results confirm it. The black line is a 7-day moving average. Days with missing with missing negatives, as well as the following day (in which two days of negatives are effectively reported), are not shown or included in the trend line. </p>
 </div>
 
 {/if }

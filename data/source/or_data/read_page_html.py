@@ -131,9 +131,18 @@ for file in files:
 		print("prior day %s" % prior_day)
 
 		weekday = prior_day.weekday() 
-		if ( int(filebase_parts[2]) >= 6  and weekday >= 5):
+		print ("date: %s %s " % (int(filebase_parts[2]), int(filebase_parts[3])))
+
+		if ( int(filebase_parts[2]) >= 6  and weekday >= 5 ):
 			print("Skipping weekend %s" % snapshot_date)
 			continue
+
+
+		if ( int(filebase_parts[2]) == 7  and int(filebase_parts[3]) ==3 ):
+			
+			print("Skipping july 3 %s" % snapshot_date)
+			continue
+
 
 		new_filebase = 'ohapageread_' + prior_day.strftime("%Y_%m_%d") + ".csv"
 

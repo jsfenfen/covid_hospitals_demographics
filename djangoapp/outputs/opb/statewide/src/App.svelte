@@ -55,7 +55,7 @@
   let region_pop_data = {}
 
   let dead_v_cases;  // Only do this for the whole state. 
-  let recent_date_text = 'June 23 at 12:01 a.m.'
+  let recent_date_text = 'July 7 at 12:01 a.m.'
 
   let points = [
     {'name': 'Portland',
