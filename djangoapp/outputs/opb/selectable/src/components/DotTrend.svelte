@@ -16,7 +16,7 @@
 
 
 
-	const fill = '#00a2e3';
+	const fill = '#adb642';
 	const stroke = '#333333';
 	const r = 4;
 
@@ -27,13 +27,7 @@
 
 </script>
 
-<g class="line-group">
-		<path
-			class='path-line'
-			d='{path($data[1].values)}'
-			stroke="{stroke}"
-		></path>
-</g>
+
 
 <g class="scatter-group">
 	{#each $data[0]['values'] as d}
@@ -44,6 +38,14 @@
 			{fill}
 		/>
 	{/each}
+</g>
+
+<g class="line-group">
+		<path
+			class='path-line'
+			d='{path($data[1].values)}'
+			stroke="{stroke}"
+		></path>
 </g>
 
 <style>

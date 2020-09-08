@@ -3,7 +3,7 @@
 	const { data, xGet, yGet, height, width } = getContext('LayerCake');
 	export let colorScale = d => '#000';
 
-	export let fill = '#00a2e3';
+	export let fill = '#00749b';
 
 
 

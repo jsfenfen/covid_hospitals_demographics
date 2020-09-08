@@ -20,10 +20,17 @@
 
 	const columnWidth =  ( $data[2]['values'].length / Difference_In_Days) * ( $width / $data[0]['values'].length );
 
+  // #c4cf22 lime 
+  // #00749b feature blue
+  // #adb642 celery
+  //  #cbd0d2 
+  // #b01417 dark red
 
 
-	const fill2 = '#b2bc00';
-	const fill1 = '#6d6d00';
+	const fill2 = '#c4cf22';
+	const fill1 = '#b01417';
+
+
 	const stroke = '#333333';
 	const strokeWidth = 1;
 	const barstroke1 = '#cccccc';

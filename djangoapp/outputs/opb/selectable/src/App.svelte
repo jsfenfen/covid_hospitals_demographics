@@ -462,9 +462,9 @@
             if (positive_rate < 0) {
               positive_rate = 0;
             }
-
+            //console.log("day count: " + day_count + " this date " + this_date);
             // futzing with this, cleanup when we know how it should work
-            if (day_count == 34 || day_count == 35  || day_count == 99  || day_count == 100 || day_count == 107 || day_count == 108 ) {
+            if (day_count == 34 || day_count == 35  || day_count == 99  || day_count == 100 || day_count == 106 || day_count == 107 ) {
               positivity_ma.push(-1);
             } else {
               positivity_ma.push(positive_rate);
@@ -482,7 +482,7 @@
             });
             this_average = sum / valid_values;
 
-            if (day_count != 34 && day_count != 35 && day_count != 99 && day_count != 100 && day_count != 107  || day_count == 108) {
+            if (day_count != 34 && day_count != 35 && day_count != 99 && day_count != 100 && day_count != 106  || day_count == 107) {
               data_for_this_fips.push({'month':this_date, 'Rate':parseFloat(positive_rate.toFixed(1)), 'Trend':this_average});
             }
           }
@@ -565,17 +565,23 @@
    * Set what is our x key to separate it from the other series
    */
   const xKey = 'month';
-  
+  // #c4cf22 lime 
+  // #00749b feature blue
+  // #adb642 celery
+  //  #cbd0d2 
+  // 
 
   var seriesColors = [
-    '#00a2e3',
-    '#b71f24',
+    '#c4cf22',
+    '#c4cf22',
+
   ];
 
 
   var seriesColors2 = [
-    '#6d6d00',
-    '#b2bc00',
+    '#c4cf22',
+    '#00749b',
+
   ];
 
 
@@ -777,8 +783,15 @@
   function formatTickX (d) {
     const date = new Date(d);
     var day = date.getDate();
-    var dayofweek = date.getDay()
+    if (day == 1) {
+      return `${monthNames[date.getUTCMonth()]} ${date.getUTCDate()}`;
+    }
+    else {
+        return '';
+    }
 
+    /*
+    var dayofweek = date.getDay()
     if (dayofweek==5 ) {
       var weeknum = Math.ceil( (((date - onejan) / 86400000) + onejan.getDay() + 1) / 7 );
       if (weeknum%2==0) {
@@ -790,6 +803,7 @@
     } else {
       return '';
     }
+    */
   }
   
   function formatTickY (d) {
@@ -882,7 +896,7 @@
 {#if active=='Cases' }
 
 <div class="title">
-<h3>New Confirmed Cases, {regionDisplay}</h3>
+<h3>New confirmed cases, {regionDisplay}</h3>
 <p>{explainer_text}</p>
 <p>{@html region_text}</p>
 
@@ -924,7 +938,7 @@
 </div>
 <div class="title">
 
-<b>What this Chart Means:</b><br>
+<b>What this chart means:</b><br>
 <p> One key question is how quickly the virus is spreading. This chart shows lab-confirmed cases and state-designated "presumptive" cases, in which patients show COVID-like symptoms and have been in "close contact with a confirmed case". The actual number of cases is likely considerably higher.</p>
 <p>The date shown is the day that the state announced the case, not the day that the person caught the virus. It may take several days to a week for results to become available, so this chart lags behind reality. People who catch the virus often recover within 21 days of becoming symptomatic, although less severe cases may pass quicker.</p>
 
@@ -933,7 +947,7 @@
 </div>
 
 <div class="title">
-<h3>Total Cases, {regionDisplay}</h3>
+<h3>Total cases, {regionDisplay}</h3>
 </div>
 
 <div class="chart-container">
@@ -972,12 +986,12 @@
 </div>
 
 <div class="title">
-<p><b>What this Chart Means:</b> <br>When transmission of the virus stops, this chart will flatten out. Early indications are that social distancing has slowed the spread of the virus. This chart shows only laboratory-confirmed cases, so the total number of actual cases is significantly higher.</p>
+<p><b>What this chart means:</b> <br>When transmission of the virus stops, this chart will flatten out. Early indications are that social distancing has slowed the spread of the virus. This chart shows only laboratory-confirmed cases, so the total number of actual cases is significantly higher.</p>
 </div>
 
 
 <div class="title">
-<h3>Daily Test Results, {regionDisplay}</h3>
+<h3>Daily test results, {regionDisplay}</h3>
 </div>
 
 <div class="chart-container">
@@ -1015,7 +1029,7 @@
 </div>
 
  <div class="title">
-<p><b>What this Chart Means</b>
+<p><b>What this chart means</b>
 
 <br>Widely available testing is one of the key requirements to ending social distancing, although epidemiologists argue it's <a  target="_blank" href="https://www.statnews.com/2020/03/24/we-need-smart-coronavirus-testing-not-just-more-testing/">not just the number of tests that matter</a>. One team at Harvard suggests reopening states would require <a  target="_blank" href="https://www.nytimes.com/interactive/2020/04/17/us/coronavirus-testing-states.html">152 tests per 100,000 residents</a>, which translates into more than 6,400 tests in Oregon daily.
 </p>
@@ -1024,7 +1038,7 @@
 
 
 <div class="title">
-<h3>Test Positivity Rate, {regionDisplay}</h3>
+<h3>Test positivity rate, {regionDisplay}</h3>
 </div>
 
 <div class="chart-container">
@@ -1065,10 +1079,10 @@
 
 
   <div class="title">
-<p><b>What this Chart Means</b>
+<p><b>What this chart means</b>
 
 <br>The positivity rate is the percentage of tests that returned positive for the virus. The day used is the day that the results were announced. Very high positivity rates have been seen in the hardest-hit parts of the country, but Oregon's rate is lower than the rate in the U.S. as a whole. The national rate has been<a  target="_blank" href="https://www.theatlantic.com/technology/archive/2020/04/us-coronavirus-outbreak-out-control-test-positivity-rate/610132/"> estimated to be 20%</a>.</p>
-<p><b>Notes:</b>  Beginning May 4, Oregon began including "presumptives" in the daily case count. This records someone lacking a positive test but who "is showing symptoms and has had close contact with a confirmed case". Including these cases artificially boosts the positivity rate on the day they are announced, although this should eventually even itself out when test results confirm it. The black line is a 7-day moving average. Days with missing with missing negatives, as well as the following day (in which two days of negatives are effectively reported), are not shown or included in the trend line. </p>
+<p><b>Notes:</b>  Beginning May 4, Oregon began including "presumptives" in the daily case count. This records someone lacking a positive test but who "is showing symptoms and has had close contact with a confirmed case". Including these cases artificially boosts the positivity rate on the day they are announced, although this should eventually even itself out when test results confirm it. The black line is a 7-day moving average. Days with missing negatives, as well as the following day (in which two days of negatives are effectively reported), are not shown or included in the trend line. </p>
 </div>
 
 {/if }
@@ -1077,7 +1091,7 @@
 
 <div class="title">
 
-<h3>New Deaths, {regionDisplay}</h3>
+<h3>New deaths, {regionDisplay}</h3>
 <p>{explainer_text}</p>
 <p>{@html region_text}</p>
 </div>
@@ -1105,7 +1119,7 @@
 
       <BarTrend
         colorScale={new_cases_colorScale}
-        fill="#6d6d00"
+        fill="#c4cf22"
       />
     </Svg>
 
@@ -1119,7 +1133,7 @@
 </div>
 <div class="title">
 
-<b>What this Chart Means:</b><br>
+<b>What this chart means:</b><br>
 <p>This chart shows known deaths due to COVID-19. It is an undercount. In other areas total deaths have been adjusted upwards later to include deaths at home, in homeless camps, and where testing was not immediately available.</p>
 
 
@@ -1128,7 +1142,7 @@
 
 
 <div class="title">
-<h3>Total Deaths, {regionDisplay}</h3>
+<h3>Total deaths, {regionDisplay}</h3>
 </div>
 
 <div class="chart-container">
@@ -1166,7 +1180,7 @@
   </LayerCake>
 </div>
 <div class="title">
-<p><b>What this Chart Means:</b><br> Our understanding of the virus is that people often become symptomatic 5-7 days after exposure. While the vast number survive, some <a href="https://www.thelancet.com/action/showPdf?pii=S0140-6736%2820%2930566-3" target="_blank">published reports</a> estimate the time from symptom onset until death to be 19 days, although this number varies. The effects of social distancing should be evident in deaths reported within about 25 days.</p>
+<p><b>What this chart means:</b><br> Our understanding of the virus is that people often become symptomatic 5-7 days after exposure. While the vast number survive, some <a href="https://www.thelancet.com/action/showPdf?pii=S0140-6736%2820%2930566-3" target="_blank">published reports</a> estimate the time from symptom onset until death to be 19 days, although this number varies. The effects of social distancing should be evident in deaths reported within about 25 days.</p>
 </div>
 
 {/if }
@@ -1179,7 +1193,7 @@
 
 
 <div class="title">
-<h3>Total Hospitalized Statewide</h3>
+<h3>Total hospitalized statewide</h3>
 </div>
 
 <div class="chart-container">
@@ -1218,7 +1232,7 @@
 
 
 <div class="title">
-<p><b>What this Chart Means</b>
+<p><b>What this chart means</b>
 <br>This chart shows the cumulative total of COVID-positive patients who have ever been admitted to a hospital in Oregon. Data are provisional. <p></p>
 <p><b>Notes: </b>The spike in hospitalizations around April 6 appears to reflect an error in provisional data that was later revised downwards.</p>
 </div>
@@ -1226,7 +1240,7 @@
 
 
 <div class="title">
-<h3>Current Hospitalizations, Oregon Statewide</h3>
+<h3>Current hospitalizations, Oregon statewide</h3>
 </div>
 
 <div class="chart-container">
@@ -1264,7 +1278,7 @@
 </div>
 
  <div class="title">
-<p><b>What this Chart Means</b>
+<p><b>What this chart means</b>
 
 <br>This chart shows the daily count of hospital beds filled by patients who are either confirmed to have the virus or are suspected of having it. There are about 7,500 hospital beds in OR, about 2,000 of which are available day-to-day.</p>
 
@@ -1276,7 +1290,7 @@
 
 
 <div class="title">
-<h3>Current ICU, Oregon Statewide</h3>
+<h3>Current ICU, Oregon statewide</h3>
 </div>
 
 <div class="chart-container">
@@ -1315,7 +1329,7 @@
 </div>
 
  <div class="title">
-<p><b>What this Chart Means</b>
+<p><b>What this chart means</b>
 
 <br>This chart shows the total number of intensive care beds filled by patients who are either confirmed to have the virus or are suspected of having it. There are about 800 adult ICU beds in the state, about 300 of which are available day-to-day.</p>
 <p><b>Notes: </b>This data was not available before April 8.</p>
@@ -1324,7 +1338,7 @@
 
 
 <div class="title">
-<h3>Current Ventilator Usage, Oregon Statewide</h3>
+<h3>Current ventilator usage, Oregon statewide</h3>
 </div>
 
 <div class="chart-container">
@@ -1363,7 +1377,7 @@
 </div>
 
  <div class="title">
-<p><b>What this Chart Means</b>
+<p><b>What this chart means</b>
 
 <br>This chart shows the total number of patients on mechanical ventilators who are either confirmed to have the virus or are suspected of having it. There are about 800 ventilators at hospitals in statewide.</p>
 

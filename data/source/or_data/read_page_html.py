@@ -12,7 +12,10 @@ tar -xzvf recent_backups.tar.gz
 
 """
 
-filebasestring = "backups/ohapage*.html"
+## We may need to enter data retrospectively, but this is the simplest approach
+# for dealing with occasional data issues--don't reimport the problematic files.
+
+filebasestring = "backups/ohapage_2020_09*"
 
 
 def clean_header(header):
@@ -98,7 +101,6 @@ for file in files:
 	filename = os.path.basename(file)
 	
 
-	print("processing %s" % filename)
 	# allow an exception for the most current file, maybe? 
 	if '_06_15.html' in filename or file == current_file:
 
@@ -111,7 +113,7 @@ for file in files:
 		filebase = filename.replace("ohapage_", "ohapageread_")
 
 
-		print("\nProcessing file %s" % filebase)
+		
 
 		filebase_raw = filebase
 		filebase = filebase.replace("_06_15.html","")
@@ -143,6 +145,12 @@ for file in files:
 			print("Skipping july 3 %s" % snapshot_date)
 			continue
 
+		if ( int(filebase_parts[2]) == 9  and int(filebase_parts[3]) ==8 ):
+			
+			print("Skipping labor day %s" % snapshot_date)
+			continue
+
+		print("\nProcessing file %s" % filebase)
 
 		new_filebase = 'ohapageread_' + prior_day.strftime("%Y_%m_%d") + ".csv"
 
@@ -166,6 +174,8 @@ for file in files:
 				continue
 
 			table_name = ''
+			
+			print("\t|| processing table %s from %s %s" % (i,filebase_parts[2], int(filebase_parts[3]) ))
 
 			if i == 0:
 				table_name = 'summary'

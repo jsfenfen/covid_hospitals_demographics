@@ -20,8 +20,23 @@
 	const columnWidth = $width / $data[0]['values'].length;
 
 
-	const fill2 = '#b2bc00';
-	const fill1 = '#6d6d00';
+
+  var seriesColors = [
+    '#cbd0d2',
+    '#adb642',
+  ];
+
+
+  var seriesColors2 = [
+    '#00749b',
+    '#c4cf22',
+  ];
+
+
+	const fill2 = '#05546e';
+	const fill1 = '#adb642';
+
+
 	const stroke = '#333333';
 	const strokeWidth = 1;
 	const barstroke1 = '#cccccc';

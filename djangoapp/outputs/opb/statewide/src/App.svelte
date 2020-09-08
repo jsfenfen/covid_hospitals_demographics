@@ -55,7 +55,7 @@
   let region_pop_data = {}
 
   let dead_v_cases;  // Only do this for the whole state. 
-  let recent_date_text = 'July 7 at 12:01 a.m.'
+  let recent_date_text = 'September 7 at 12:01 a.m.'
 
   let points = [
     {'name': 'Portland',
@@ -283,18 +283,18 @@
    */
   const xKey = 'month';
   
-  var seriesColors = [
-    '#e09d1f',
-    '#b71f24',
-    '#00a2e3',
-    '#84878b',
-  ];
+  // var seriesColors = [
+  //   '#e09d1f',
+  //   '#b71f24',
+  //   '#00a2e3',
+  //   '#84878b',
+  // ];
 
   // could simplify this
   var barColors = [
-    '#00a2e3',
-    '#00a2e3',
-    '#00a2e3',
+    '#4daae0',
+    '#4daae0',
+    '#4daae0',
   ];
 
 
@@ -509,7 +509,7 @@
   function formatTickX (d) {
     const date = new Date(d);
     var day = date.getDate();
-    if (day%5==0) {
+    if (day==1) {
       return `${monthNames[date.getUTCMonth()]} ${date.getUTCDate()}`;
     } else {
       return '';
@@ -527,14 +527,14 @@
   function handleMapChange(maptype) {
 
     if (maptype == 'Deaths') {
-      set_breaks([0.25,0.5,0.75,1], 'dpm');
+      set_breaks([1,2,3,4], 'dpm');
       table_variable_name = 'Deaths';
       regions_table.sort((a, b) => (a.dpm < b.dpm) ? 1 : -1);
       counties_table.sort((a, b) => (a.dpm < b.dpm) ? 1 : -1);
       scaleword = "deaths";
     }
     if (maptype == 'Cases') {
-      set_breaks([15,30,45,60], 'cpm');
+      set_breaks([40,80,120,160], 'cpm');
       table_variable_name = 'Cases';
       regions_table.sort((a, b) => (a.cpm < b.cpm) ? 1 : -1);
       counties_table.sort((a, b) => (a.cpm < b.cpm) ? 1 : -1);
@@ -542,7 +542,7 @@
 
     }
     if (maptype == 'New') {
-      set_breaks([5,10,15,20], 'npm');
+      set_breaks([10,20,30,40], 'npm');
       table_variable_name = 'New Cases';
       regions_table.sort((a, b) => (a.npm < b.npm) ? 1 : -1);
       counties_table.sort((a, b) => (a.npm < b.npm) ? 1 : -1);
@@ -591,7 +591,7 @@ tr:nth-child(even) {
 
 .mdc-chip {
 
-    font-family: Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
+    font-family: plantin;
     
 }
 
@@ -603,7 +603,7 @@ tr:nth-child(even) {
 
 
 <div class="title">
-<h3>Virus Spread by County</h3>
+<h3>Virus spread by county</h3>
 <p>As of { recent_date_text} New cases are confirmed and "presumptive" positives reported within the last two weeks.</p>
 </div>
 
