@@ -1,0 +1,1550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2">
+	<NetworkLinkControl>
+		<minRefreshPeriod>30</minRefreshPeriod>
+	</NetworkLinkControl>
+
+	<Document>
+		<name>911 Incidents</name>
+		<open>1</open>
+		<description>Recent 911 dispatch incidents in Portland, Oregon </description>
+
+		<Style id="default">
+			<LabelStyle>
+				<color>01ffffff</color>
+			</LabelStyle>
+		</Style>
+		<Style id="police">
+			<IconStyle>
+				<Icon>
+					<href>http://maps.google.com/mapfiles/kml/shapes/police.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<color>01ffffff</color>
+			</LabelStyle>
+		</Style>
+		<Style id="medical">
+			<IconStyle>
+				<Icon>
+					<href>http://maps.google.com/mapfiles/kml/shapes/hospitals.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<color>01ffffff</color>
+			</LabelStyle>
+		</Style>
+		<Style id="fire">
+			<IconStyle>
+				<Icon>
+					<href>http://maps.google.com/mapfiles/kml/shapes/firedept.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<color>01ffffff</color>
+			</LabelStyle>
+		</Style>
+
+		
+				<Placemark>
+					<name>ALMCOM - MONITORED COMMERCIAL FIRE ALARM at 2200 SW 1ST AVE, PORT</name>
+					<description>
+						ALMCOM - MONITORED COMMERCIAL FIRE ALARM at 2200 SW 1ST AVE, PORT [Portland Fire #RP20000076576]
+
+						Tuesday, September 15, 2020 6:48 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.679142,45.506756</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ALMRES - MONITORED RESIDENTIAL FIRE ALARM at 1900 NE 54TH AVE, PORT</name>
+					<description>
+						ALMRES - MONITORED RESIDENTIAL FIRE ALARM at 1900 NE 54TH AVE, PORT [Portland Fire #RP20000076573]
+
+						Tuesday, September 15, 2020 6:40 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.607630,45.536805</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at NE ALBERTA ST / NE 79TH AVE, PORT</name>
+					<description>
+						SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at NE ALBERTA ST / NE 79TH AVE, PORT [Portland Police #PP20000282597]
+
+						Tuesday, September 15, 2020 6:25 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.581116,45.559132</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>GRASS - GRASS, BARKDUST OR TREE FIRE at 14300 N LOMBARD ST, PORT</name>
+					<description>
+						GRASS - GRASS, BARKDUST OR TREE FIRE at 14300 N LOMBARD ST, PORT [Portland Fire #RP20000076572]
+
+						Tuesday, September 15, 2020 6:25 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.768988,45.626810</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ILBURN - ILLEGAL BURNING at 8100 SE HARNEY ST, PORT</name>
+					<description>
+						ILBURN - ILLEGAL BURNING at 8100 SE HARNEY ST, PORT [Portland Fire #RP20000076571]
+
+						Tuesday, September 15, 2020 6:21 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.580864,45.463333</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at SE 16TH AVE / SE TACOMA ST, PORT</name>
+					<description>
+						SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at SE 16TH AVE / SE TACOMA ST, PORT [Portland Police #PP20000282558]
+
+						Tuesday, September 15, 2020 6:17 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.649024,45.464319</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 2800 SE LONG ST, PORT</name>
+					<description>
+						MED - MEDICAL at 2800 SE LONG ST, PORT [Portland Fire #RP20000076570]
+
+						Tuesday, September 15, 2020 6:15 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.635901,45.488727</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>AREA CHECK at 2100 SE POWELL BLVD, PORT</name>
+					<description>
+						AREA CHECK at 2100 SE POWELL BLVD, PORT [Portland Police #PP20000282576]
+
+						Tuesday, September 15, 2020 6:09 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.644434,45.498909</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 5200 N INTERSTATE AVE, PORT</name>
+					<description>
+						MED - MEDICAL at 5200 N INTERSTATE AVE, PORT [Portland Fire #RP20000076569]
+
+						Tuesday, September 15, 2020 6:08 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.682738,45.560823</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 1400 SW 12TH AVE, PORT</name>
+					<description>
+						MED - MEDICAL at 1400 SW 12TH AVE, PORT [Portland Fire #RP20000076567]
+
+						Tuesday, September 15, 2020 6:04 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.686437,45.515337</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 2200 W BURNSIDE ST, PORT</name>
+					<description>
+						MED - MEDICAL at 2200 W BURNSIDE ST, PORT [Portland Fire #RP20000076566]
+
+						Tuesday, September 15, 2020 6:02 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.697689,45.523219</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ALMAUD - AUDIBLE FIRE ALARM at 1300 SE 43RD AVE, PORT</name>
+					<description>
+						ALMAUD - AUDIBLE FIRE ALARM at 1300 SE 43RD AVE, PORT [Portland Fire #RP20000076564]
+
+						Tuesday, September 15, 2020 5:53 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.618672,45.512889</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>UNWANTED PERSON at 6700 N FESSENDEN ST, PORT</name>
+					<description>
+						UNWANTED PERSON at 6700 N FESSENDEN ST, PORT [Portland Police #PP20000282587]
+
+						Tuesday, September 15, 2020 5:52 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.731966,45.592602</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>PUBAST - PUBLIC ASSIST at 5600 NE 42ND AVE, PORT</name>
+					<description>
+						PUBAST - PUBLIC ASSIST at 5600 NE 42ND AVE, PORT [Portland Fire #RP20000076562]
+
+						Tuesday, September 15, 2020 5:46 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.620271,45.564187</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>VANDALISM - COLD at 18100 SE DIVISION ST, GRSM</name>
+					<description>
+						VANDALISM - COLD at 18100 SE DIVISION ST, GRSM [Gresham Police #PG20000042120]
+
+						Tuesday, September 15, 2020 5:44 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.476185,45.504945</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SUSPICIOUS - PRIORITY at 10500 SE KNIGHT ST, PORT</name>
+					<description>
+						SUSPICIOUS - PRIORITY at 10500 SE KNIGHT ST, PORT [Portland Police #PP20000282586]
+
+						Tuesday, September 15, 2020 5:42 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.554590,45.480068</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ALMCOM - MONITORED COMMERCIAL FIRE ALARM at 7500 N LEADBETTER RD, PORT</name>
+					<description>
+						ALMCOM - MONITORED COMMERCIAL FIRE ALARM at 7500 N LEADBETTER RD, PORT [Portland Fire #RP20000076561]
+
+						Tuesday, September 15, 2020 5:39 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.753778,45.630376</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SUSPICIOUS - PRIORITY at NE 133RD AVE / NE PRESCOTT DR, PORT</name>
+					<description>
+						SUSPICIOUS - PRIORITY at NE 133RD AVE / NE PRESCOTT DR, PORT [Portland Police #PP20000282584]
+
+						Tuesday, September 15, 2020 5:35 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.525928,45.554082</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ALMCOM - MONITORED COMMERCIAL FIRE ALARM at 600 NE HOLLADAY ST, PORT</name>
+					<description>
+						ALMCOM - MONITORED COMMERCIAL FIRE ALARM at 600 NE HOLLADAY ST, PORT [Portland Fire #RP20000076560]
+
+						Tuesday, September 15, 2020 5:33 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.659144,45.529629</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 6000 SE BELMONT ST, PORT</name>
+					<description>
+						MED - MEDICAL at 6000 SE BELMONT ST, PORT [Portland Fire #RP20000076559]
+
+						Tuesday, September 15, 2020 5:28 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.601120,45.516399</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>UNWANTED PERSON at 2900 SE BELMONT ST, PORT</name>
+					<description>
+						UNWANTED PERSON at 2900 SE BELMONT ST, PORT [Portland Police #PP20000282489]
+
+						Tuesday, September 15, 2020 5:26 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.635083,45.516467</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>AREA CHECK at 1600 SW ALDER ST, PORT</name>
+					<description>
+						AREA CHECK at 1600 SW ALDER ST, PORT [Portland Police #PP20000282564]
+
+						Tuesday, September 15, 2020 5:23 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.688248,45.522534</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ELEV - ELEVATOR RESCUE at 300 SE ALDER ST, PORT</name>
+					<description>
+						ELEV - ELEVATOR RESCUE at 300 SE ALDER ST, PORT [Portland Fire #RP20000076556]
+
+						Tuesday, September 15, 2020 5:21 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.662458,45.518164</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 3900 SE POWELL BLVD, PORT</name>
+					<description>
+						MED - MEDICAL at 3900 SE POWELL BLVD, PORT [Portland Fire #RP20000076555]
+
+						Tuesday, September 15, 2020 5:18 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.622249,45.496984</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SUSPICIOUS - PRIORITY at 1200 N KILLINGSWORTH ST, PORT</name>
+					<description>
+						SUSPICIOUS - PRIORITY at 1200 N KILLINGSWORTH ST, PORT [Portland Police #PP20000282580]
+
+						Tuesday, September 15, 2020 5:12 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.680064,45.562805</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ASSAULT - COLD at 9900 NE SANDY BLVD, PORT</name>
+					<description>
+						ASSAULT - COLD at 9900 NE SANDY BLVD, PORT [Portland Police #PP20000282556]
+
+						Tuesday, September 15, 2020 5:10 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.559767,45.560694</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 12200 SE KELLY ST, PORT</name>
+					<description>
+						MED - MEDICAL at 12200 SE KELLY ST, PORT [Portland Fire #RP20000076554]
+
+						Tuesday, September 15, 2020 5:02 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.536806,45.499307</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 16200 SE MILL ST, PORT</name>
+					<description>
+						MED - MEDICAL at 16200 SE MILL ST, PORT [Portland Fire #RP20000076553]
+
+						Tuesday, September 15, 2020 5:00 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.495831,45.510218</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ALMCOM - MONITORED COMMERCIAL FIRE ALARM at 7500 N LEADBETTER RD, PORT</name>
+					<description>
+						ALMCOM - MONITORED COMMERCIAL FIRE ALARM at 7500 N LEADBETTER RD, PORT [Portland Fire #RP20000076552]
+
+						Tuesday, September 15, 2020 4:56 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.753778,45.630376</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at N VANCOUVER WAY / N MARINE DR, PORT</name>
+					<description>
+						SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at N VANCOUVER WAY / N MARINE DR, PORT [Portland Police #PP20000282573]
+
+						Tuesday, September 15, 2020 4:50 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.679235,45.603251</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ILBURN - ILLEGAL BURNING at NW OVERTON ST / NW 13TH AVE, PORT</name>
+					<description>
+						ILBURN - ILLEGAL BURNING at NW OVERTON ST / NW 13TH AVE, PORT [Portland Fire #RP20000076551]
+
+						Tuesday, September 15, 2020 4:49 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.684490,45.532187</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 1200 SW 12TH AVE, PORT</name>
+					<description>
+						MED - MEDICAL at 1200 SW 12TH AVE, PORT [Portland Fire #RP20000076550]
+
+						Tuesday, September 15, 2020 4:48 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.685675,45.517115</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ALMAUD - AUDIBLE FIRE ALARM at 300 NW 19TH AVE, PORT</name>
+					<description>
+						ALMAUD - AUDIBLE FIRE ALARM at 300 NW 19TH AVE, PORT [Portland Fire #RP20000076549]
+
+						Tuesday, September 15, 2020 4:44 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.690584,45.525310</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 7500 NE MARTIN LUTHER KING JR BLVD, PORT</name>
+					<description>
+						MED - MEDICAL at 7500 NE MARTIN LUTHER KING JR BLVD, PORT [Portland Fire #RP20000076548]
+
+						Tuesday, September 15, 2020 4:44 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.661580,45.577520</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ILBURN - ILLEGAL BURNING at N PORTLAND RD / N COLUMBIA BLVD, PORT</name>
+					<description>
+						ILBURN - ILLEGAL BURNING at N PORTLAND RD / N COLUMBIA BLVD, PORT [Portland Fire #RP20000076547]
+
+						Tuesday, September 15, 2020 4:39 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.726925,45.594688</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SUSPICIOUS - PRIORITY at 1500 SE 44TH AVE, PORT</name>
+					<description>
+						SUSPICIOUS - PRIORITY at 1500 SE 44TH AVE, PORT [Portland Police #PP20000282566]
+
+						Tuesday, September 15, 2020 4:29 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.617339,45.511786</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>DISTURBANCE - PRIORITY at 600 SE MORRISON ST, PORT</name>
+					<description>
+						DISTURBANCE - PRIORITY at 600 SE MORRISON ST, PORT [Portland Police #PP20000282569]
+
+						Tuesday, September 15, 2020 4:28 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.658954,45.517365</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>PREMISE CHECK at 17400 SE STARK ST, GRSM</name>
+					<description>
+						PREMISE CHECK at 17400 SE STARK ST, GRSM [Gresham Police #PG20000042118]
+
+						Tuesday, September 15, 2020 4:19 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.483253,45.519869</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ASSAULT - PRIORITY at 700 SE 106TH AVE, PORT</name>
+					<description>
+						ASSAULT - PRIORITY at 700 SE 106TH AVE, PORT [Portland Police #PP20000282565]
+
+						Tuesday, September 15, 2020 4:18 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.554377,45.516888</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>PUBAST - PUBLIC ASSIST at 1000 SE 142ND AVE, PORT</name>
+					<description>
+						PUBAST - PUBLIC ASSIST at 1000 SE 142ND AVE, PORT [Portland Fire #RP20000076545]
+
+						Tuesday, September 15, 2020 4:13 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.516913,45.516119</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>TRIMET INCIDENT - PRIORITY at 18700 E BURNSIDE ST, GRSM</name>
+					<description>
+						TRIMET INCIDENT - PRIORITY at 18700 E BURNSIDE ST, GRSM [Gresham Police #PG20000042117]
+
+						Tuesday, September 15, 2020 4:01 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.470725,45.520325</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at 1100 SW 2ND AVE, PORT</name>
+					<description>
+						SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at 1100 SW 2ND AVE, PORT [Portland Police #PP20000282561]
+
+						Tuesday, September 15, 2020 4:00 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.676413,45.515058</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at NE 1ST AVE / NE OREGON ST, PORT</name>
+					<description>
+						MED - MEDICAL at NE 1ST AVE / NE OREGON ST, PORT [Portland Fire #RP20000076544]
+
+						Tuesday, September 15, 2020 3:58 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.664724,45.528657</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 300 NW 19TH AVE, PORT</name>
+					<description>
+						MED - MEDICAL at 300 NW 19TH AVE, PORT [Portland Fire #RP20000076543]
+
+						Tuesday, September 15, 2020 3:58 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.690584,45.525310</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 500 NW EVERETT ST, PORT</name>
+					<description>
+						MED - MEDICAL at 500 NW EVERETT ST, PORT [Portland Fire #RP20000076542]
+
+						Tuesday, September 15, 2020 3:56 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.676033,45.525115</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 1800 SW MORRISON ST, PORT</name>
+					<description>
+						MED - MEDICAL at 1800 SW MORRISON ST, PORT [Portland Fire #RP20000076541]
+
+						Tuesday, September 15, 2020 3:51 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.691865,45.522282</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 100 NW 2ND AVE, PORT</name>
+					<description>
+						MED - MEDICAL at 100 NW 2ND AVE, PORT [Portland Fire #RP20000076540]
+
+						Tuesday, September 15, 2020 3:46 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.672573,45.523946</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 3400 NE 81ST AVE, PORT</name>
+					<description>
+						MED - MEDICAL at 3400 NE 81ST AVE, PORT [Portland Fire #RP20000076539]
+
+						Tuesday, September 15, 2020 3:39 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.579466,45.547452</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 5800 N INTERSTATE AVE, PORT</name>
+					<description>
+						MED - MEDICAL at 5800 N INTERSTATE AVE, PORT [Portland Fire #RP20000076538]
+
+						Tuesday, September 15, 2020 3:36 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.681847,45.565079</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ILBURN - ILLEGAL BURNING at SE 96TH AVE / SE MAIN ST, PORT</name>
+					<description>
+						ILBURN - ILLEGAL BURNING at SE 96TH AVE / SE MAIN ST, PORT [Portland Fire #RP20000076537]
+
+						Tuesday, September 15, 2020 3:26 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.564221,45.514023</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>UNWANTED PERSON at 1500 NE 37TH AVE, PORT</name>
+					<description>
+						UNWANTED PERSON at 1500 NE 37TH AVE, PORT [Portland Police #PP20000282547]
+
+						Tuesday, September 15, 2020 3:18 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.625603,45.534378</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 10700 NE PRESCOTT ST, PORT</name>
+					<description>
+						MED - MEDICAL at 10700 NE PRESCOTT ST, PORT [Portland Fire #RP20000076536]
+
+						Tuesday, September 15, 2020 3:18 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.551797,45.555110</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ASSAULT - COLD at 15200 E BURNSIDE ST, PORT</name>
+					<description>
+						ASSAULT - COLD at 15200 E BURNSIDE ST, PORT [Portland Police #PP20000282476]
+
+						Tuesday, September 15, 2020 3:18 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.506586,45.522599</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>DISTURBANCE - WITH WEAPON *H at 1900 NE DIVISION ST, GRSM</name>
+					<description>
+						DISTURBANCE - WITH WEAPON *H at 1900 NE DIVISION ST, GRSM [Gresham Police #PG20000042114]
+
+						Tuesday, September 15, 2020 3:16 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.412295,45.505609</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SHOTS FIRED at SE FLAVEL ST / SE 82ND AVE[-92, PORT</name>
+					<description>
+						SHOTS FIRED at SE FLAVEL ST / SE 82ND AVE[-92, PORT [Portland Police #PP20000282552]
+
+						Tuesday, September 15, 2020 3:14 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.579047,45.468659</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 1000 NE 99TH AVE, PORT</name>
+					<description>
+						MED - MEDICAL at 1000 NE 99TH AVE, PORT [Portland Fire #RP20000076535]
+
+						Tuesday, September 15, 2020 3:10 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.562111,45.530190</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 4200 NE CAMPAIGN ST, PORT</name>
+					<description>
+						MED - MEDICAL at 4200 NE CAMPAIGN ST, PORT [Portland Fire #RP20000076534]
+
+						Tuesday, September 15, 2020 3:06 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.619891,45.554443</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>THREAT - COLD at 2400 BLOCK SE 93RD AVE, PORT</name>
+					<description>
+						THREAT - COLD at 2400 BLOCK SE 93RD AVE, PORT [Portland Police #PP20000282537]
+
+						Tuesday, September 15, 2020 3:05 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.567360,45.504962</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>AREA CHECK at 5400 NE 148TH AVE, PORT</name>
+					<description>
+						AREA CHECK at 5400 NE 148TH AVE, PORT [Portland Police #PP20000282544]
+
+						Tuesday, September 15, 2020 2:56 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.514456,45.561367</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 1400 SW MORRISON ST, PORT</name>
+					<description>
+						MED - MEDICAL at 1400 SW MORRISON ST, PORT [Portland Fire #RP20000076533]
+
+						Tuesday, September 15, 2020 2:56 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.686986,45.521082</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at 400 SW HARRISON ST, PORT</name>
+					<description>
+						SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at 400 SW HARRISON ST, PORT [Portland Police #PP20000282546]
+
+						Tuesday, September 15, 2020 2:54 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.681516,45.510461</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>VEHICLE STOLEN - COLD at 1600 NE 27TH TER, GRSM</name>
+					<description>
+						VEHICLE STOLEN - COLD at 1600 NE 27TH TER, GRSM [Gresham Police #PG20000042111]
+
+						Tuesday, September 15, 2020 2:54 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.415106,45.515853</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SHOTS FIRED at 7600 SE 82ND AVE, PORT</name>
+					<description>
+						SHOTS FIRED at 7600 SE 82ND AVE, PORT [Portland Police #PP20000282545]
+
+						Tuesday, September 15, 2020 2:42 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.578337,45.468112</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at 500 NE HOLLADAY ST, PORT</name>
+					<description>
+						SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at 500 NE HOLLADAY ST, PORT [Portland Police #PP20000282542]
+
+						Tuesday, September 15, 2020 2:40 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.660138,45.529805</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 2000 NW NORTHRUP ST, PORT</name>
+					<description>
+						MED - MEDICAL at 2000 NW NORTHRUP ST, PORT [Portland Fire #RP20000076532]
+
+						Tuesday, September 15, 2020 2:39 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.693033,45.530995</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 0 SW 3RD AVE, PORT</name>
+					<description>
+						MED - MEDICAL at 0 SW 3RD AVE, PORT [Portland Fire #RP20000076531]
+
+						Tuesday, September 15, 2020 2:37 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.673137,45.522761</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at NE 63RD AVE / NE HALSEY ST, PORT</name>
+					<description>
+						MED - MEDICAL at NE 63RD AVE / NE HALSEY ST, PORT [Portland Fire #RP20000076530]
+
+						Tuesday, September 15, 2020 2:34 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.598621,45.533688</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 1100 SW 2ND AVE, PORT</name>
+					<description>
+						MED - MEDICAL at 1100 SW 2ND AVE, PORT [Portland Fire #RP20000076529]
+
+						Tuesday, September 15, 2020 2:32 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.676413,45.515058</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>BURGLARY - COLD at 2000  LLOYD CENTER , PORT</name>
+					<description>
+						BURGLARY - COLD at 2000  LLOYD CENTER , PORT [Portland Police #PP20000282531]
+
+						Tuesday, September 15, 2020 2:22 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.653459,45.532287</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>AREA CHECK at 1700 NE 16TH AVE, PORT</name>
+					<description>
+						AREA CHECK at 1700 NE 16TH AVE, PORT [Portland Police #PP20000282535]
+
+						Tuesday, September 15, 2020 2:17 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.649818,45.535200</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>DISTURBANCE - PRIORITY at 24800 SE STARK ST, GRSM</name>
+					<description>
+						DISTURBANCE - PRIORITY at 24800 SE STARK ST, GRSM [Gresham Police #PG20000042109]
+
+						Tuesday, September 15, 2020 2:13 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.407497,45.517157</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>BURGLARY - PRIORITY *H at 500 SE 66TH PL, PORT</name>
+					<description>
+						BURGLARY - PRIORITY *H at 500 SE 66TH PL, PORT [Portland Police #PP20000282534]
+
+						Tuesday, September 15, 2020 2:11 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.594478,45.518723</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at 4600 SE 122ND AVE, PORT</name>
+					<description>
+						SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at 4600 SE 122ND AVE, PORT [Portland Police #PP20000282495]
+
+						Tuesday, September 15, 2020 2:10 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.537104,45.488909</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>DISTURBANCE - PRIORITY at 600 NE 162ND AVE, MULT</name>
+					<description>
+						DISTURBANCE - PRIORITY at 600 NE 162ND AVE, MULT [Portland Police #PP20000282502]
+
+						Tuesday, September 15, 2020 2:09 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.497842,45.527341</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>DISTURBANCE - PRIORITY at 9000 N FOSS AVE, PORT</name>
+					<description>
+						DISTURBANCE - PRIORITY at 9000 N FOSS AVE, PORT [Portland Police #PP20000282532]
+
+						Tuesday, September 15, 2020 2:09 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.711373,45.587745</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 600 NE 101ST AVE, PORT</name>
+					<description>
+						MED - MEDICAL at 600 NE 101ST AVE, PORT [Portland Fire #RP20000076527]
+
+						Tuesday, September 15, 2020 2:07 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.559703,45.527393</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>TRIMET INCIDENT - PRIORITY at 1200 NE 8TH ST, GRSM</name>
+					<description>
+						TRIMET INCIDENT - PRIORITY at 1200 NE 8TH ST, GRSM [Gresham Police #PG20000042108]
+
+						Tuesday, September 15, 2020 2:02 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.418516,45.502792</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ACCIDENT - NON INJURY at NB I5 FWY SO / SW TERWILLIGER BLVD, PORT</name>
+					<description>
+						ACCIDENT - NON INJURY at NB I5 FWY SO / SW TERWILLIGER BLVD, PORT [Portland Police #PP20000282529]
+
+						Tuesday, September 15, 2020 2:01 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.686900,45.470284</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 1600 N PRESCOTT ST, PORT</name>
+					<description>
+						MED - MEDICAL at 1600 N PRESCOTT ST, PORT [Portland Fire #RP20000076526]
+
+						Tuesday, September 15, 2020 1:59 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.684350,45.555212</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 12400 SE STARK ST, PORT</name>
+					<description>
+						MED - MEDICAL at 12400 SE STARK ST, PORT [Portland Fire #RP20000076525]
+
+						Tuesday, September 15, 2020 1:55 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.534802,45.519818</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at 500 SE 66TH PL, PORT</name>
+					<description>
+						SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at 500 SE 66TH PL, PORT [Portland Police #PP20000282528]
+
+						Tuesday, September 15, 2020 1:52 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.594478,45.518723</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>AREA CHECK at N SYRACUSE ST / N IDA AVE, PORT</name>
+					<description>
+						AREA CHECK at N SYRACUSE ST / N IDA AVE, PORT [Portland Police #PP20000282524]
+
+						Tuesday, September 15, 2020 1:49 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.739856,45.584269</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>UNWANTED PERSON at 4700 SE 92ND AVE, PORT</name>
+					<description>
+						UNWANTED PERSON at 4700 SE 92ND AVE, PORT [Portland Police #PP20000282413]
+
+						Tuesday, September 15, 2020 1:48 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.569176,45.488306</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ACCIDENT - INJURY at SE 34TH AVE / SE GLADSTONE ST, PORT</name>
+					<description>
+						ACCIDENT - INJURY at SE 34TH AVE / SE GLADSTONE ST, PORT [Portland Police #PP20000282527]
+
+						Tuesday, September 15, 2020 1:46 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.629782,45.493346</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at SE 34TH AVE / SE GLADSTONE ST, PORT</name>
+					<description>
+						MED - MEDICAL at SE 34TH AVE / SE GLADSTONE ST, PORT [Portland Fire #RP20000076524]
+
+						Tuesday, September 15, 2020 1:46 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.629782,45.493346</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>THREAT - COLD at 10300 N VANCOUVER WAY, PORT</name>
+					<description>
+						THREAT - COLD at 10300 N VANCOUVER WAY, PORT [Portland Police #PP20000282517]
+
+						Tuesday, September 15, 2020 1:43 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.669697,45.597719</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SUSPICIOUS - PRIORITY at 8900 N WESTANNA AVE, PORT</name>
+					<description>
+						SUSPICIOUS - PRIORITY at 8900 N WESTANNA AVE, PORT [Portland Police #PP20000282522]
+
+						Tuesday, September 15, 2020 1:34 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.731364,45.587732</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at 10000 SE PARDEE ST, PORT</name>
+					<description>
+						SUSPICIOUS SUBJ, VEH, OR CIRCUMSTANCE at 10000 SE PARDEE ST, PORT [Portland Police #PP20000282511]
+
+						Tuesday, September 15, 2020 1:32 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.559750,45.488884</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>THEFT - PRIORITY at 2100 NE 82ND AVE, PORT</name>
+					<description>
+						THEFT - PRIORITY at 2100 NE 82ND AVE, PORT [Portland Police #PP20000282519]
+
+						Tuesday, September 15, 2020 1:31 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.578636,45.537489</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ASSAULT - COLD at 5100 NW SKYLINE BLVD, PORT</name>
+					<description>
+						ASSAULT - COLD at 5100 NW SKYLINE BLVD, PORT [Portland Police #PP20000282304]
+
+						Tuesday, September 15, 2020 1:27 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.783772,45.560312</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ROBBERY - WITH WEAPON *H at 8200 NE BEECH ST, PORT</name>
+					<description>
+						ROBBERY - WITH WEAPON *H at 8200 NE BEECH ST, PORT [Portland Police #PP20000282516]
+
+						Tuesday, September 15, 2020 1:23 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.578083,45.549360</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 9800 SE POWELL BLVD, PORT</name>
+					<description>
+						MED - MEDICAL at 9800 SE POWELL BLVD, PORT [Portland Fire #RP20000076523]
+
+						Tuesday, September 15, 2020 1:22 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.562450,45.495774</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>POLREQ - POLICE REQUEST (DISPATCH/BALANCE) at 1400 NW 13TH AVE, PORT</name>
+					<description>
+						POLREQ - POLICE REQUEST (DISPATCH/BALANCE) at 1400 NW 13TH AVE, PORT [Portland Fire #RP20000076522]
+
+						Tuesday, September 15, 2020 1:22 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.684750,45.533460</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>TRIMET INCIDENT - PRIORITY at 0 NE HOLLADAY ST, PORT</name>
+					<description>
+						TRIMET INCIDENT - PRIORITY at 0 NE HOLLADAY ST, PORT [Portland Police #PP20000282513]
+
+						Tuesday, September 15, 2020 1:12 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.665248,45.530230</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>DISTURBANCE - COLD at 3100 NE 23RD ST, GRSM</name>
+					<description>
+						DISTURBANCE - COLD at 3100 NE 23RD ST, GRSM [Gresham Police #PG20000042106]
+
+						Tuesday, September 15, 2020 1:08 AM
+					</description>
+					
+							<styleUrl>#police</styleUrl>
+						
+					<Point>
+						<coordinates>-122.400408,45.514295</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 15200 NE SANDY BLVD, PORT</name>
+					<description>
+						MED - MEDICAL at 15200 NE SANDY BLVD, PORT [Portland Fire #RP20000076521]
+
+						Tuesday, September 15, 2020 1:08 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.505295,45.550918</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>ALMAUD - AUDIBLE FIRE ALARM at 2400 SE 67TH AVE, PORT</name>
+					<description>
+						ALMAUD - AUDIBLE FIRE ALARM at 2400 SE 67TH AVE, PORT [Portland Fire #RP20000076520]
+
+						Tuesday, September 15, 2020 1:07 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.594644,45.505247</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 5000 NE GOING ST, PORT</name>
+					<description>
+						MED - MEDICAL at 5000 NE GOING ST, PORT [Portland Fire #RP20000076519]
+
+						Tuesday, September 15, 2020 1:07 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.611164,45.557514</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>VFIRE - VEHICLE OR TRAILER FIRE at SE 143RD AVE / SE OAK ST, PORT</name>
+					<description>
+						VFIRE - VEHICLE OR TRAILER FIRE at SE 143RD AVE / SE OAK ST, PORT [Portland Fire #RP20000076518]
+
+						Tuesday, September 15, 2020 1:02 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.515833,45.520012</coordinates>
+					</Point>
+				</Placemark>
+			
+				<Placemark>
+					<name>MED - MEDICAL at 300 NE RUSSET ST, PORT</name>
+					<description>
+						MED - MEDICAL at 300 NE RUSSET ST, PORT [Portland Fire #RP20000076517]
+
+						Tuesday, September 15, 2020 1:01 AM
+					</description>
+					
+							<styleUrl>#fire</styleUrl>
+						
+					<Point>
+						<coordinates>-122.662280,45.578148</coordinates>
+					</Point>
+				</Placemark>
+			
+	</Document>
+</kml>
