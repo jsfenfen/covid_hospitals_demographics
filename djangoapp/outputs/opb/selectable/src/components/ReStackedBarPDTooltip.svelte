@@ -99,7 +99,7 @@
 
 
       <div class="fauxbar"
-          style="top:{top}px;left:{x-columnWidth/2}px; width:{columnWidth}px; height:{$height-top}px; display: { shouldbe_visible(visible)};"
+          style="top:{top}px;left:{x-columnWidth/2}px; width:{columnWidth/2}px; height:{$height-top}px; display: { shouldbe_visible(visible)};"
       ></div>
 
 </QuadTree>

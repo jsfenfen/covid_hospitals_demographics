@@ -15,7 +15,7 @@ tar -xzvf recent_backups.tar.gz
 ## We may need to enter data retrospectively, but this is the simplest approach
 # for dealing with occasional data issues--don't reimport the problematic files.
 
-filebasestring = "backups/ohapage_2020_09*"
+filebasestring = "backups/ohapage_2020_11*"
 
 
 def clean_header(header):
@@ -170,7 +170,9 @@ for file in files:
 			try:
 				first_header = first_row.find_all('th')[0].text
 			except IndexError:
+
 				print("Couldn't get header from first_row, table %s" % i)
+				print("firt row is: %s" % first_row)
 				continue
 
 			table_name = ''
@@ -186,14 +188,14 @@ for file in files:
 					fixed_header = fixed_header.strip(' ')
 					print("Fixed header is " + fixed_header)
 
-					day = str(int(prior_day.strftime("%d")))
+					day = prior_day.strftime("%d")
 					day_string = day + prior_day.strftime("/%Y")
-					month = int(prior_day.strftime("%m"))
+					month = prior_day.strftime("%m")
 					day_string_fixed = str(month) + "/" + day_string
 					print("day_string_fixed:   %s fixed_header: %s" % (day_string_fixed, fixed_header) )
 					
 					# make sure the most recent file has data for the correct day
-					assert day_string_fixed in fixed_header
+					#assert day_string_fixed in fixed_header
 			else:
 				table_name = get_table_from_header(first_header, i)
 

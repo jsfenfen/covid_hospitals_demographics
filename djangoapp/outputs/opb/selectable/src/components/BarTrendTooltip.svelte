@@ -72,7 +72,7 @@
     position: absolute;
     background-color: transparent;
     pointer-events: none;
-    border: 2px solid black;
+    border: 1px solid black;
   }
 </style>
 
@@ -91,7 +91,7 @@
 
 
       <div class="fauxbar"
-          style="top:{top}px;left:{x-columnWidth/2}px; width:{columnWidth}px; height:{$height-top}px; display: { visible ? 'block' : 'none' };"
+          style="top:{top}px;left:{x-columnWidth/2}px; width:{columnWidth/2}px; height:{$height-top}px; display: { visible ? 'block' : 'none' };"
       ></div>
 
 </QuadTree>

@@ -275,6 +275,8 @@
     // Assumes that pymchild is defined on the page before here! 
     setTimeout(function(){ pymChild.sendHeight(); }, 20);
     //console.log("height sent");
+
+    console.log(cases_long);
   }
 
   function prep_covid_details(data_type) {
@@ -784,7 +786,12 @@
     const date = new Date(d);
     var day = date.getDate();
     if (day == 1) {
-      return `${monthNames[date.getUTCMonth()]} ${date.getUTCDate()}`;
+      if (date.getUTCMonth()  == 3 || date.getUTCMonth() == 9) {
+        return `${monthNames[date.getUTCMonth()]} ${date.getUTCDate()}`;
+      }
+      else {
+        return '';
+      }
     }
     else {
         return '';
@@ -1188,53 +1195,7 @@
 {#if active == 'Hospitals' }
 
 <div class="title">
-<p>Hospitalization data is only available statewide. Beginning June 6, the Oregon Health Authority stopped reporting hospitalization data on the weekends. </p>
-</div>
-
-
-<div class="title">
-<h3>Total hospitalized statewide</h3>
-</div>
-
-<div class="chart-container">
-  
-  <LayerCake
-    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
-    x='month'
-    y='value'
-    flatData={flatten(total_hospitalized_long)}
-    yDomain={total_hospitalized_domain}
-    data={total_hospitalized_long}
-  >
-    <Svg>
-      <AxisX
-        gridlines={false}
-        ticks={total_hospitalized.map(d => d[xKey])}
-        formatTick={formatTickX}
-        snapTicks={true}
-      />
-      <AxisY
-        formatTick={formatTickY}
-      />
-
-      <MultiLine
-        colorScale={total_hospitalized_colorScale}
-      />
-    </Svg>
-
-    <Html>
-      <Tooltip
-        dataset={ total_hospitalized }
-      />
-    </Html>
-  </LayerCake>
-</div>
-
-
-<div class="title">
-<p><b>What this chart means</b>
-<br>This chart shows the cumulative total of COVID-positive patients who have ever been admitted to a hospital in Oregon. Data are provisional. <p></p>
-<p><b>Notes: </b>The spike in hospitalizations around April 6 appears to reflect an error in provisional data that was later revised downwards.</p>
+<p>Hospitalization data is only available statewide. Beginning June 6, the Oregon Health Authority stopped reporting hospitalization data on the weekends and holidays. </p>
 </div>
 
 
@@ -1383,6 +1344,53 @@
 
 <p><b>Notes: </b>This data was not available before April 6.</p>
 
+</div>
+
+
+
+<div class="title">
+<h3>Total hospitalized statewide</h3>
+</div>
+
+<div class="chart-container">
+  
+  <LayerCake
+    padding={{ top: 27, right: 10, bottom: 20, left: 40 }}
+    x='month'
+    y='value'
+    flatData={flatten(total_hospitalized_long)}
+    yDomain={total_hospitalized_domain}
+    data={total_hospitalized_long}
+  >
+    <Svg>
+      <AxisX
+        gridlines={false}
+        ticks={total_hospitalized.map(d => d[xKey])}
+        formatTick={formatTickX}
+        snapTicks={true}
+      />
+      <AxisY
+        formatTick={formatTickY}
+      />
+
+      <MultiLine
+        colorScale={total_hospitalized_colorScale}
+      />
+    </Svg>
+
+    <Html>
+      <Tooltip
+        dataset={ total_hospitalized }
+      />
+    </Html>
+  </LayerCake>
+</div>
+
+
+<div class="title">
+<p><b>What this chart means</b>
+<br>This chart shows the cumulative total of COVID-positive patients who have ever been admitted to a hospital in Oregon. Data are provisional. <p></p>
+<p><b>Notes: </b>The spike in hospitalizations around April 6 appears to reflect an error in provisional data that was later revised downwards.</p>
 </div>
 
 
