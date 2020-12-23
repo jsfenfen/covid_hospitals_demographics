@@ -15,7 +15,7 @@ tar -xzvf recent_backups.tar.gz
 ## We may need to enter data retrospectively, but this is the simplest approach
 # for dealing with occasional data issues--don't reimport the problematic files.
 
-filebasestring = "backups/ohapage_2020_11*"
+filebasestring = "backups/ohapage_2020_12*"
 
 
 def clean_header(header):
@@ -135,20 +135,16 @@ for file in files:
 		weekday = prior_day.weekday() 
 		print ("date: %s %s " % (int(filebase_parts[2]), int(filebase_parts[3])))
 
-		if ( int(filebase_parts[2]) >= 6  and weekday >= 5 ):
-			print("Skipping weekend %s" % snapshot_date)
+		if ( int(filebase_parts[2]) < 11  ):
+			print("Skipping pre december files")
 			continue
 
 
-		if ( int(filebase_parts[2]) == 7  and int(filebase_parts[3]) ==3 ):
+		if ( int(filebase_parts[2]) == 12  and int(filebase_parts[3]) < 23 ):
+			print("skipping early december files")
+			continue
 			
-			print("Skipping july 3 %s" % snapshot_date)
-			continue
-
-		if ( int(filebase_parts[2]) == 9  and int(filebase_parts[3]) ==8 ):
 			
-			print("Skipping labor day %s" % snapshot_date)
-			continue
 
 		print("\nProcessing file %s" % filebase)
 
