@@ -42,6 +42,38 @@ if __name__ == "__main__":
                 cases_return[row['statecountyfips']] = row
                 
 
+    def prune_keys(dict):
+        new_dict = {}
+        for key in dict.keys():
+            if key.startswith("202"):
+                print("prune keys %s" % key)
+                key_parts = key.split("_")
+                year = int(key_parts[0])
+                month_num = int(key_parts[1])
+                if month_num > 11 or year == 2021 :
+                
+                    raw_dict = dict[key]
+                    del(raw_dict['c'])
+                    del(raw_dict['d'])
+                    del(raw_dict['n'])
+                    try:
+                        del(raw_dict['n_n'])
+                    except KeyError:
+                        pass
+                    new_dict[key] = raw_dict
+
+
+                else:
+                    print("skipping key %s" % key)
+                    pass
+
+
+
+            else:
+                new_dict[key] = dict[key]
+        return new_dict
+
+
 
     def read_populations():
         infile = '/Users/jacob/github-whitelabel/covid_hospitals_demographics/data/source/or_data/psu_population_projections_2019/psu_pops_cbsa.csv'
@@ -60,7 +92,8 @@ if __name__ == "__main__":
 
     datestrings = {}
 
-    files = (glob.glob("pages_parsed/county_ohapageread_202*.csv"))
+
+    files = (glob.glob("pages_parsed/county_ohapageread_*.csv"))
     for file in sorted(files):
         
         filename = os.path.basename(file)
@@ -235,18 +268,32 @@ if __name__ == "__main__":
 
 
 
-    # county_pops[row['fips']] = row
+
+
+
+
+
+
+    outfile2 = "coviddata_abbreviated.js"
+
+    new_dict = {}
+    for key in cases_return.keys():
+        new_dict[key] = prune_keys(cases_return[key])
+
+    with open(outfile2, 'w') as outfilehandle:
+        outfilehandle.write("export default ")
+        json.dump(new_dict, outfilehandle)
+
+
+
+
 
     #print(cases_return)
-    outfile = "coviddata.js"
+    outfile = "coviddata-state-abbreviated.js"
+    state_dict = {};
+    state_dict['41000'] = new_dict['41000']
 
     with open(outfile, 'w') as outfilehandle:
         outfilehandle.write("export default ")
-        json.dump(cases_return, outfilehandle)
-
-
-
-
-
-
+        json.dump(state_dict, outfilehandle)
 
