@@ -31,7 +31,7 @@
 <body style="font-family: 'Roboto'; height: 200px; padding: 0px; margin: 0px; font-weight: 400; color: #36362b; overflow:hidden;">
 
 
-  	<script defer src='build/bundle.js'></script>
+  	<script defer src='build/bundle.js?version={version}'></script>
 
 
 	{@html html}
