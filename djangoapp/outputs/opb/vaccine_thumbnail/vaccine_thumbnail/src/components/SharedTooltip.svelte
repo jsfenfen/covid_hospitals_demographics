@@ -9,7 +9,7 @@
   const commas = format(',');
   const titleCase = d => d.replace(/^\w/, w => w.toUpperCase());
 
-  export let tooltipOffset = 35;
+  export let tooltipOffset = 10;
   export let dataset = undefined;
   export let formatTitle = d => d;
   export let formatKey = d => titleCase(d);
@@ -31,18 +31,9 @@
       };
     }).sort((a, b) => b.value - a.value);
 
+    
     return rows;
   }
-
- const monthNames = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June', 'July', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
-
-  function formatTick (d) {
-    const date = new Date(d);
-    return `${monthNames[date.getUTCMonth()]} ${date.getUTCDate()}`;
-
-  }
-
-
 </script>
 
 <style>
@@ -67,13 +58,21 @@
   }
   .tooltip,
   .line {
-    transition: left 250ms ease-out, top 250ms ease-out;
+    transition: left 100ms ease-out, top 100ms ease-out;
   }
   .title {
     font-weight: bold;
+    font-size: 14px;
+    margin-bottom:0px;
+    padding-bottom:0px;
   }
   .key {
     color: #999;
+  }
+  .row{
+    margin-top:1px;
+    margin-bottom:0px;
+    padding-top:0px;
   }
 </style>
 
@@ -95,12 +94,12 @@
       style="
         width:{w}px;
         display: { visible ? 'block' : 'none' };
-        top:{Math.max($yScale(sortResult(found)[0].value) - tooltipOffset, tooltipOffset)}px;
+        top:{$yScale(sortResult(found)[0].value) - tooltipOffset}px;
         left:{Math.min(Math.max(w2, x), $width - w2)}px;"
       >
-        <div class="title">{formatTick(found['date'])}</div>
+        <div class="title" style="margin-bottom:3px;">{formatTitle(found[$config.x])}</div>
         {#each sortResult(found) as row}
-          <div class="row"><span class="key">{formatKey(row.key)}:</span> {formatValue(row.value)}</div>
+          <div class="row"><span class="key">{formatKey(row.key)}:</span> {formatValue(row.value)} per 100K</div>
         {/each}
     </div>
   {/if}

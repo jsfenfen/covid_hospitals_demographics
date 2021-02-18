@@ -79,6 +79,7 @@
 
 
   x_ticks.push(parseDate('2021-01-01'));
+  x_ticks.push(parseDate('2021-02-01'));
 
   console.log("x_ticks");
   console.log(x_ticks);
@@ -224,6 +225,9 @@
     console.log("Pym: sent user chosen height of " + height);
   }
 
+
+
+
   onMount(() => {
       window.addEventListener('resize', set_font_sizes);
       
@@ -348,7 +352,7 @@
     x={xKey}
     y={yKey}
     z={zKey}
-    yDomain={[0, 500000]}
+    yDomain={[0, 950000]}
     zScale={scaleOrdinal()}
     zDomain={seriesNames}
     zRange={seriesColors}
@@ -371,6 +375,7 @@
     </Svg>
 
     <Html>
+      
 
       <Labels />
     </Html>
