@@ -1,4 +1,4 @@
-County,Total Cases1,Total deaths2
+County,TotalCases1,Totaldeaths2
 Baker,699,12
 Benton,2499,18
 Clackamas,13889,196
@@ -12,7 +12,7 @@ Douglas,2781,58
 Gilliam,54,1
 Grant,262,2
 Harney,283,6
-Hood River,1076,29
+HoodRiver,1076,29
 Jackson,8955,120
 Jefferson,2002,31
 Josephine,2650,59
