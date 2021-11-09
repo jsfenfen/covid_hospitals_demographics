@@ -5,6 +5,7 @@ import datetime
 import json
 
 
+NO_WEEKEND_START = datetime.datetime(2021,7,9)
 
 if __name__ == "__main__":
 
@@ -46,7 +47,7 @@ if __name__ == "__main__":
         new_dict = {}
         for key in dict.keys():
             if key.startswith("202"):
-                print("prune keys %s" % key)
+                #print("prune keys %s" % key)
                 key_parts = key.split("_")
                 year = int(key_parts[0])
                 month_num = int(key_parts[1])
@@ -93,7 +94,7 @@ if __name__ == "__main__":
     datestrings = {}
 
 
-    files = (glob.glob("pages_parsed/county_ohapageread_*.csv"))
+    files = (glob.glob("pages_parsed/county_ohapageread_2021*.csv"))
     for file in sorted(files):
         
         filename = os.path.basename(file)
@@ -174,7 +175,21 @@ if __name__ == "__main__":
             snapshot_date = datetime.datetime(int(datestring_parts[0]), int(datestring_parts[1]), int(datestring_parts[2]))
             prior_day = snapshot_date - datetime.timedelta(days=1)
 
+
+
+            weekday = prior_day.weekday() 
+
+            if (prior_day > NO_WEEKEND_START):
+                if weekday == 5:
+                   prior_day = snapshot_date - datetime.timedelta(days=2) 
+
+                if weekday == 6:
+                   prior_day = snapshot_date - datetime.timedelta(days=3) 
+
+
+
             prior_datestring = prior_day.strftime("%Y_%m_%d") 
+            print("prior day %s %s" % (prior_datestring, weekday)) 
 
             #print("prior day %s" % prior_datestring)
 
