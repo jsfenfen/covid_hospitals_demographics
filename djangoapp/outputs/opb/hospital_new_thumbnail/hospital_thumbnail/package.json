@@ -14,7 +14,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^6.0.0",
     "html-minifier": "^4.0.0",
-    "layercake": "^4.0.3",
+    "layercake": "^7.0.0",
     "rollup": "^1.20.0",
     "rollup-plugin-execute": "^1.1.1",
     "rollup-plugin-livereload": "^1.0.0",
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "clean-css": "^4.2.3",
-    "d3-scale": "^3.2.1",
+    "d3-scale": "^4.0.2",
     "d3-shape": "^2.0.0",
     "d3-time": "^1.1.0",
     "sirv-cli": "^0.4.4"
